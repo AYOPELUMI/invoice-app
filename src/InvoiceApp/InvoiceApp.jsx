@@ -13,7 +13,7 @@ import {Input} from "./assets/Input"
 import {HomePage} from "./HomePage/HomePage"
 import{SignUp} from "./SignUp/SignUp"
 import{LoginPage} from "./LoginPage/LoginPage"
-import invoiceObj from "./assets/invoiceData.js"
+import invoiceObj from "./assets/InvoiceData.js"
 import {BrowserRouter, Routes, Route, NavLink, Outlet, useNavigate, useLocation} from "react-router-dom"
 import './styles.scss';
 import "./mainStyle.css"
