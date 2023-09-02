@@ -11,7 +11,7 @@ import {DisplayInvoiceData} from "../DisplayInvoiceData/DisplayInvoiceData"
 import { Outlet } from "react-router-dom";
 
 import {Input} from "../assets/Input"
-import invoiceObj from "../assets/invoiceData.js"
+import invoiceObj from "../assets/InvoiceData.js"
 import {BrowserRouter, Routes, Route, NavLink, useNavigate,useLocation} from "react-router-dom"
 import './styles.scss';
 import "../mainStyle.css"
