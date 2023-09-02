@@ -14,7 +14,8 @@ import {HomePage} from "./HomePage/HomePage"
 import{SignUp} from "./SignUp/SignUp"
 import{LoginPage} from "./LoginPage/LoginPage"
 import invoiceObj from "./assets/InvoiceData.js"
-import {BrowserRouter, Routes, Route, NavLink, Outlet, useNavigate, useLocation} from "react-router-dom"
+import {RedirectToDashboard} from "./redirectToDashboard.jsx"
+import {BrowserRouter, Routes, Route, NavLink, Outlet, useNavigate, useLocation,redirect} from "react-router-dom"
 import './styles.scss';
 import "./mainStyle.css"
 let acceptUser = false
@@ -61,6 +62,13 @@ export function InvoiceApp (props) {
 		console.log(localStorage.getItem("activeTime"))
 		console.log(localStorage.getItem("lastActivity"))
 	},[authenticateUser])
+
+	useEffect(() =>{
+		console.log(" i want to check")
+		if (authenticateUser==undefined || authenticateUser== null) {
+			redirect("*")
+		}
+	},[])
 
 	const handleModal=() =>{
 		setOpenModal(!openModal)
@@ -171,6 +179,10 @@ export function InvoiceApp (props) {
 	// console.log({editIndex})
 
 	const router = createBrowserRouter([
+		{
+			path:"/",
+			element: <RedirectToDashboard />
+		},
 	  	{
 		    path: "/dashboard",
 		    element: <HomePage 
@@ -202,7 +214,7 @@ export function InvoiceApp (props) {
 		    ]
 		},
 	    {
-	    	path:"/dashboard/invoice/:Id",
+	    	path:"/invoice/:Id",
 	    	element: <ViewInvoiceCard 		
 	    		invoiceData={invoiceArr[editIndex]}
 				editIndex={editIndex}
