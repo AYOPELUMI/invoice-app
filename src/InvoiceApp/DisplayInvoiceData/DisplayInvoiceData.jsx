@@ -42,7 +42,7 @@ export const DisplayInvoiceData = props => {
 
 
   return (	
-	  	<NavLink to={`/ dashboard/invoice/${invoiceData.id}`} key={invoiceData.id}>
+	  	<NavLink to={`/dashboard/invoice/${invoiceData.id}`} key={invoiceData.id}>
 			<button className="tableRow" index={index} onClick={handleEdit}>
 					<h4 className="invoiceId" index={index}>
 						#{invoiceData.id.slice(0,6)}
