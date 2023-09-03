@@ -214,7 +214,7 @@ export function InvoiceApp (props) {
 		    ]
 		},
 	    {
-	    	path:"/invoice/:Id",
+	    	path:"dashboard/invoice/:Id",
 	    	element: <ViewInvoiceCard 		
 	    		invoiceData={invoiceArr[editIndex]}
 				editIndex={editIndex}

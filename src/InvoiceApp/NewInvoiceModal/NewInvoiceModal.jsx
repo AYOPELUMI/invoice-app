@@ -201,6 +201,7 @@ export function NewInvoiceModal (props) {
 		setInvoiceData(descriptionClone)
 	}
 	function GetItemsData (args){
+		console.log({args})
 		let displayItemDetailsArrayClone = [...displayItemDetailsArray]
 		let itemsArr ={...invoiceData}
 		// console.log({displayItemDetailsArrayClone})
@@ -208,11 +209,11 @@ export function NewInvoiceModal (props) {
 		let itemsDataArrClone = [...itemsDataArr]
 
 		let newIndex = displayItemDetailsArrayClone.indexOf(args[0])
-		// console.log({newIndex})
-		itemsDataArrClone[newIndex] = args[1]
+		console.log({newIndex})
+		itemsDataArrClone[args[0]] = args[1]
 		setItemsDataArr(itemsDataArrClone)
-		itemsArr.ItemList= itemsDataArrClone
-		// console.log({itemsArr})
+		itemsArr.itemList= itemsDataArrClone
+		console.log({itemsArr})
 		setInvoiceData(itemsArr)
 	}
 
@@ -278,11 +279,12 @@ export function NewInvoiceModal (props) {
 			               clientCountry : invoiceDataClone.clientCountry,
 			               projectDescription : invoiceDataClone.projectDescription,
 			               invoiceDate: invoiceDataClone.invoiceDate,
-			               itemList: invoiceDataClone.ItemList
+			               itemList: invoiceDataClone.itemList
 			
 			            })
 			        })
 			        .then((data) =>  {
+			        	console.log({data})
 			        	alert('invoice created successfully')
 			        	handleCloseModal()
 			        })
@@ -316,7 +318,7 @@ export function NewInvoiceModal (props) {
 				               clientCountry : invoiceDataClone.clientCountry,
 				               projectDescription : invoiceDataClone.projectDescription,
 				               invoiceDate: invoiceDataClone.invoiceDate,
-				               itemList: invoiceDataClone.ItemList
+				               itemList: invoiceDataClone.itemList
 				
 				            })
 				        })
@@ -354,7 +356,7 @@ export function NewInvoiceModal (props) {
 				               clientCountry : invoiceDataClone.clientCountry,
 				               projectDescription : invoiceDataClone.projectDescription,
 				               invoiceDate: invoiceDataClone.invoiceDate,
-				               itemList: invoiceDataClone.ItemList				
+				               itemList: invoiceDataClone.itemList				
 				            })
 				        })
 				        .then((response) => response.json())
