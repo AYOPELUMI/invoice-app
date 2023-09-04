@@ -4,51 +4,15 @@ import './styles.scss';
 
 export function ClientComponent(props){
 const {
-	getData,
+	getClientNameData,
+	getClientEmailData,
+	getClientStreetAddressData,
+	getClientCityData,
+	getClientPostCodeData,
+	getClientCountryData,
 	invoiceDetail,
 	editInvoice
 } = props
-
-const [clientName, setClientName] = useState("")
-const [clientEmail, setClientEmail] = useState("")
-const [clientAddress, setClientAddress] = useState("")
-const [clientCity, setClientCity] = useState("")
-const [clientPostCode, setClientPostCode] = useState("")
-const [clientCountry, setClientCountry] = useState("")
-// console.log({invoiceDetail})
-useEffect(() =>{
-	if (invoiceDetail) {
-		// console.log({invoiceDetail})
-		setClientEmail(invoiceDetail.clientEmail)
-		setClientCountry(invoiceDetail.clientCountry)
-		setClientName(invoiceDetail.clientName)
-		setClientAddress(invoiceDetail.clientStreetAddress)
-		setClientCity(invoiceDetail.clientCity)
-		setClientPostCode(invoiceDetail.clientPostCode)
-	}
-},[editInvoice])
-function updateAddress(args){
-	setClientAddress(args)
-}
-function updateClientCity(args){
-	setClientCity(args)
-}
-function updatePostCode (args) {
-	setClientPostCode(args)
-}
-function updateClientCountry (args) {
-	setClientCountry(args)
-}
-function updateClientName (args) {
-	setClientName(args)
-}
-function updateClientEmail (args) {
-	setClientEmail(args)
-}
-useEffect(() =>{
-	getData([clientName,clientEmail,clientAddress,clientCity,clientPostCode,clientCountry])
-},[clientPostCode,clientCity,clientAddress,clientCountry,clientEmail,clientName])
-
 
   return (
   			<label htmlFor="" className="topLabel">
@@ -59,27 +23,27 @@ useEffect(() =>{
 	 					labelFor={<h4>Client's Name</h4>}
 	 					type = {"text"}
 	 					placeHolder={"Client's Name"}
-	 					updateState={updateClientName}
+	 					updateState={getClientNameData}
 	 					required={true}
-	 					propValue={clientName}
+	 					propValue={invoiceDetail.clientName}
 	 				></Input>
 	 				<Input
 	 					labelClassName ={"firstChild"}
 	 					labelFor={<h4>Client's email</h4>}
 	 					type = {"text"}
 	 					placeHolder={"Client's email"}
-	 					updateState={updateClientEmail}
+	 					updateState={getClientEmailData}
 	 					required={true}
-	 					propValue={clientEmail}
+	 					propValue={invoiceDetail.clientEmail}
 	 				></Input>
 	 				<Input
 	 					labelClassName ={"firstChild"}
 	 					labelFor={<h4>Street Address</h4>}
 	 					type = {"text"}
 	 					placeHolder={"Street Address"}
-	 					updateState={updateAddress}
+	 					updateState={getClientStreetAddressData}
 	 					required={true}
-	 					propValue={clientAddress}
+	 					propValue={invoiceDetail.clientStreetAddress}
 	 				></Input>
  					<div className="topLabelSecondDiv">
 	 					<Input
@@ -87,27 +51,27 @@ useEffect(() =>{
 	 					labelFor={<h4>City</h4>}
 	 					type={"text"}
 	 					placeHolder={"City"}
-	 					updateState={updateClientCity}
+	 					updateState={getClientCityData}
 	 					required={true}
-	 					propValue={clientCity}>
+	 					propValue={invoiceDetail.clientCity}>
 	 					</Input>
 	 					<Input
 	 					labelClassName ={'splitLabel'}
 	 					labelFor={<h4>Post Code</h4>}
 	 					type={"text"}
 	 					placeHolder={"Post Code"}
-	 					updateState={updatePostCode}
+	 					updateState={getClientPostCodeData}
 	 					required={true}
-	 					propValue={clientPostCode}>
+	 					propValue={invoiceDetail.clientPostCode}>
 	 					</Input>
 	 					<Input
 	 					labelClassName ={'splitLabel'}
 	 					labelFor={<h4>Country</h4>}
 	 					type={"text"}
 	 					placeHolder={"Country"}
-	 					updateState={updateClientCountry}
+	 					updateState={getClientCountryData}
 	 					required={true}
-	 					propValue={clientCountry}>
+	 					propValue={invoiceDetail.clientCountry}>
 	 					</Input>
  					</div>
  				</div>

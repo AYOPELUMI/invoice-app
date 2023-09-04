@@ -25,6 +25,30 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
+	function SideMenu (props){
+		const {
+			darkMode,
+			updateDarkMode
+		} = props
+		return(
+		  	<div className="sideMenu">
+		    	<div className="avatarCtnr">
+					<ThemeContext.Consumer>
+						{({changeTheme}) =>(
+							<i onClick={() => {
+								updateDarkMode(!darkMode)
+								changeTheme(darkMode ? themes.light : themes.dark)
+							}}
+							>{darkMode ? <RiSunFill className="themeIcon"> </RiSunFill> : <RiMoonFill className="themeIcon"></RiMoonFill>}
+						</i>
+						)}
+					</ThemeContext.Consumer> 
+					<div className="avatar">
+					</div>
+		    	</div>
+			</div>
+		)
+	}
 
 export function InvoiceApp (props) {
 	const [darkMode, setDarkMode] = useState(true)
@@ -88,26 +112,6 @@ export function InvoiceApp (props) {
 	}
 	function updateShowFilter (args) {
 		setShowFilter(args)
-	}
-	function SideMenu (){
-		return(
-		  	<div className="sideMenu">
-		    	<div className="avatarCtnr">
-					<ThemeContext.Consumer>
-						{({changeTheme}) =>(
-							<i onClick={() => {
-								updateDarkMode(!darkMode)
-								changeTheme(darkMode ? themes.light : themes.dark)
-							}}
-							>{darkMode ? <RiSunFill className="themeIcon"> </RiSunFill> : <RiMoonFill className="themeIcon"></RiMoonFill>}
-						</i>
-						)}
-					</ThemeContext.Consumer> 
-					<div className="avatar">
-					</div>
-		    	</div>
-			</div>
-		)
 	}
 	// console.log({editIndex})
 	// console.log({editInvoice})
@@ -201,7 +205,7 @@ export function InvoiceApp (props) {
 				updateFilterState={updateFilterState}
 				updateDarkMode={updateDarkMode}
 				updateInvoiceArr={updateInvoiceArr}
-				SideMenu={<SideMenu />}
+				SideMenu={<SideMenu darkMode={darkMode} updateDarkMode={updateDarkMode}/>}
 	    	 />,
 		  	children:  [
 		       {
@@ -223,7 +227,9 @@ export function InvoiceApp (props) {
 				updateInvoiceArr={updateInvoiceArr}
 				updateOpenEditModal={updateOpenModal}
 				updateEditIndex={updateEditIndex}
-				SideMenu={<SideMenu />}
+				darkMode={darkMode}
+				updateDarkMode={updateDarkMode}
+				SideMenu={<SideMenu darkMode={darkMode} updateDarkMode={updateDarkMode}/>}
 				ResetEditIndex={ResetEditIndex}
 				updateDarkMode={updateDarkMode}
 				authenticateUser={authenticateUser} />,

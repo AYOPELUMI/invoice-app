@@ -103,8 +103,7 @@ export const LoginPage = props => {
         			<div className="formDiv">
     	    			<Input 
                             required={true}
-                            labelFor={<h5>Email *</h5>}
-                            inpurClassName="loginInput"
+                            labelFor={<h5>Email <span>*</span></h5>}
                             placeHolder="Enter your email"
                             type="email"
                             propValue={email}
@@ -114,8 +113,7 @@ export const LoginPage = props => {
                         />
     	    			<Input 
                             required={true}
-                            labelFor={<h5>Password *</h5>}
-                            inpurClassName="loginInput"
+                            labelFor={<h5>Password <span>*</span></h5>}
                             placeHolder="Password"
                             type="password"
                             propValue={password}

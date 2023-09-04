@@ -23,10 +23,6 @@ export const SignUp = props => {
 	const [emailValidity, setEmailValidity] = useState(false)
 	const [emailErrorMsg, setEmailErrorMsg] = useState("")
 
-	const [userName, setUserName] = useState("")
-	const [userNameValidity, setUserNameValidity] = useState(false)
-	const [userNameErrorMsg, setUserNameErrorMsg] = useState("")
-
 	const [password, setPassword] = useState("")
 	const [passwordValidity, setPasswordValidity] = useState(false)
 	const [passwordErrorMsg, setPasswordErrorMsg] = useState("")
@@ -47,11 +43,6 @@ export const SignUp = props => {
 		setEmail(args)
 		setEmailValidity(false)
 		setEmailErrorMsg("")
-	}
-	function updateUserName (args) {
-		setUserName(args)
-		setUserNameValidity(false)
-		setUserNameErrorMsg("")
 	}
 	function updatePassword (args) {
 		setPasswordValidity(false)
@@ -157,13 +148,7 @@ export const SignUp = props => {
 		handleFullNameChanges()
 		handlePasswordValidity()
 		handleEmailValidity()
-
 		setCheckValidity(true)
-		console.log({emailValidity})
-		console.log({fullNameValidity})
-		console.log({userNameValidity})
-		console.log({passwordValidity})
-		console.log({confirmPasswordValidity})
 	}
 	const handleLoginLink = () =>{
 		navigate('../login')
@@ -171,10 +156,9 @@ export const SignUp = props => {
 
 		useEffect(() =>{
 			if (checkValidity){
-				if (!fullNameValidity && !emailValidity && !userNameValidity && !passwordValidity && !confirmPasswordValidity) {
+				if (!fullNameValidity && !emailValidity && !passwordValidity && !confirmPasswordValidity) {
 					fetchUserDetails()
 
-					navigate("/dashboard")
 				}
 				setCheckValidity(false)
 			}
@@ -195,6 +179,7 @@ export const SignUp = props => {
 		.then((data) => {
 			console.log({data})
 			userData(data)
+			navigate("/dashboard")
 		})
 		.catch((err) => {
 		   console.log(err.message);
@@ -213,7 +198,7 @@ export const SignUp = props => {
 				<form action="">
 					<Input 
 		    			required={true}
-		    			labelFor={<h5>Full Name *</h5>}
+		    			labelFor={<h5>Full Name <span>*</span></h5>}
 		    			inpurClassName="loginInput"
 		    			placeHolder="Enter your full name"
 		    			type="text"
@@ -223,7 +208,7 @@ export const SignUp = props => {
 		    			errorMsg ={fullNameValidity ? fullNameErrorMsg : ""}/>				
 					<Input 
 		    			required={true}
-		    			labelFor={<h5>Email *</h5>}
+		    			labelFor={<h5>Email <span>*</span></h5>}
 		    			inpurClassName="loginInput"
 		    			placeHolder="Enter your email"
 		    			type="email"
@@ -233,17 +218,7 @@ export const SignUp = props => {
 		    			errorMsg={emailValidity ? emailErrorMsg : ""}/>
 		    		<Input 
 		    			required={true}
-		    			labelFor={<h5>Username *</h5>}
-		    			inpurClassName="loginInput"
-		    			placeHolder="Enter your username"
-		    			type="text"
-		    			propValue={userName}
-		    			inputClassName={userNameValidity ? "error" : undefined}
-		    			updateState={updateUserName}
-		    			errorMsg={userNameValidity ? userNameErrorMsg : ""}/>
-		    		<Input 
-		    			required={true}
-		    			labelFor={<h5>Password *</h5>}
+		    			labelFor={<h5>Password <span>*</span></h5>}
 		    			inpurClassName="loginInput"
 		    			placeHolder="create a password"
 		    			type="password"
@@ -253,7 +228,7 @@ export const SignUp = props => {
 		    			errorMsg={passwordValidity ? passwordErrorMsg : ""}/>
 		    		<Input 
 		    			required={true}
-		    			labelFor={<h5> Confirm Password *</h5>}
+		    			labelFor={<h5> Confirm Password <span>*</span></h5>}
 		    			inpurClassName="loginInput"
 		    			placeHolder="Confirm password"
 		    			type="password"

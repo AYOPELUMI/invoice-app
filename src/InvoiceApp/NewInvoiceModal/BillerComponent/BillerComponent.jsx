@@ -4,44 +4,14 @@ import './styles.scss';
 
 export function BillerComponent(props){
 const{
-	getData,
+	getCityData,
+	getCountryData,
+	getPostCodeData,
+	getStreetData,
 	invoiceDetail,
 	editInvoice
 } = props
 // console.log({editInvoice})
-
-const [billerAddress, setBillerAddress] = useState("")
-const [billerCity, setBillerCity] = useState("")
-const [billerPostCode, setBillerPostCode] = useState("")
-const [billerCountry, setBillerCountry] = useState("")
-
-useEffect(() =>{
-	if (invoiceDetail) {
-		// console.log({invoiceDetail})
-		setBillerCountry(invoiceDetail.country)
-		setBillerAddress(invoiceDetail.billFromStreetAddress)
-		setBillerCity(invoiceDetail.billFromCity)
-		setBillerPostCode(invoiceDetail.billFromPostCode)
-	}
-},[editInvoice])
-
-function updateAddress(args){
-	setBillerAddress(args)
-}
-function updateBillerCity(args){
-	setBillerCity(args)
-}
-function updatePostCode (args) {
-	setBillerPostCode(args)
-}
-function updateBillerCountry (args) {
-	setBillerCountry(args)
-	
-}
-
-useEffect(() =>{
-	getData([billerAddress,billerCity,billerPostCode,billerCountry])
-},[billerPostCode,billerCity,billerAddress,billerCountry])
 
   return (
 	<label htmlFor="" className="topLabel">
@@ -52,9 +22,9 @@ useEffect(() =>{
 				labelFor={<h4>Street Address</h4>}
 				type = {"text"}
 				placeHolder={"Street Address"}
-				updateState={updateAddress}
+				updateState={getStreetData}
 				required={true}
-				propValue={billerAddress}
+				propValue={invoiceDetail.billFromStreetAddress}
 			></Input>
 			<div className="topLabelSecondDiv">
 				<Input
@@ -62,27 +32,27 @@ useEffect(() =>{
 				labelFor={<h4>City</h4>}
 				type={"text"}
 				placeHolder={"City"}
-				updateState={updateBillerCity}
+				updateState={getCityData}
 				required={true}
-				propValue={billerCity}>
+				propValue={invoiceDetail.billFromCity}>
 				</Input>
 				<Input
 				labelClassName ={'splitLabel'}
 				labelFor={<h4>Post Code</h4>}
 				type={"text"}
 				placeHolder={"Post Code"}
-				updateState={updatePostCode}
+				updateState={getPostCodeData}
 				required={true}
-				propValue={billerPostCode}>
+				propValue={invoiceDetail.billFromPostCode}>
 				</Input>
 				<Input
 				labelClassName ={'splitLabel'}
 				labelFor={<h4>Country</h4>}
 				type={"text"}
 				placeHolder={"Country"}
-				updateState={updateBillerCountry}
+				updateState={getCountryData}
 				required={true}
-				propValue={billerCountry}>
+				propValue={invoiceDetail.country}>
 				</Input>
 			</div>
 		</div>

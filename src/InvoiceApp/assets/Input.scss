@@ -1,10 +1,10 @@
 		input{
 			width: 100%;
-			border: 2px solid var(--border-color);
+			border: 1px solid var(--border-color);
 			outline: none;
-			padding: 7px 10px;
+			padding: 8px 14px;
 			border-radius: 4px;
-			font-size: var(--fontSize-12);
+			font-size: var(--fontSize-14);
 			cursor: auto;
 			z-index: 1;
 			font-weight: normal;
@@ -20,7 +20,7 @@
 			height : fit-content;
 			position : absolute;
 			background:  var(--itemCtnr-bg);
-			font-size: var(--fontSize-12);
+			font-size: var(--fontSize-14);
 			letter-spacing: var(--letterSpacing-025);
 			line-height: var(--lineHeight-15);
 			color: var(--theme-color);
@@ -60,5 +60,5 @@
 			cursor: pointer;
 			transform: translateY(60%);
 			z-index: 3;
-			color: var(--color-default-black);
+			color: var(--theme-color);
 		}

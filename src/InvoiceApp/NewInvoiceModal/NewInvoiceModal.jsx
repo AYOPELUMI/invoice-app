@@ -26,14 +26,15 @@ export function NewInvoiceModal (props) {
 
 	// console.log({props})
 	const {params} = useParams()
-	const[left,setLeft] = useState(-100)
+	const [left,setLeft] = useState(-100)
 	const [display, setDisplay] = useState(0)
 	const [displayItemDetailsArray, setDisplayItemDetailArray] = useState([])
 	const [itemIndex, setItemIndex] = useState(0)
-	const[invoiceData, setInvoiceData] = useState({})
+	const [invoiceData, setInvoiceData] = useState({})
 	const [itemsDataArr, setItemsDataArr] = useState([])
 	const [draft, setDraft] = useState(false)
 	const [editInvoice, setEditInvoice] = useState(false)
+	const [errorMsg, setErrorMsg] = useState("")
 	const navigate = useNavigate()
 	const location = useLocation()
 	
@@ -66,6 +67,9 @@ export function NewInvoiceModal (props) {
 		 				...data.invoice,
 		 				invoiceDate: [yr, month, day].join('-')
 		 			})
+		 			if (data.invoice.status == "draft") {
+		 				setDraft(true)
+		 			}
 		 			setItemsDataArr(data.invoice.itemList)
 		 			// console.log("itemList is "+data.invoice.itemList)
 		 			setItemIndex(data.invoice.itemList.length +1)
@@ -131,7 +135,6 @@ export function NewInvoiceModal (props) {
 		
 	}
 	const handleAddItemDetails =() => {
-
 		let displayItemDetailsArrayClone = [...displayItemDetailsArray]
 			let el = itemIndex
 			console.log({itemIndex})
@@ -166,27 +169,69 @@ export function NewInvoiceModal (props) {
 				setDisplay(0)
 			}, 700)
 	}
-	function GetBillerData (args) {
+	function GetBillerStreetData (args) {
 		console.log({args})
 		let billerDataClone = {...invoiceData}
-		billerDataClone.billFromStreetAddress =args[0],
-		billerDataClone.billFromCity =args[1],
-		billerDataClone.billFromPostCode = args[2],
-		billerDataClone.country= args[3]
+		billerDataClone.billFromStreetAddress =args
 		console.log({billerDataClone})
 		setInvoiceData(billerDataClone)
 	}
-	function GetClientData(args){
+	function GetBillerCityData (args) {
+		console.log({args})
+		let billerDataClone = {...invoiceData}
+		billerDataClone.billFromCity =args
+		console.log({billerDataClone})
+		setInvoiceData(billerDataClone)
+	}
+	function GetBillerCountryData (args) {
+		console.log({args})
+		let billerDataClone = {...invoiceData}
+		billerDataClone.country= args
+		console.log({billerDataClone})
+		setInvoiceData(billerDataClone)
+	}
+	function GetBillerPostCodeData (args) {
+		console.log({args})
+		let billerDataClone = {...invoiceData}
+		billerDataClone.billFromPostCode = args,
+		setInvoiceData(billerDataClone)
+	}
+	function GetClientNameData(args){
 		// console.log({args})
 		let clientDataClone = {...invoiceData}
-		clientDataClone.clientName = args[0]
-		clientDataClone.clientEmail = args[1]
-		clientDataClone.clientStreetAddress =args[2]
-		clientDataClone.clientCity= args[3]
-		clientDataClone.clientPostCode = args[4]
-		clientDataClone.clientCountry = args[5]			
+		clientDataClone.clientName = args			
 		setInvoiceData(clientDataClone)
 	}
+	function GetClientEmailData(args){
+		// console.log({args})
+		let clientDataClone = {...invoiceData}
+		clientDataClone.clientEmail = args		
+		setInvoiceData(clientDataClone)
+	}
+	function GetClientStreetAddressData(args){
+		// console.log({args})
+		let clientDataClone = {...invoiceData}
+		clientDataClone.clientStreetAddress =args	
+		setInvoiceData(clientDataClone)
+	}
+	function GetClientCityData(args){
+		// console.log({args})
+		let clientDataClone = {...invoiceData}
+		clientDataClone.clientCity= args		
+		setInvoiceData(clientDataClone)
+	}
+	function GetClientPostCodeData(args){
+		// console.log({args})
+		let clientDataClone = {...invoiceData}
+		clientDataClone.clientPostCode = args		
+		setInvoiceData(clientDataClone)
+	}
+	function GetClientCountryData(args){
+		// console.log({args})
+		let clientDataClone = {...invoiceData}
+		clientDataClone.clientCountry = args		
+		setInvoiceData(clientDataClone)
+	}	
 	function GetDateData (args) {
 		let dateObjClone ={...invoiceData}
 		console.log({args})
@@ -246,8 +291,7 @@ export function NewInvoiceModal (props) {
 				throw error
 			} else {
 				return data
-			}
-			
+			}	
 	}
 
 
@@ -290,6 +334,7 @@ export function NewInvoiceModal (props) {
 			        })
 			        .catch(err => {
 			        	 console.log(err.data.message)
+			        	 setErrorMsg(err.data.errors)
 			        })
 			}
 			fetchUserDetails()
@@ -395,13 +440,19 @@ export function NewInvoiceModal (props) {
 	 				{invoiceDetail ? <h2>Edit  <span>#</span>{invoiceDetail.id.slice(0,5)}</h2>:<h2>New Invoice</h2>}
 	 			</header>
 	 			<BillerComponent 
-	 				getData = {GetBillerData}
-	 				invoiceDetail={invoiceData}
-	 				editInvoice={editInvoice}/>
+	 				getCityData = {GetBillerCityData}
+	 				getPostCodeData = {GetBillerPostCodeData}
+	 				getStreetData = {GetBillerStreetData}
+	 				getCountryData = {GetBillerCountryData}
+	 				invoiceDetail={invoiceData} />
 	 			<ClientComponent 
-	 				getData = {GetClientData}
+	 				getClientNameData={GetClientNameData}
+					getClientEmailData = {GetClientEmailData}
+					getClientStreetAddressData={GetClientStreetAddressData}
+					getClientCityData={GetClientCityData}
+					getClientPostCodeData={GetClientPostCodeData}
+					getClientCountryData={GetClientCountryData}
 	 				invoiceDetail={invoiceData}
-	 				editInvoice={editInvoice}
 	 			/>
 	 			<DateComponent 
 	 			getData={GetDateData}
@@ -420,6 +471,7 @@ export function NewInvoiceModal (props) {
 		 			{displayArr}
 	 			</div>
 	 			<button type="button"  className="addNewItemBtn" onClick={handleAddItemDetails}>+ Add New Item</button>
+	 			{errorMsg ? <span className="errorSpan">***{errorMsg}</span> : null}
 	 			<div className={invoiceDetail ? "btnCtnr edit" : "btnCtnr"}>
 	 				{invoiceDetail ? null :
 	 						<button className="discardBtn" onClick={handleCloseModal}>Discard</button>
