@@ -1,0 +1,89 @@
+:root{
+ --header-h2-color :#1E2139;
+ --header-h2-fontSize:32px;
+ --fontWeight-lighter: lighter;
+ --fontWeight-bold:bold;
+
+ --fontOpacity: 0.6;
+ --fontSize-12:12px;
+ --fontSize-32:32px;
+ --fontSize-14: 14px;
+ --fontSize-20:20px;
+ --fontSize-16: 16px;
+ --fontSize-55: 55px;
+ 
+ --lineHeight-22:22px;
+--lineHeight-24:24px;
+ --lineHeight-36:36px;
+ --lineHeight-15: 15px; 
+
+--letterSpacing-08: -0.8;
+ --letterSpacing-063:-0.63;
+ --letterSpacing-025:-0.25;
+--letterSpacing: -1;
+
+ --header-btn-bg: #7C5DFA;
+ --sideMenu-bg:#252945;
+ --btn-default-bg: #F8F8FB;
+ --btn-default-bg-hover: #DFE3FA;
+
+ --default-bg: #F8F8FB;
+ --bg-default-white: white;
+ --card-modal-bg: #F8F8FB;
+ --btnCtnr-bg: #fff;
+ --itemCtnr-bg: var(--btn-default-bg);
+
+ --link-color: #06beff;
+
+ --border-color:#DFE3FA;
+ --save-btn-color: #7E88C3;
+ --save-btn-bg: var(--sideMenu-bg);
+ --theme-color:#888EB0;
+ --color-default-black: #0C0E16;
+ --color-default-white :  #fff;
+ --totalDiv-bg: var(--sideMenu-bg);
+ --delBtn-bg: #EC5757;
+
+ --editBtn-bg: var(--default-bg);
+ --editBtn-color: var(--theme-color);
+
+ --discard-btn-bg: #FBFBFB;
+ --discard-btn-color: #888EB0;
+ --modal-bg: white;
+ --status-pending-bg: hsl(0deg 100% 80% / 13%);
+ --status-color-pending:hsl(0deg 100% 80%);
+
+ --status-color-paid: #19ff00;
+ --status-paid-bg: #19ff0014;
+
+ --status-color-draft: #141625;
+ --status-draft-bg :  #14162513;
+ --scroll-thumb-bg:#888EB0;
+}
+
+[data-theme="dark"]{
+	 --header-h2-color :#fff;
+	 --default-bg: #0C0E16;
+	 --bg-default-white: #252945;
+	 --color-default-black: white;
+	 --card-modal-bg: var(--default-bg);
+	 --btnCtnr-bg: #1E2139;
+	 --itemCtnr-bg: var(--sideMenu-bg);
+	 --totalDiv-bg: var(--default-bg);
+	 --editBtn-bg: var(--sideMenu-bg);
+	 --editBtn-color: var(--color-default-black);
+	 --status-color-draft: var(--btn-default-bg);
+	 --status-draft-bg: #DFE3FA13;
+	 --modal-bg: #1E2139;
+	 --border-color: #252945;
+	 --theme-color: white;
+	 --btn-default-bg:  var(--itemCtnr-bg);
+	 --btn-default-bg-hover: #25294523;
+	 --save-btn-color: var(--color-default-black);
+	 --save-btn-bg: var(--border-color);
+	 --scroll-thumb-bg: #141625;
+}
+
+*{
+	scroll-behavior: smooth;
+}

@@ -1,0 +1,137 @@
+.invoiceTableContainer{
+	width: 100%;
+	height: 100%;
+	padding-top: 90px;
+	padding-left:100px;
+	padding-right: 60px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 20px;
+	background: inherit;
+	a{
+		text-decoration: none;
+	}
+	.tableRow{
+		display: flex;
+		padding: 12px;
+		width: 100%;
+		background: var(--bg-default-white);
+		gap: 25px;
+		align-items: center;
+		text-align: center;
+		border-radius: 9px;
+		outline: none;
+		border: 2px solid transparent;
+		cursor: pointer;
+		transition: border 0.25s ease-in-out;
+
+		&:hover{
+			border: 2px solid var(--header-btn-bg);
+		}
+
+		.invoiceId{
+			flex: 1;
+			font-size: var(--fontSize-16);
+			line-height: var(--lineHeight-24);
+			font-weight: var(--fontWeight-bold);
+			color: var(--color-default-black);
+			letter-spacing: var(--letterSpacing-08);
+		}
+		.invoiceDueDate{
+			flex: 1.5;
+			font-size: var(--fontSize-12);
+			line-height: var(--lineHeight-15);
+			color: var(--save-btn-color);
+			letter-spacing: var(--letterSpacing-025);
+		}
+		.invoiceClient{
+			flex: 1;
+			color: var(--theme-color);
+			font-size: var(--fontSize-12);
+			line-height: var(--lineHeight-15);
+			letter-spacing: var(--letterSpacing-025);
+		}
+		.invoicePrice{
+			flex: 1;
+			font-size: var(--fontSize-20);
+			line-height: var(--lineHeight-22);
+			font-weight: var(--fontWeight-bold);
+			color: var(--color-default-black);
+			letter-spacing: var(--letterSpacing-063);
+		}
+		.invoiceStatus{
+			flex: 0.6;
+			font-size: var(--fontSize-12);
+			line-height: var(--lineHeight-15);
+			font-weight: var(--fontWeight-bold);
+			padding: 5px;
+			letter-spacing: var(--letterSpacing-025);
+			display: flex;
+			gap: 5px;
+
+			&Pending{
+				flex: 0.6;
+				color: var(--status-color-pending);
+				background: var(--status-pending-bg);
+				font-weight: var(--fontWeight-bold);
+				padding: 3px 10px;
+				display: flex;
+				gap: 5px;
+				align-items: center;
+				font-size: var(--fontSize-12);
+				line-height: var(--lineHeight-15);
+				font-weight: var(--fontWeight-bold);
+				justify-content: center;
+
+				svg{
+						font-size: 8px;
+				}
+			}
+			&Paid{
+				flex: 0.6;
+				padding: 5px 15px;
+				font-size: var(--fontSize-12);
+				line-height: var(--lineHeight-15);
+				font-weight: var(--fontWeight-bold);
+				color: var(--status-color-paid);
+				background: var(--status-paid-bg);
+				font-weight: var(--fontWeight-bold);
+				display: flex;
+				gap: 5px;
+				align-items: center;
+				justify-content: center;
+
+				svg{
+					font-size: 8px;
+				}
+			}
+			&Draft{
+				flex: 0.6;
+				padding: 5px 16px;
+				color: var(--status-color-draft);
+				background: var(--status-draft-bg);
+				font-weight: var(--fontWeight-bold);
+				display: flex;
+				font-size: var(--fontSize-12);
+				line-height: var(--lineHeight-15);
+				font-weight: var(--fontWeight-bold);
+				gap: 5px;
+				align-items: center;
+				justify-content: center;
+
+				svg{
+					font-size: 8px;
+				}
+			}
+		}
+		.icon{
+			flex: 0.5;
+			background: inherit;
+			color: var(--header-btn-bg);
+			font-size: var(--fontSize-20);
+			font-weight: bolder;
+			line-height: var(--lineHeight-15);
+		}
+	}
+}

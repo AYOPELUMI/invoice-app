@@ -1,0 +1,116 @@
+.signUpMainCtnr{
+	width: 100%;
+	min-height: 100vh;
+	display: grid;
+	grid-template-columns: repeat(auto-fit,minmax(300px, 40%));
+	grid-template-rows: repeat(auto-fit,minmax(420px,480px));
+	align-items: center;
+	justify-content: center;
+	background: var(--default-bg);
+
+	.signUpCtnr{
+		padding: 6px;
+		border-top-left-radius: 20px;
+		border-bottom-left-radius: 20px;
+		background: var(--bg-default-white);
+		display: flex;
+		flex-direction: column;
+		transform: translateY(20%);
+
+		gap: 15px;
+		padding: 14px;
+
+		header{
+			display: flex;
+			flex-direction: column;
+			gap: 4px;
+
+			h2{
+				color: var(--header-h2-color);
+				font-size: 	var(--fontSize-32);
+				font-weight: var(--fontWeight-bold);
+				line-height: var(--lineHeight-36);
+				text-align: center;
+			}
+			p{
+				color: var(--header-h2-color);
+				font-size: var(--fontSize-12);
+				letter-spacing: var(--letterSpacing-025);
+				text-align: center;
+			}
+		}
+		.invalidMsg{
+			width: fit-content;
+			height: fit-content;
+			padding: 5px 12px;
+			align-self: center;
+		}
+		form{
+			width: 100%;
+			padding: 10px;
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+			gap: 11px;
+
+			label{
+				margin-bottom: 8px;
+			}
+			h5{
+				text-align: left;
+				font-size: var(--fontSize-14);
+				letter-spacing: var(--letterSpacing-025);
+				line-height: var(--lineHeight-15);
+				color: var(--theme-color);
+				display: flex;
+
+				span{
+					color: red;
+				}
+			}
+			input{
+				border-radius: 8px;
+				padding: 10px 15px;
+				min-width: 80%;
+			}
+			.error{
+				border: 2px solid red;
+			}
+		}
+		button{
+			width: 100%;
+			padding: 11px 14px;
+			border-radius: 20px;
+			background: white;
+			outline: none;
+			border:none;
+			cursor: pointer;
+			background: var(--header-btn-bg);
+			color: var(--color-default-white);
+			margin-top: -10px;
+		}
+		span{
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 5px;
+			color: var(--header-h2-color);
+			font-size: var(--fontSize-14);
+			letter-spacing: var(--letterSpacing-025);
+			text-align: center;
+			a{
+				color: var(--link-color);
+			}
+		}
+	}
+	.displayCtnr{
+		border-top-right-radius: 20px;
+		border-bottom-right-radius: 20px;
+		padding: 20px;
+		background-image: linear-gradient(
+			167deg,
+			var(--header-btn-bg),
+			#f2f2
+		);
+	}
+}

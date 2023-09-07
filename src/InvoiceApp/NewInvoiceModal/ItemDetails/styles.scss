@@ -1,0 +1,49 @@
+.itemCtnr{
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 15px;
+
+	.itemFirstLabel{
+		flex: 45%;
+	}
+	.itemDiv{
+		flex: 50%;
+		display: flex;
+		gap: 8px;
+		align-items: center;
+		label{
+			display: flex;
+			flex-direction: column;
+			gap: 5px;
+		}
+		.qtyLabel{
+			width: 18%;
+		}
+		.priceLabel{
+			width: 35%;
+
+			input{
+				&:disabled{
+					background: transparent;
+				}
+			}
+		}
+		.bin{
+			transform: translate(0%,50%);
+			cursor: pointer;
+			position: relative;
+			height: fit-content;
+			&:hover{
+				svg{
+					color: #EC5757;
+				}
+			}
+			svg{
+				color: var(--theme-color);
+
+			}
+		}
+
+	}
+}

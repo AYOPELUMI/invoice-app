@@ -1,0 +1,71 @@
+.deleteModalCtnr{
+	position: fixed;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	background: rgba(0,0,0, 0.5);
+	display: grid;
+	align-items: center;
+	justify-content: center;
+
+	.delCtnr{
+		width: 330px;
+		display: flex;
+		flex-direction: column;
+		padding: 20px;
+		gap: 20px;
+		border-radius: 8px;
+		background: var(--btnCtnr-bg);
+
+		.textCtnr{
+			display: flex;
+			flex-direction: column;
+			gap: 16px;
+		}
+
+		h2{
+			color: var(--header-h2-color);
+			font-size: 	var(--fontSize-20);
+			font-weight: var(--fontWeight-bold);
+			line-height: var(--lineHeight-22);
+			letter-spacing: var(--letterSpacing-063);
+			text-align: left;
+		}
+		p{
+			color: var(--header-h2-color);
+			font-size: var(--fontSize-12);
+			line-height: var(--lineHeight-15);
+			letter-spacing: var(--letterSpacing-025);
+			text-align: left;
+		}
+
+		.btnCtnr{
+			display: flex;
+			justify-content: end;
+			width: 100%;
+			gap: 12px;
+
+			button{
+				border: none;
+				outline: none;
+				cursor: pointer;
+				text-align: center;
+				padding: 11px 3px;
+				border-radius: 22px;
+				font-size: var(--fontSize-12);
+
+			}
+			.cancelBtn{
+				width: 70px;
+				background: var(--editBtn-bg);
+				color: var(--editBtn-color);
+			}
+			.delBtn{
+				width: 70px;
+				background: var(--delBtn-bg);
+				color: var(--color-default-white);
+			}
+		}
+	}
+}
