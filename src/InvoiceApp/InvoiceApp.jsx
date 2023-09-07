@@ -21,9 +21,7 @@ import "./mainStyle.css"
 let acceptUser = false
 
 import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+  createBrowserRouter, RouterProvider} from "react-router-dom";
 
 	function SideMenu (props){
 		const {
@@ -219,7 +217,7 @@ export function InvoiceApp (props) {
 		},
 	    {
 	    	path:"dashboard/invoice/:Id",
-	    	element: <ViewInvoiceCard 		
+	    	element: <ViewInvoiceCard 
 	    		invoiceData={invoiceArr[editIndex]}
 				editIndex={editIndex}
 				updateInvoiceData={updateInvoiceData}
@@ -227,11 +225,8 @@ export function InvoiceApp (props) {
 				updateInvoiceArr={updateInvoiceArr}
 				updateOpenEditModal={updateOpenModal}
 				updateEditIndex={updateEditIndex}
-				darkMode={darkMode}
-				updateDarkMode={updateDarkMode}
 				SideMenu={<SideMenu darkMode={darkMode} updateDarkMode={updateDarkMode}/>}
 				ResetEditIndex={ResetEditIndex}
-				updateDarkMode={updateDarkMode}
 				authenticateUser={authenticateUser} />,
 				children: [
 				{

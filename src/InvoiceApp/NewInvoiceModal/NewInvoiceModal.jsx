@@ -5,6 +5,7 @@ import invoiceObj from "../assets/InvoiceData.js"
 import {BillerComponent} from "./BillerComponent/BillerComponent"
 import {ClientComponent} from "./ClientComponent/ClientComponent"
 import {DateComponent} from "./DateComponent/DateComponent"
+import toast, {Toaster} from "react-hot-toast"
 import {useNavigate, useParams, redirect,useLocation} from "react-router-dom"
 
 import './styles.scss';
@@ -88,6 +89,7 @@ export function NewInvoiceModal (props) {
 		    		fetchInvoiceDetails()
 			   }
 		}
+		toast.success("Hello world")
 		console.log("location path is -"+ location.pathname)
 	},[location])
 	// console.log({invoiceDetail})
@@ -439,6 +441,7 @@ export function NewInvoiceModal (props) {
 		 		<header>
 	 				{invoiceDetail ? <h2>Edit  <span>#</span>{invoiceDetail.id.slice(0,5)}</h2>:<h2>New Invoice</h2>}
 	 			</header>
+	 			<Toaster />
 	 			<BillerComponent 
 	 				getCityData = {GetBillerCityData}
 	 				getPostCodeData = {GetBillerPostCodeData}
