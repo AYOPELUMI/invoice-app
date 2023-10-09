@@ -39,10 +39,11 @@ import "../mainStyle.css"
 	console.log({user})
 
 	useEffect(() =>{
-			console.log({user})
-			let localUser = localStorage.getItem("user")
+		console.log({user})
+		let localUser = localStorage.getItem("user")
+		console.log({localUser})
 		if (location.pathname=="/dashboard") {
-			if (user == null & localUser == null) {
+			if (user == null && localUser == null) {
 				navigate("/login")
 			}
 			else{

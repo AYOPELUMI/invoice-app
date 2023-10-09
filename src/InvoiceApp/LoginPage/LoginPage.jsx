@@ -68,7 +68,7 @@ export const LoginPage = props => {
                 let locationRecord = lastLocation ? lastLocation : lastLocationFromLocal 
                 setTimeout(() => {
                     console.log({locationRecord})
-                    getUserData(data)
+                    // getUserData(data)
                     if (locationRecord == null || locationRecord == undefined) {
                         // if (data.user) {
                         console.log("going to dashboard")

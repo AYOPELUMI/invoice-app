@@ -91,7 +91,7 @@
 			&:disabled{
 				 	opacity: 0.7;
 				 }
-			
+			 	
 				@mixin animate($animation-name, $animation-duration, $animation-direction, $animation-iteration-count){
 					animation : $animation-name $animation-duration $animation-direction $animation-iteration-count;
 				}
