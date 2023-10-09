@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import {UseIdle} from "../useIdle";
+import {UseIdle} from "../UseIdle";
 
 
 export const SessionTimer =(props) =>{
