@@ -18,10 +18,11 @@ export const DisplayInvoiceData = props => {
 		updateInvoiceArr,
 		updateOpenEditModal
 	} = props
-	// console.log({props})
+	console.log({props})
 
 	const [totalAmount, setTotalAmount] = useState(0)
 	const [editIndex, setEditIndex] = useState("")
+	
 	useEffect(() =>{
 		let itemList = invoiceData.itemList 
 		let total = 0   
@@ -30,14 +31,25 @@ export const DisplayInvoiceData = props => {
 		}
 		setTotalAmount(total.toFixed(2))
 	},[invoiceArr])
+	
 	useEffect(() => {
 		setEditIndex(mainEditIndex)
 	},[mainEditIndex])
 
+	const formattedDate = (args) =>{
+		let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug","Sept","Oct", "Nov", "Dec"]
+		let newDate = new Date(args)
+		let yr = newDate.getFullYear()
+		let month = months[newDate.getMonth()]
+		let day = newDate.getDate()
+		let ymd = [yr, month, day]
+		return ymd.join("-")
+	}
 	const handleEdit = () =>{
 		setEditIndex(props.index)
 		console.log("i am here")
 		updateEditIndex(props.index)
+		localStorage.setItem("lastIndex", props.index)
 	}
 
 
@@ -48,7 +60,7 @@ export const DisplayInvoiceData = props => {
 						#{invoiceData.id.slice(0,6)}
 					</h4>
 					<h5 className="invoiceDueDate" index={index}>
-						Due {invoiceData.invoiceDate}
+						Due {formattedDate(invoiceData.invoiceDate)}
 					</h5>
 					<p className="invoiceClient" index={index}>
 						{invoiceData.clientName}

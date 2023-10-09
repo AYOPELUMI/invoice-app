@@ -1,24 +1,21 @@
- import {useState, useEffect} from 'react'
- import {IoIosArrowDown, IoIosArrowUp} from "react-icons/io"
-import {HiOutlinePlusCircle} from "react-icons/hi"
+ import {useState, useEffect,useContext} from 'react'
 import {RiMoonFill} from "react-icons/ri"
 import {RiSunFill} from "react-icons/ri"
-import {AiFillPlusCircle} from "react-icons/ai"
-import {BiSolidChevronLeft} from "react-icons/bi"
 import {ThemeContextWrapper} from "./ThemeContextWrapper"
 import {ThemeContext, themes} from "./ThemeContext.js"
 import {ViewInvoiceCard} from "./viewInvoiceCard/ViewInvoiceCard"
 import {NewInvoiceModal} from "./NewInvoiceModal/NewInvoiceModal"
-import {Input} from "./assets/Input"
 import {HomePage} from "./HomePage/HomePage"
 import{SignUp} from "./SignUp/SignUp"
 import{LoginPage} from "./LoginPage/LoginPage"
-import invoiceObj from "./assets/InvoiceData.js"
 import {RedirectToDashboard} from "./redirectToDashboard.jsx"
+import {SessionTimer} from "./assets/SessionTimer/SessionTimer"
 import {BrowserRouter, Routes, Route, NavLink, Outlet, useNavigate, useLocation,redirect} from "react-router-dom"
+import {Auth} from "./assets/Auth" 
+import {AuthProvider} from "./assets/Auth"
+import {Test} from "./Test"
 import './styles.scss';
 import "./mainStyle.css"
-let acceptUser = false
 
 import {
   createBrowserRouter,
@@ -60,42 +57,39 @@ export function InvoiceApp (props) {
 	const [showFilter, setShowFilter] = useState(true)
 	const [authenticateUser, setAuthenticateUser] = useState(undefined)
 	const [filterState, setFilterState] = useState([false,false, false])
-	const filterList =["Draft","Pending", "Paid"]
-
-
-	console.log({authenticateUser})
-	useEffect(() =>{
-		fetch("https://invoice-api-production-b7bc.up.railway.app/api/v1/invoices/list",{
-				method: 'GET',
-	            headers: {
-	                'content-type': 'application/json',
-	                'authorization' : authenticateUser
-	            }
-		})
-		.then((response) => response.json())
-		.then((data) => {
-				console.log({data})
-				console.log("i am here")
-				if(authenticateUser){
-					setInvoiceArr(data.data)
-				}
-		})
-		.catch((err) => {
-			console.log(err.message);
-		})
-		console.log(localStorage.getItem("activeTime"))
-		console.log(localStorage.getItem("lastActivity"))
-	},[authenticateUser])
+	const [currentLocation, setCurrentLocation] = useState(null)
 
 	useEffect(() =>{
-		console.log(" i want to check")
-		if (authenticateUser==undefined || authenticateUser== null) {
-			redirect("*")
+		let user = localStorage.getItem("user")
+		console.log({user})
+		if (user) {
+			console.log(JSON.parse(localStorage.getItem("invoices")))
+			// setInvoiceArr(JSON.parse(localStorage.getItem("invoices")))
+			fetch("https://invoice-api-production-b7bc.up.railway.app/api/v1/invoices/list",{
+					method: 'GET',
+		            headers: {
+		                'content-type': 'application/json',
+		                'authorization' : JSON.parse(localStorage.getItem("user")).token
+		            }
+			})
+			.then((response) => response.json())
+			.then((data) => {
+					console.log({data})
+					console.log("i am here")
+						setInvoiceArr(data.data)
+						localStorage.setItem("invoices", JSON.stringify(data.data))
+			})
+			.catch((err) => {
+				console.log(err.message);
+				console.log(localStorage.getItem("invoices"))
+				setInvoiceArr(JSON.parse(localStorage.getItem("invoices")))
+			})
 		}
+		// setAuthUser(user)
 	},[])
 
-	const handleModal=() =>{
-		setOpenModal(!openModal)
+	function handleLocation (args) {
+		setCurrentLocation(args)
 	}
 	const handleShowFilter = (e) =>{
 		setShowFilter(true)	
@@ -176,7 +170,7 @@ export function InvoiceApp (props) {
 		if (args.invoices) {
 			setInvoiceArr(args.invoices)
 		}
-		setAuthenticateUser(args.token)
+		// setAuthUser(args.token)
 		console.log({args})
 	}
 	console.log({invoiceArr})
@@ -189,76 +183,105 @@ export function InvoiceApp (props) {
 		},
 	  	{
 		    path: "/dashboard",
-		    element: <HomePage 
-		    	invoiceArr={invoiceArr}
-	    		editIndex={editIndex}
-	    		editInvoice={editInvoice}
-	    		displayIndex={displayIndex}
-	    		filterState={filterState}
-	    		showFilter={showFilter}
-	    		darkMode={darkMode}
-	    		authenticateUser={authenticateUser}
-	    		updateShowFilter={updateShowFilter}
-	    		updateEditIndex={updateEditIndex}
-	    		updateDisplayIndex={updateDisplayIndex}
-				updateEditInvoice={updateEditInvoice}
-				updateFilterState={updateFilterState}
-				updateDarkMode={updateDarkMode}
-				updateInvoiceArr={updateInvoiceArr}
-				SideMenu={<SideMenu darkMode={darkMode} updateDarkMode={updateDarkMode}/>}
-	    	 />,
+		    element: 
+			    <SessionTimer 
+				    children={
+				    	<HomePage 
+					    	invoiceArr={invoiceArr}
+				    		editIndex={editIndex}
+				    		editInvoice={editInvoice}
+				    		displayIndex={displayIndex}
+				    		filterState={filterState}
+				    		showFilter={showFilter}
+				    		authenticateUser={authenticateUser}
+				    		updateShowFilter={updateShowFilter}
+				    		updateEditIndex={updateEditIndex}
+				    		updateDisplayIndex={updateDisplayIndex}
+							updateEditInvoice={updateEditInvoice}
+							updateFilterState={updateFilterState}
+							updateInvoiceArr={updateInvoiceArr}
+							SideMenu={<SideMenu darkMode={darkMode} updateDarkMode={updateDarkMode}/>}
+							setLastLocation={handleLocation} 
+				    	 />
+				    } 
+				/>,
 		  	children:  [
 		       {
 			    	path: "newInvoice",
-			    	element: <NewInvoiceModal 
-			    	invoiceArr={invoiceArr}
-			    	authenticateUser={authenticateUser}
-			    	getData={updateInvoiceArray} />
+			    	element: 
+				    	<SessionTimer 
+					    	children={<NewInvoiceModal 
+					    	invoiceArr={invoiceArr}
+					    	authenticateUser={authenticateUser}
+					    	getData={updateInvoiceArray}
+							setLastLocation={handleLocation}
+					    	/>}
+					    />
 			    },
 		    ]
 		},
 	    {
 	    	path:"dashboard/invoice/:Id",
-	    	element: <ViewInvoiceCard 		
-	    		invoiceData={invoiceArr[editIndex]}
-				editIndex={editIndex}
-				updateInvoiceData={updateInvoiceData}
-				invoiceArr={invoiceArr}
-				updateInvoiceArr={updateInvoiceArr}
-				updateOpenEditModal={updateOpenModal}
-				updateEditIndex={updateEditIndex}
-				darkMode={darkMode}
-				updateDarkMode={updateDarkMode}
-				SideMenu={<SideMenu darkMode={darkMode} updateDarkMode={updateDarkMode}/>}
-				ResetEditIndex={ResetEditIndex}
-				updateDarkMode={updateDarkMode}
-				authenticateUser={authenticateUser} />,
+	    	element: 
+	    	<SessionTimer 
+	    		children={ 
+		    		<ViewInvoiceCard 		
+		    		invoiceData={invoiceArr[editIndex]}
+					editIndex={editIndex}
+					updateInvoiceData={updateInvoiceData}
+					invoiceArr={invoiceArr}
+					updateInvoiceArr={updateInvoiceArr}
+					updateOpenEditModal={updateOpenModal}
+					updateEditIndex={updateEditIndex}
+					darkMode={darkMode}
+					updateDarkMode={updateDarkMode}
+					SideMenu={<SideMenu darkMode={darkMode} updateDarkMode={updateDarkMode}/>}
+					ResetEditIndex={ResetEditIndex}
+					authenticateUser={authenticateUser}
+					setLastLocation={handleLocation}
+					/>
+				}
+			/>,
 				children: [
 				{
 					path: "editInvoice/:Id",
-					element: <NewInvoiceModal 
-						invoiceDetail ={invoiceArr[editIndex]}
-		    			updateInvoiceData={updateInvoiceData}
-		    			authenticateUser={authenticateUser}
-		    			invoiceArr={invoiceArr} />
+					element: 
+					<SessionTimer 
+						children={
+							<NewInvoiceModal 
+								invoiceDetail ={invoiceArr[editIndex]}
+				    			updateInvoiceData={updateInvoiceData}
+				    			authenticateUser={authenticateUser}
+				    			invoiceArr={invoiceArr}
+								setLastLocation={handleLocation}
+				    		/>
+				    	}
+				    />
 				},
 				]
 	    },
 	    {
-	    	path: "signup",
-	    	element  : <SignUp userData = {getUserData} />
+	    	path: "/signup",
+	    	element  : <SignUp />
 	    },
 	    {
-	    	path: "login",
-	    	element: <LoginPage  getUserData={getUserData}/>
+	    	path: "/login",
+	    	element: <LoginPage  
+	    				getUserData={getUserData}
+	    				lastLocation={currentLocation}
+	    			/>
+	    },{
+	    	path: "/test",
+	    	element:<Test></Test>
 	    }
 	])
   return (
+  		<AuthProvider>
     	<ThemeContextWrapper>
-	    	<RouterProvider router={router}>
-
-	    	</RouterProvider>
+	    		<RouterProvider router={router}>
+	    		</RouterProvider>
     	</ThemeContextWrapper>
+    	</AuthProvider>
   )
 }
 

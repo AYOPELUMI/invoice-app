@@ -29,17 +29,17 @@ export function Input (props) {
 	const [showPassword, setShowPassword] = useState(false)
 	let style = {}
 
-useEffect(() => {
-	if (propValue) {
-		if (type=="checkbox") {
-			setCheckedValue(propValue)
+	useEffect(() => {
+		if (propValue) {
+			if (type=="checkbox") {
+				setCheckedValue(propValue)
+			}
+			else{
+				setValue(propValue)
+				setFocusBoolean(true)
+			}
 		}
-		else{
-			setValue(propValue)
-			setFocusBoolean(true)
-		}
-	}
-},[propValue])
+	},[propValue])
 	const handleChange = (e) => {
 	
 		if (type == "checkbox" || span) {
@@ -78,6 +78,17 @@ useEffect(() => {
 			// setDivClickBoolean(true)
 		}
 	}
+	useEffect(() =>{
+		if (inputValue) {
+			setFocusBoolean(true)
+			setDivClickBoolean(true)
+		}
+		else{
+			setFocusBoolean(false)
+			setDivClickBoolean(false)
+		}
+
+	},[inputValue])
 	const handleShowPassword = () =>{
 		setShowPassword(!showPassword)
 		console.log("i pass here")

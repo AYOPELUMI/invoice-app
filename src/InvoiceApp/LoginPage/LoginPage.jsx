@@ -1,25 +1,38 @@
-import {useState, useffect} from 'react';
+import {useState, useEffect, useContext} from 'react';
 import {Input} from "../assets/Input"
 import {FcGoogle} from "react-icons/fc"
 import userData from "../assets/userData.json"
 import{useNavigate} from "react-router-dom"
+import toast ,{Toaster} from "react-hot-toast"
+import {Auth} from "../assets/Auth"
+import {AiOutlineLoading3Quarters} from "react-icons/ai"
 import './styles.scss';
 
 
 export const LoginPage = props => {
-
     const {
-        getUserData
+        getUserData,
+        lastLocation
     } = props
+
+    console.log({props})
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [errorValidity, setErrorValidity] = useState(undefined)
+    const [isLoading, setIsloading] = useState(false)
     const [errorMsg, setErrorMsg] = useState(" ")
     const navigate = useNavigate()
-    
+    const {dispatch} = useContext(Auth)
+    console.log({dispatch})
+    console.log(localStorage.getItem("user"))
+    useEffect(() =>{
+        localStorage.removeItem("user")
+    },[])
     const fetchUserDetails =() =>{
-        fetch("https://invoice-api-production-b7bc.up.railway.app/api/v1/login",{
+        setIsloading(true)
+        console.log(localStorage.getItem("user"))
+      return  fetch("https://invoice-api-production-b7bc.up.railway.app/api/v1/login",{
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -33,25 +46,47 @@ export const LoginPage = props => {
         .then((data) => {
             console.log({data})
             if (!data.user) {
-           setErrorMsg(data.message)
-           setErrorValidity(false)
-
+                if (data.errors) {
+                    setErrorMsg(data.errors[0])
+                    toast.error(data.errors[0])
+                }
+                else{
+                    setErrorMsg(data.message)
+                    toast.error(data.message)
+                }
+                setErrorValidity(false)
+                 setIsloading(false)
             }
             else {
-                getUserData(data)
                 setErrorMsg("login successful")
+                toast.success("login successful")
                 setErrorValidity(true)
-                let currentTime = Date.now()
-                console.log({currentTime})
-                localStorage.setItem("activeTime", 300)
-                localStorage.setItem("lastActivity", currentTime)
-                navigate("../dashboard")
+                localStorage.setItem("user",JSON.stringify(data))
+                dispatch({type: "LOGIN", payload: data})
+               let lastLocationFromLocal = localStorage.getItem("lastLocation")
+               setIsloading(false)
+                let locationRecord = lastLocation ? lastLocation : lastLocationFromLocal 
+                setTimeout(() => {
+                    console.log({locationRecord})
+                    getUserData(data)
+                    if (locationRecord == null || locationRecord == undefined) {
+                        // if (data.user) {
+                        console.log("going to dashboard")
+                        navigate("/dashboard")
+                    }
+                    else{
+                        console.log("going thru else statement")
+                        navigate(-1)
+                    }
+                  toast.dismiss()
+                }, 2000)
             }
         })
         .catch((err) => {
            console.log(err.message);
-           setErrorMsg("newtwirk unavailable")
-
+           setErrorMsg("network unavailable")
+           setErrorValidity(false)
+            setIsloading(false)
         })
     }
 
@@ -66,33 +101,29 @@ export const LoginPage = props => {
         setErrorMsg("")
     }
     const handleSubmit =() =>{
-        fetchUserDetails()
-        // let error = false
-        // let errMsg = "incorrect email or password"
-        // for (var i = 0; i < userData.length; i++) {
-        //     if (email == userData[i].email && password == userData[i].password){
-        //         getUserData(userData[i])
-        //         error = true
-        //         errMsg = ""
-        //         navigate("/dashboard")
-        //         break
-        //     }
-        // }
-        // setErrorValidity(error)
-        // setErrorMsg(errMsg)
+        if (isNaN(email) && password.length!= 0){
+            fetchUserDetails()
+            toast.dismiss()
+        }
+        else{
+            setErrorMsg("invalid input")
+            setErrorValidity(false)
+        }
     }
     if(errorValidity){
     }
     const handleSignUpLink = () =>{
-        navigate("../signUp")
+        navigate("/signUp")
     }
+
 
     return (
         <div className="loginMainCtnr">
         	<div className="loginCtnr">
+                <Toaster />          
         		<header>
         			<h2>Title</h2>
-        			<h2>Form</h2>
+        			<h2>Form</h2 >
         		</header>
         		<form action="" >
         			<div className="formDiv">
@@ -122,13 +153,13 @@ export const LoginPage = props => {
                         />
     	    			<p className="resetPasswordLink">Forgot password</p>
         			</div>
-        			<button type="button" onClick={handleSubmit}>log in</button>
+        			<button type="button" onClick={handleSubmit}disabled={isLoading} >{isLoading ? <i className="loadingIcon"> </i> : "log in"}</button>
         		</form>
-        		<span>Don't have an account ?<a href="#" onClick={handleSignUpLink}> Sign up</a></span>
+        		<span>Don't have an account ?<a onClick={handleSignUpLink}> Sign up</a></span>
         	</div>
         	<div className="displayCntr">
         		<div>
-        			<a href="#" onClick={handleSignUpLink}>Sign Up</a>
+        			<a onClick={handleSignUpLink}>Sign Up</a>
         		</div>
         	</div>
         </div>

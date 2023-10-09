@@ -1,8 +1,9 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useContext} from 'react';
 import {FcGoogle} from "react-icons/fc"
 import {AiFillApple} from "react-icons/ai"
 import {Input} from "../assets/Input"
 import {useNavigate} from "react-router-dom"
+import {Auth} from "../assets/Auth"
 import './styles.scss';
 
 const DEFAULT_HEADER = {
@@ -33,6 +34,8 @@ export const SignUp = props => {
 	const [invalidMsg, setInvalidMsg] = useState("")
 	const [checkValidity, setCheckValidity] = useState(false)
 
+	const [isLoading, setIsLoading] = useState(false)
+	const {dispatch} = useContext(Auth)
 
 	function updateName (args) {
 		setFullNameValidity(false)
@@ -73,13 +76,13 @@ export const SignUp = props => {
 			validity = true
 		}
 
-		if (userName.length != 0 && userName.length < 16) {
-			setUserNameValidity(false)
-		}
-		else{
-			setUserNameValidity(true)
-			setUserNameErrorMsg("username must be less than 16 characters")
-		}
+		// if (userName.length != 0 && userName.length < 16) {
+		// 	setUserNameValidity(false)
+		// }
+		// else{
+		// 	setUserNameValidity(true)
+		// 	setUserNameErrorMsg("username must be less than 16 characters")
+		// }
 
 		console.log({validity})
 		setFullNameErrorMsg(errorMsg)
@@ -164,6 +167,7 @@ export const SignUp = props => {
 			}
 		},[checkValidity])
 	const fetchUserDetails =() =>{
+		setIsLoading(true)
 		fetch("https://invoice-api-production-b7bc.up.railway.app/api/v1/signup",{
 			method: 'POST',
 			headers: {
@@ -178,11 +182,14 @@ export const SignUp = props => {
 		.then((response) => response.json())
 		.then((data) => {
 			console.log({data})
-			userData(data)
+			setIsLoading(false)
+			 localStorage.setItem("user",JSON.stringify(data))
+                dispatch({type: "LOGIN", payload: data})
 			navigate("/dashboard")
 		})
 		.catch((err) => {
 		   console.log(err.message);
+		   setIsLoading(false)
 		})
 	}
 
@@ -237,8 +244,8 @@ export const SignUp = props => {
 		    			inputClassName={confirmPasswordValidity ? "error" : undefined}
 		    			errorMsg={confirmPasswordValidity ? confirmPasswordErrorMsg : ""}/>
 				</form>
-		    	<button type = "submit" onClick={handleSubmit}> Create account</button>
-				<span>Already have an account ?<a href="#"onClick={handleLoginLink}> Log in</a></span>
+		    	<button type = "submit" onClick={handleSubmit} disabled={isLoading}>{isLoading ? <i className="loadingIcon"></i> : "Create account"}</button>
+				<span>Already have an account ?<a onClick={handleLoginLink}> Log in</a></span>
 			</div>
 			<div className="displayCtnr">
 			</div>

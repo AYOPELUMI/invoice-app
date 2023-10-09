@@ -1,17 +1,11 @@
- import {useState, useEffect} from 'react'
+ import {useState, useEffect, useContext} from 'react'
  import {IoIosArrowDown, IoIosArrowUp} from "react-icons/io"
-import {HiOutlinePlusCircle} from "react-icons/hi"
-import {RiMoonFill} from "react-icons/ri"
-import {RiSunFill} from "react-icons/ri"
 import {AiFillPlusCircle} from "react-icons/ai"
-import {BiSolidChevronLeft} from "react-icons/bi"
-import {ThemeContextWrapper} from "../ThemeContextWrapper"
-import {ThemeContext, themes} from "../ThemeContext.js"
 import {DisplayInvoiceData} from "../DisplayInvoiceData/DisplayInvoiceData"
 import { Outlet } from "react-router-dom";
-
 import {Input} from "../assets/Input"
 import invoiceObj from "../assets/InvoiceData.js"
+import {Auth} from "../assets/Auth"
 import {BrowserRouter, Routes, Route, NavLink, useNavigate,useLocation} from "react-router-dom"
 import './styles.scss';
 import "../mainStyle.css"
@@ -27,48 +21,55 @@ import "../mainStyle.css"
  		darkMode,
  		updateShowFilter,
  		updateEditIndex,
- 		authenticateUser,
  		updateDisplayIndex,
  		updateEditInvoice,
  		updateFilterState,
  		updateDarkMode,
  		SideMenu,
- 		updateInvoiceArr
+ 		updateInvoiceArr,
+ 		setLastLocation,
+ 		authenticateUser
  	} =props
 
 	const filterList =["Draft","Pending", "Paid"]
 	const navigate = useNavigate()
-	useEffect(() =>{
-		if (!authenticateUser) {
-			navigate("/login")
-		}
-	},[])
-		const location = useLocation()
+	const location = useLocation()
+    const {user} = useContext(Auth)
 
-	// console.log({authenticateUser})
+	console.log({user})
+
 	useEffect(() =>{
-		if (location.pathname=="/dashboard") {}{		
-			fetch("https://invoice-api-production-b7bc.up.railway.app/api/v1/invoices/list",{
-					method: 'GET',
-		            headers: {
-		                'content-type': 'application/json',
-		                'authorization' : authenticateUser
-		            }
-			})
-			.then((response) => response.json())
-			.then((data) => {
-					console.log({data})
-					console.log("i am here")
-					if(authenticateUser){
-						updateInvoiceArr(data.data)
-					}
-			})
-			.catch((err) => {
-				console.log(err.message);
-			})
+			console.log({user})
+			let localUser = localStorage.getItem("user")
+		if (location.pathname=="/dashboard") {
+			if (user == null & localUser == null) {
+				navigate("/login")
+			}
+			else{
+				console.log(localStorage.getItem("user"))
+				fetch("https://invoice-api-production-b7bc.up.railway.app/api/v1/invoices/list",{
+						method: 'GET',
+			            headers: {
+			                'content-type': 'application/json',
+			                'authorization' : JSON.parse(localStorage.getItem("user")).token ? JSON.parse(localStorage.getItem("user")).token : user.token
+			            }
+				})
+				.then((response) => response.json())
+				.then((data) => {
+						console.log({data})
+						console.log("i am here")
+						if(user){
+							updateInvoiceArr(data.data)
+							localStorage.setItem("invoices", JSON.stringify(data.data))
+						}
+				})
+				.catch((err) => {
+					console.log(err.message);
+				})
+
+			}
 		}
-		console.log(localStorage.getItem("activeTime"))
-		console.log(localStorage.getItem("lastActivity"))
+		setLastLocation(location.pathname)
 	},[location])
 	const handleShowFilter = (e) =>{
 		updateShowFilter(true)	

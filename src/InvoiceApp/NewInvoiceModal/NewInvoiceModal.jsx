@@ -1,10 +1,12 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useContext} from 'react';
 import {ItemDetails} from "./ItemDetails/ItemDetails"
 import {Input} from "../assets/Input"
 import invoiceObj from "../assets/InvoiceData.js"
 import {BillerComponent} from "./BillerComponent/BillerComponent"
 import {ClientComponent} from "./ClientComponent/ClientComponent"
 import {DateComponent} from "./DateComponent/DateComponent"
+import toast, {Toaster} from "react-hot-toast"
+import {Auth} from "../assets/Auth"
 import {useNavigate, useParams, redirect,useLocation} from "react-router-dom"
 
 import './styles.scss';
@@ -21,10 +23,11 @@ export function NewInvoiceModal (props) {
 		editIndex,
 		updateInvoiceData,
 		invoiceArr,
-		authenticateUser
+		authenticateUser,
+		setLastLocation
 	} = props
 
-	// console.log({props})
+	console.log({props})
 	const {params} = useParams()
 	const [left,setLeft] = useState(-100)
 	const [display, setDisplay] = useState(0)
@@ -37,24 +40,37 @@ export function NewInvoiceModal (props) {
 	const [errorMsg, setErrorMsg] = useState("")
 	const navigate = useNavigate()
 	const location = useLocation()
+	const {user} = useContext(Auth)
 	
+	useEffect(() =>{
+			setDisplay(1)
+	  		setLeft(0)
+	},[])
+	useEffect(() =>{
+		setDraft(false)
+	},[invoiceData])
 	useEffect(() => {
 		// console.log({authenticateUser})
-		if (authenticateUser== undefined || authenticateUser==null) {
+		let localUser = localStorage.getItem("user")
+		console.log({user})
+		if (user == null && localUser == null) {
 			console.log("it is true")
 			navigate("/login")
+			setLastLocation(location.pathname)
 		}
 		else{
+			console.log({user})
 			const fetchInvoiceDetails =() =>{
 		        fetch("https://invoice-api-production-b7bc.up.railway.app/api/v1/invoices/"+invoiceDetail.id,{
 		            method: 'GET',
 		            headers: {
 		                'content-type': 'application/json',
-		                'authorization' : authenticateUser
+		                'authorization' : user.token
 		            }
 		        })
 		        .then((response) => response.json())
 		        .then((data) => {
+
 		            console.log({data})
 		    		let formatedDate = new Date(data.invoice.invoiceDate)
 					console.log({ formatedDate })
@@ -79,6 +95,7 @@ export function NewInvoiceModal (props) {
 		 			}
 		 			setDisplayItemDetailArray(displayArr)
 		 			setEditInvoice(true)
+		 			toast.success("invoice retrieved")
 		        })
 		        .catch((err) => {
 		           console.log(err.message);
@@ -89,7 +106,8 @@ export function NewInvoiceModal (props) {
 			   }
 		}
 		console.log("location path is -"+ location.pathname)
-	},[location])
+		setLastLocation(location.pathname)
+	},[location,invoiceDetail])
 	// console.log({invoiceDetail})
 	// console.log({invoiceData})
 	// console.log({editInvoice})
@@ -207,6 +225,7 @@ export function NewInvoiceModal (props) {
 		let clientDataClone = {...invoiceData}
 		clientDataClone.clientEmail = args		
 		setInvoiceData(clientDataClone)
+		setErrorMsg("")
 	}
 	function GetClientStreetAddressData(args){
 		// console.log({args})
@@ -308,7 +327,7 @@ export function NewInvoiceModal (props) {
 			            method: 'PATCH',
 			            headers: {
 			                'content-type': 'application/json',
-			                'authorization' : authenticateUser
+			                'authorization' : user.token
 			            },
 			            body: JSON.stringify({
 			               billFromCity: invoiceDataClone.billFromCity,
@@ -329,12 +348,16 @@ export function NewInvoiceModal (props) {
 			        })
 			        .then((data) =>  {
 			        	console.log({data})
-			        	alert('invoice created successfully')
-			        	handleCloseModal()
+			        	toast.success('invoice saved successfully')
+			        	setTimeout(() => {
+			        		handleCloseModal()
+			        	}, 3000)
 			        })
 			        .catch(err => {
-			        	 console.log(err.data.message)
+			        	console.log({err})
+			        	 // console.log(err.data.message)
 			        	 setErrorMsg(err.data.errors)
+				         toast.error(data.errors[0])
 			        })
 			}
 			fetchUserDetails()
@@ -348,7 +371,7 @@ export function NewInvoiceModal (props) {
 				            method: 'POST',
 				            headers: {
 				                'content-type': 'application/json',
-				                'authorization' : authenticateUser
+				                'authorization' : user.token
 				            },
 				            body: JSON.stringify({
 				               billFromCity: invoiceDataClone.billFromCity,
@@ -371,11 +394,19 @@ export function NewInvoiceModal (props) {
 				        .then((data) => {
 				            console.log({data})
 				            if (data.message == "Invoice created successfully") {
-								handleCloseModal()
+								toast.success("invoice saved successfully")
+								setTimeout(() => {
+									handleCloseModal()
+								}, 3000)
+				            }
+				            else{
+				            	setErrorMsg(data.errors[0])
+				            	toast.error(data.errors[0])
 				            }
 				        })
 				        .catch((err) => {
 				           console.log(err.message);
+				           toast.error(err.message)
 				        })
 				    }
 				    fetchUserDetails()
@@ -386,7 +417,7 @@ export function NewInvoiceModal (props) {
 				            method: 'POST',
 				            headers: {
 				                'content-type': 'application/json',
-				                'authorization' : authenticateUser
+				                'authorization' : user.token
 				            },
 				            body: JSON.stringify({
 				               billFromCity: invoiceDataClone.billFromCity,
@@ -408,11 +439,20 @@ export function NewInvoiceModal (props) {
 				        .then((data) => {
 				            console.log({data})
 				            if (data.message == "Invoice created successfully") {
-								handleCloseModal()
+								toast.success("invoice saved successfully")
+								setTimeout(() => {
+									handleCloseModal()
+								}, 3000)
+				            }
+				            else{
+				            	setErrorMsg(data.errors[0])
+				            	toast.error(data.errors[0])
+				            	
 				            }
 				        })
 				        .catch((err) => {
 				           console.log(err.message);
+				           toast.error(err.message)
 				        })
 				    }
 				    fetchUserDetails()
@@ -424,11 +464,7 @@ export function NewInvoiceModal (props) {
 	}
 	// console.log({draft})
 	// console.log({invoiceData})
-	useEffect(() =>{
-			setDisplay(1)
-	  		setLeft(0)
-	},[])
-
+	console.log({errorMsg})
   	return (
 	 	<div className="modalCtnr" style={{
 	 		opacity: display
@@ -439,6 +475,7 @@ export function NewInvoiceModal (props) {
 		 		<header>
 	 				{invoiceDetail ? <h2>Edit  <span>#</span>{invoiceDetail.id.slice(0,5)}</h2>:<h2>New Invoice</h2>}
 	 			</header>
+	 			<Toaster />
 	 			<BillerComponent 
 	 				getCityData = {GetBillerCityData}
 	 				getPostCodeData = {GetBillerPostCodeData}

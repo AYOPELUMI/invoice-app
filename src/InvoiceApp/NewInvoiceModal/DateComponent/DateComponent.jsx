@@ -18,14 +18,19 @@ export function DateComponent (props){
 		// if(parsedInvoiceDate > parsedDateValue){
 		// 	setDateValue(null)
 	// 	// } 
-	// useEffect(() =>{
-	// 	getData([dateValue,termsValue])
-	// },[dateValue,termsValue])
+ //    let formatedDate = new Date(invoiceDetail.invoiceDate)
+	// console.log({ formatedDate })
+	// let yr = formatedDate.getFullYear()
+	// let month = formatedDate.getMonth()
+	// let day = formatedDate.getDate()
+	// let ymd = [yr, month, day]
+	// formatedDate = ymd.join("-")
+	// console.log([yr,month,day])
 
   return (
 	<div className="dateCtnr">
 		<Input
-			labelFor={<h4>Invoicw Date</h4>}
+			labelFor={<h4>Invoice Date</h4>}
 			type = {"date"}
 			required={true}
 			updateState={getData}
