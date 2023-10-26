@@ -14,7 +14,7 @@ export const UserMenu = props => {
     const Navigate = useNavigate()
 
     console.log({dispatch})
-    const [left, setLeft] =useState(-200)
+    const [left, setLeft] =useState(-300)
     const [opacity, setOpacity] = useState(0)
     useEffect(()=>{
         if (userMenuBool) {
@@ -22,7 +22,7 @@ export const UserMenu = props => {
             setOpacity(1)
         }
         else{
-            setLeft(-200)
+            setLeft(-300)
             setOpacity(0)
         }
         

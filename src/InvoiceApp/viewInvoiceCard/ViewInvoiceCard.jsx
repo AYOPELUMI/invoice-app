@@ -1,17 +1,15 @@
 import {useState, useEffect, useContext} from 'react';
-import{NewInvoiceModal} from "../NewInvoiceModal/NewInvoiceModal"
 import {DeleteModal} from "./DeleteModal/DeleteModal"
 import {VscCircleLargeFilled} from "react-icons/vsc"
 import {NavLink} from "react-router-dom"
 import {BiSolidChevronLeft} from "react-icons/bi"
 import {useParams, Outlet} from "react-router-dom"
-import {ThemeContextWrapper} from "../ThemeContextWrapper"
-import {ThemeContext, themes} from "../ThemeContext.js"
 import {useNavigate, useLocation} from "react-router-dom"
 import {Auth} from "../assets/Auth"
 import {numberFormat} from "../assets/numberFormat.js"
 
 import './styles.scss';
+import  dayjs  from 'dayjs';
 
 
 export const ViewInvoiceCard = props => {
@@ -158,12 +156,8 @@ export const ViewInvoiceCard = props => {
 
 	const formattedDate = (args) =>{
 		let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug","Sept","Oct", "Nov", "Dec"]
-		let newDate = new Date(args)
-		let yr = newDate.getFullYear()
-		let month = months[newDate.getMonth()]
-		let day = newDate.getDate()
-		let ymd = [yr, month, day]
-		return ymd.join(" ")
+		let newDate = dayjs(args).format("YYYY-MM-DD")
+		return newDate
 	}
 
 	return (

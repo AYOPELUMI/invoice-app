@@ -10,6 +10,7 @@ import {Auth} from "../assets/Auth"
 import {useNavigate, useParams, redirect,useLocation} from "react-router-dom"
 
 import './styles.scss';
+import dayjs from 'dayjs';
 	let itemArray =[]
 	let displayItemDetailsArr = []
 
@@ -72,16 +73,10 @@ export function NewInvoiceModal (props) {
 		        .then((data) => {
 
 		            console.log({data})
-		    		let formatedDate = new Date(data.invoice.invoiceDate)
-					console.log({ formatedDate })
-					let yr = formatedDate.getFullYear()
-					let month = formatedDate.getMonth()
-					let day = formatedDate.getDate()
-					let ymd = [yr, month, day]
-					console.log([yr,month,day])
+		    		let formatedDate = dayjs(data.invoice.invoiceDate).format("YYYY-MM-DD")
 		 			setInvoiceData({
 		 				...data.invoice,
-		 				invoiceDate: [yr, month, day].join('-')
+		 				invoiceDate: formatedDate
 		 			})
 		 			if (data.invoice.status == "draft") {
 		 				setDraft(true)
@@ -168,7 +163,7 @@ export function NewInvoiceModal (props) {
 			el = ( <ItemDetails 
 						index ={i}
 						key={displayItemDetailsArray[i]}
-						getData={GetItemsData}
+						getData={getItemsData}
 						itemDetail={itemsDataArr[i]}
 						handleDel = {updateDisplayItemDetailArr}
 					/>)
@@ -177,7 +172,7 @@ export function NewInvoiceModal (props) {
 			el = ( <ItemDetails 
 				index ={i}
 				key={displayItemDetailsArray[i]}
-				getData={GetItemsData}
+				getData={getItemsData}
 				handleDel = {updateDisplayItemDetailArr}
 			/>)
 		}
@@ -188,71 +183,71 @@ export function NewInvoiceModal (props) {
 				setDisplay(0)
 			}, 700)
 	}
-	function GetBillerStreetData (args) {
+	function getBillerStreetData (args) {
 		console.log({args})
 		let billerDataClone = {...invoiceData}
 		billerDataClone.billFromStreetAddress =args
 		console.log({billerDataClone})
 		setInvoiceData(billerDataClone)
 	}
-	function GetBillerCityData (args) {
+	function getBillerCityData (args) {
 		console.log({args})
 		let billerDataClone = {...invoiceData}
 		billerDataClone.billFromCity =args
 		console.log({billerDataClone})
 		setInvoiceData(billerDataClone)
 	}
-	function GetBillerCountryData (args) {
+	function getBillerCountryData (args) {
 		console.log({args})
 		let billerDataClone = {...invoiceData}
 		billerDataClone.country= args
 		console.log({billerDataClone})
 		setInvoiceData(billerDataClone)
 	}
-	function GetBillerPostCodeData (args) {
+	function getBillerPostCodeData (args) {
 		console.log({args})
 		let billerDataClone = {...invoiceData}
 		billerDataClone.billFromPostCode = args,
 		setInvoiceData(billerDataClone)
 	}
-	function GetClientNameData(args){
+	function getClientNameData(args){
 		// console.log({args})
 		let clientDataClone = {...invoiceData}
 		clientDataClone.clientName = args			
 		setInvoiceData(clientDataClone)
 	}
-	function GetClientEmailData(args){
+	function getClientEmailData(args){
 		// console.log({args})
 		let clientDataClone = {...invoiceData}
 		clientDataClone.clientEmail = args		
 		setInvoiceData(clientDataClone)
 		setErrorMsg("")
 	}
-	function GetClientStreetAddressData(args){
+	function getClientStreetAddressData(args){
 		// console.log({args})
 		let clientDataClone = {...invoiceData}
 		clientDataClone.clientStreetAddress =args	
 		setInvoiceData(clientDataClone)
 	}
-	function GetClientCityData(args){
+	function getClientCityData(args){
 		// console.log({args})
 		let clientDataClone = {...invoiceData}
 		clientDataClone.clientCity= args		
 		setInvoiceData(clientDataClone)
 	}
-	function GetClientPostCodeData(args){
+	function getClientPostCodeData(args){
 		// console.log({args})
 		let clientDataClone = {...invoiceData}
 		clientDataClone.clientPostCode = args		
 		setInvoiceData(clientDataClone)
 	}
-	function GetClientCountryData(args){
+	function getClientCountryData(args){
 		// console.log({args})
 		let clientDataClone = {...invoiceData}
 		clientDataClone.clientCountry = args		
 		setInvoiceData(clientDataClone)
 	}	
-	function GetDateData (args) {
+	function getDateData (args) {
 		let dateObjClone ={...invoiceData}
 		console.log({args})
 		dateObjClone.invoiceDate = args
@@ -265,7 +260,7 @@ export function NewInvoiceModal (props) {
 		descriptionClone.projectDescription = args
 		setInvoiceData(descriptionClone)
 	}
-	function GetItemsData (args){
+	function getItemsData (args){
 		console.log({args})
 		let displayItemDetailsArrayClone = [...displayItemDetailsArray]
 		let itemsArr ={...invoiceData}
@@ -323,7 +318,7 @@ export function NewInvoiceModal (props) {
 			console.log("i pass through here")
 			console.log({invoiceData})
 			// updateInvoiceData(invoiceData)
-			const fetchUserDetails =() =>{
+			const updateUserDetails =() =>{
 			        simpleCustomFetch("https://invoice-api-production-b7bc.up.railway.app/api/v1/invoices/"+invoiceData.id+"/update",{
 			            method: 'PATCH',
 			            headers: {
@@ -361,13 +356,13 @@ export function NewInvoiceModal (props) {
 				         toast.error(data.errors[0])
 			        })
 			}
-			fetchUserDetails()
+			updateUserDetails()
 		}
 		else{
 			console.log({invoiceDataClone})
 		    	if (draft){
 		    		console.log({draft})
-				    const fetchUserDetails =() =>{
+				    const postUserDetailsDraft =() =>{
 				        fetch("https://invoice-api-production-b7bc.up.railway.app/api/v1/invoices/new?saveAsDraft=true",{
 				            method: 'POST',
 				            headers: {
@@ -410,10 +405,10 @@ export function NewInvoiceModal (props) {
 				           toast.error(err.message)
 				        })
 				    }
-				    fetchUserDetails()
+				    postUserDetailsDraft()
 		    	}
 		    	else {
-				    const fetchUserDetails =() =>{
+				    const postUserDetailsPending =() =>{
 				        fetch("https://invoice-api-production-b7bc.up.railway.app/api/v1/invoices/new",{
 				            method: 'POST',
 				            headers: {
@@ -456,7 +451,7 @@ export function NewInvoiceModal (props) {
 				           toast.error(err.message)
 				        })
 				    }
-				    fetchUserDetails()
+				    postUserDetailsPending()
 		    	}
 		}
 	}
@@ -478,22 +473,22 @@ export function NewInvoiceModal (props) {
 	 			</header>
 	 			<Toaster />
 	 			<BillerComponent 
-	 				getCityData = {GetBillerCityData}
-	 				getPostCodeData = {GetBillerPostCodeData}
-	 				getStreetData = {GetBillerStreetData}
-	 				getCountryData = {GetBillerCountryData}
+	 				getCityData = {getBillerCityData}
+	 				getPostCodeData = {getBillerPostCodeData}
+	 				getStreetData = {getBillerStreetData}
+	 				getCountryData = {getBillerCountryData}
 	 				invoiceDetail={invoiceData} />
 	 			<ClientComponent 
-	 				getClientNameData={GetClientNameData}
-					getClientEmailData = {GetClientEmailData}
-					getClientStreetAddressData={GetClientStreetAddressData}
-					getClientCityData={GetClientCityData}
-					getClientPostCodeData={GetClientPostCodeData}
-					getClientCountryData={GetClientCountryData}
+	 				getClientNameData={getClientNameData}
+					getClientEmailData = {getClientEmailData}
+					getClientStreetAddressData={getClientStreetAddressData}
+					getClientCityData={getClientCityData}
+					getClientPostCodeData={getClientPostCodeData}
+					getClientCountryData={getClientCountryData}
 	 				invoiceDetail={invoiceData}
 	 			/>
 	 			<DateComponent 
-	 			getData={GetDateData}
+	 			getData={getDateData}
 	 			invoiceDetail={invoiceData}/>
 	 			<Input
 					labelFor={<h4>Payment Description</h4>}
