@@ -10,9 +10,22 @@
     transition: all 0.5s ease;
     padding: 20px 10px;
 
-    .goBackIcon{
+    .goBackIcon, .logoutIcon{
         font-size: var(--fontSize-32);
         color: #ffffff;
         cursor: pointer;
+    }
+    span{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        color: var(--header-h2-color);
+        font-size: var(--fontSize-14);
+        letter-spacing: var(--letterSpacing-025);
+        text-align: center;
+        a{
+            color: var(--link-color);
+        }
     }
 }

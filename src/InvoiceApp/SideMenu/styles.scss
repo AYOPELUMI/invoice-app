@@ -1,7 +1,7 @@
 .sideMenu{
-    width: fit-content;
+    width: 90px;
     background: var(--sideMenu-bg);
-    position: relative;
+    position: absolute;
     z-index: 3;
     top: 0;
     bottom: 0;
@@ -15,6 +15,7 @@
     flex-direction: column;
     justify-content: end;
     padding: 20px 12px;
+    width: 90px;    
 }
 .menuIcon{
     font-size: var(--fontSize-32);
