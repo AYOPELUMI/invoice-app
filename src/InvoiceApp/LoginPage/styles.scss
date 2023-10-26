@@ -9,7 +9,7 @@
 
 	.loginCtnr{
 		padding: 6px;
-		height: 370px;
+		height: 450px;
 		border-top-left-radius: 20px;
 		border-bottom-left-radius: 20px;
 		background: var(--bg-default-white);
@@ -68,6 +68,10 @@
 				display: flex;
 				padding: 8px;
 				gap: 4px;
+				label{
+					margin-top: 8px;
+					margin-bottom: 8px;
+				}
 
 				h2{
 					color: var(--header-h2-color);
@@ -169,7 +173,7 @@
 		}
 	}
 	.displayCntr{
-		height: 370px;
+		height: 450px;
 		border-top-right-radius: 20px;
 		border-bottom-right-radius: 20px;
 		padding: 20px;

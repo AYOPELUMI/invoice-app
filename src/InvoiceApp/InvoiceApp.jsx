@@ -1,6 +1,7 @@
  import {useState, useEffect,useContext} from 'react'
 import {RiMoonFill} from "react-icons/ri"
 import {RiSunFill} from "react-icons/ri"
+import {SideMenu} from "./SideMenu/SideMenu"
 import {ThemeContextWrapper} from "./ThemeContextWrapper"
 import {ThemeContext, themes} from "./ThemeContext.js"
 import {ViewInvoiceCard} from "./viewInvoiceCard/ViewInvoiceCard"
@@ -22,33 +23,9 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-	function SideMenu (props){
-		const {
-			darkMode,
-			updateDarkMode
-		} = props
-		return(
-		  	<div className="sideMenu">
-		    	<div className="avatarCtnr">
-					<ThemeContext.Consumer>
-						{({changeTheme}) =>(
-							<i onClick={() => {
-								updateDarkMode(!darkMode)
-								changeTheme(darkMode ? themes.light : themes.dark)
-							}}
-							>{darkMode ? <RiSunFill className="themeIcon"> </RiSunFill> : <RiMoonFill className="themeIcon"></RiMoonFill>}
-						</i>
-						)}
-					</ThemeContext.Consumer> 
-					<div className="avatar">
-					</div>
-		    	</div>
-			</div>
-		)
-	}
 
 export function InvoiceApp (props) {
-	const [darkMode, setDarkMode] = useState(true)
+	const [darkMode, setDarkMode] = useState(false)
 	const [openModal, setOpenModal] = useState(false)
 	const [invoiceArr, setInvoiceArr] = useState([])
 	const [editIndex, seteditIndex] = useState(0)
@@ -147,11 +124,11 @@ export function InvoiceApp (props) {
 		console.log({args})
 		setInvoiceArr(args)
 	}
-	function updateFilterState (args) {
-		let filterStateClone = [...filterState]
-		filterStateClone[args[0]] = args[1]
-		setFilterState(filterStateClone)
-	}
+	// function updateFilterState (args) {
+	// 	let filterStateClone = [...filterState]
+	// 	filterStateClone[args[0]] = args[1]
+	// 	setFilterState(filterStateClone)
+	// }
 	function updateDisplayIndex (args) {
 		setDisplayIndex(args)
 	}

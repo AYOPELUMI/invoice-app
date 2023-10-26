@@ -31,7 +31,7 @@
 			padding: 10px; 
 		}
 		&::-webkit-scrollbar-track{
-			background-color: #var(--modal-bg);
+			background-color: var(--modal-bg);
 		}
 		&::-webkit-scrollbar-thumb{
 			background: var(--scroll-thumb-bg);

@@ -1,0 +1,98 @@
+.welcomeModalCtnr{
+	position: fixed;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	background: rgba(0,0,0, 0.5);
+	display: grid;
+	align-items: center;
+	justify-content: center;
+
+
+	.mainContent{
+		width: 330px;
+		height: 200px;
+		display: flex;
+		flex-direction: column;
+		padding: 20px;
+		gap: 20px;
+		border-radius: 8px;
+		background: var(--btnCtnr-bg);
+		gap: 17px;
+		border-radius: 14px;
+		background: var(--modal-bg);
+		transition: opacity 0.5s ease;
+
+
+		.closeModalSpan{
+			position: relative;
+			width: fit-content;
+			height: fit-content;
+			left: 103%;
+			top: -18%;
+			
+			.icon{
+				background-color: #fff;
+				color: red;
+				width: 20px;
+				height: 20px;
+				display: block;
+				cursor: pointer				;
+			}
+
+		}
+		div{
+			display: flex;
+			justify-content: center;
+			padding: 4px;
+			h3{
+				word-wrap: break-word;
+				text-align: center;
+			}
+		}
+		a{
+			@mixin animate($animation-name, $animation-duration, $animation-direction, $animation-iteration-count){
+				animation : $animation-name $animation-duration $animation-direction $animation-iteration-count;
+			}
+
+			@mixin keyframes($name){
+				@keyframes #{$name}{
+					@content;		
+				}
+			}
+		.startBtn{
+			margin-left: auto;
+			margin-right: auto;
+			width: 200px;
+			height: 40px;
+			display: block;
+			padding: 6px;
+			border-radius: 22px;
+			color: white;
+			cursor: pointer;
+			background: var(--header-btn-bg);
+			@include animate(animateBtn, 2s, linear, infinite);
+			transition: opacity 1s ease-in-out ;
+
+				@include keyframes(animateBtn) {
+				  0% {
+					transform: scale(1.0);
+				  }
+				  25%{
+					transform: scale(1.05);
+				  }
+				  50%{
+					transform: scale(1.1);
+				  }
+				  75%{
+					transform: scale(1.05);
+				  }
+				  100% {
+					transform: scale(1.0);
+				  }
+				}
+		}
+		}
+	}
+}

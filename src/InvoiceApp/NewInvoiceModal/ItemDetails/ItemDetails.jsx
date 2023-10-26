@@ -1,5 +1,7 @@
 import {useState, useEffect} from 'react';
 import {ImBin2} from "react-icons/im"
+import { numberFormat } from '../../assets/numberFormat';
+import { removeComma } from '../../assets/removeComma';
 import './styles.scss';
 
 
@@ -39,7 +41,8 @@ export function ItemDetails(props){
 	}
 	const handlePrice =(event) =>{
 		let value = event.target.value
-		setPriceValue(value)
+		console.log({value})
+		setPriceValue(removeComma(value))
 	}
 	const handleDeleteItem =() =>{
 		console.log({index})
@@ -52,7 +55,9 @@ export function ItemDetails(props){
 		let total
 
 		qtyValueClone =Number(qtyValueClone)
-		priceValueClone =Number(priceValueClone)
+		priceValueClone =Number(removeComma(priceValueClone))
+		console.log({priceValue})
+		console.log({priceValueClone})
 		total = qtyValueClone * priceValueClone
 		setTotalValue(total.toFixed(2))
 		getData([index,{"name": itemNameValue,"quantity":qtyValueClone,"price":priceValueClone,"total" : total.toFixed(2)}])
@@ -74,11 +79,11 @@ export function ItemDetails(props){
 			</label>
 			<label htmlFor="" className="priceLabel">
 				<h4>Price</h4>
-				<input type="text" value={priceValue} onChange={handlePrice} />
+				<input type="text" value={numberFormat(priceValue)} onChange={handlePrice} />
 			</label>
 			<label className="priceLabel">
 				<h4>Total</h4>
-				<input type="text" value={totalValue} disabled />
+				<input type="text" value={numberFormat(totalValue)} disabled />
 			</label>
 			<i key={index} className="bin" index={index} id={index}>
 			<i style={{

@@ -4,6 +4,7 @@ import {AiFillApple} from "react-icons/ai"
 import {Input} from "../assets/Input"
 import {useNavigate} from "react-router-dom"
 import {Auth} from "../assets/Auth"
+import toast ,{Toaster} from "react-hot-toast"
 import './styles.scss';
 
 const DEFAULT_HEADER = {
@@ -90,18 +91,9 @@ export const SignUp = props => {
 	}
 	function handleEmailValidity (){
 		if (isNaN(email)) {
-			for (var i = 0; i < email.length; i++) {
-				if ("@" == email[i] && email.includes(".com")){
-					setEmailValidity(false)
-					setEmailErrorMsg("")
-					break;
-				}
-				else {
-					setEmailValidity(true)
-					setEmailErrorMsg("enter appropriate email")
-				}
-			}
+			setEmailValidity(false)
 		}
+		
 		else{
 			setEmailValidity(true)
 			setEmailErrorMsg("enter appropriate email")
@@ -182,20 +174,36 @@ export const SignUp = props => {
 		.then((response) => response.json())
 		.then((data) => {
 			console.log({data})
+			if (data.errors) {
+				toast.error(data.errors)
 			setIsLoading(false)
-			 localStorage.setItem("user",JSON.stringify(data))
+			}
+			else if (data.message) {
+				toast.error(data.message)
+				setIsLoading(false)
+			}
+			else{
+				console.log({data})
+				setIsLoading(false)
+			 	localStorage.setItem("user",JSON.stringify(data))
                 dispatch({type: "LOGIN", payload: data})
-			navigate("/dashboard")
+                toast.success("account created successfully")
+				setTimeout(() => {
+					navigate("/dashboard")
+				}, 5000)
+			}
 		})
 		.catch((err) => {
 		   console.log(err.message);
 		   setIsLoading(false)
+		   toast.error(err.message)
 		})
 	}
 
 
 	return (
 		<div className="signUpMainCtnr">
+		<Toaster />
 			<div className="signUpCtnr">
 				<header>
 					<h2>Create account</h2>

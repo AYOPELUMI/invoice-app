@@ -1,0 +1,60 @@
+.sideMenu{
+    width: fit-content;
+    background: var(--sideMenu-bg);
+    position: relative;
+    z-index: 3;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    border-bottom-right-radius: 20px;
+    border-top-right-radius: 20px;
+    display: flex;
+
+.sideBar1{
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    padding: 20px 12px;
+}
+.menuIcon{
+    font-size: var(--fontSize-32);
+    line-height: var(--lineHeight-22);
+    color:var(--theme-color);
+    cursor: pointer;
+    font-weight: var(--fontWeight-bold);
+    position: absolute;
+    top: 30px;
+    left: 25%;
+ 
+}
+    .avatarCtnr{
+        background: inherit;
+        height: fit-content;
+        padding: 37px 7px;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+      
+
+        .avatar{
+            width: 30px;
+            height: 30px;
+            border-radius: 15px;
+            background: white;
+            cursor: pointer;
+        }
+
+        .themeIcon{
+            font-size: var(--fontSize-20);
+            line-height: var(--lineHeight-22);
+            color:var(--theme-color);
+            cursor: pointer;
+        }
+
+        .usernameSpan{
+            color: #fff;
+        }
+    }
+}

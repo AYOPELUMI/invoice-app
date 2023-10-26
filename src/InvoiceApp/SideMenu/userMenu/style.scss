@@ -1,0 +1,18 @@
+.userMenuCtnr{
+    display: flex;
+    width: 190px;
+    height: 100%;
+    position: absolute;
+    background: #000;
+    border-bottom-right-radius: 20px;
+    border-top-right-radius: 20px;
+    z-index: 1;
+    transition: all 0.5s ease;
+    padding: 20px 10px;
+
+    .goBackIcon{
+        font-size: var(--fontSize-32);
+        color: #ffffff;
+        cursor: pointer;
+    }
+}

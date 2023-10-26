@@ -99,6 +99,7 @@ export function NewInvoiceModal (props) {
 		        })
 		        .catch((err) => {
 		           console.log(err.message);
+		           toast.error(err.message)
 		        })
 			    }
 			   if (invoiceDetail) {
@@ -123,7 +124,7 @@ export function NewInvoiceModal (props) {
 				navigate(-1)
 			}
 			else{
-				navigate(-1)
+				navigate("/dashboard")
 			}
 		  // Todo...
 		}, 900)

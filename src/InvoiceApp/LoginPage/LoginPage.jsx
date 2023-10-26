@@ -28,7 +28,10 @@ export const LoginPage = props => {
     console.log(localStorage.getItem("user"))
     useEffect(() =>{
         localStorage.removeItem("user")
+        dispatch({type: "LOGOUT", payload: null})
     },[])
+    console.log({email})
+    console.log({password})
     const fetchUserDetails =() =>{
         setIsloading(true)
         console.log(localStorage.getItem("user"))
@@ -65,6 +68,8 @@ export const LoginPage = props => {
                 dispatch({type: "LOGIN", payload: data})
                let lastLocationFromLocal = localStorage.getItem("lastLocation")
                setIsloading(false)
+               console.log({lastLocation})
+               console.log({lastLocationFromLocal})
                 let locationRecord = lastLocation ? lastLocation : lastLocationFromLocal 
                 setTimeout(() => {
                     console.log({locationRecord})
@@ -76,7 +81,8 @@ export const LoginPage = props => {
                     }
                     else{
                         console.log("going thru else statement")
-                        navigate(-1)
+                        console.log({lastLocation})
+                        navigate(locationRecord)
                     }
                   toast.dismiss()
                 }, 2000)
@@ -86,6 +92,7 @@ export const LoginPage = props => {
            console.log(err.message);
            setErrorMsg("network unavailable")
            setErrorValidity(false)
+           toast.error("metwork unavailable")
             setIsloading(false)
         })
     }
@@ -101,7 +108,11 @@ export const LoginPage = props => {
         setErrorMsg("")
     }
     const handleSubmit =() =>{
-        if (isNaN(email) && password.length!= 0){
+        if (!setErrorValidity) {
+            setErrorValidity(true)
+            setErrorMsg("")
+        }
+        if (isNaN(email) && password.length != 0){
             fetchUserDetails()
             toast.dismiss()
         }
@@ -153,7 +164,7 @@ export const LoginPage = props => {
                         />
     	    			<p className="resetPasswordLink">Forgot password</p>
         			</div>
-        			<button type="button" onClick={handleSubmit}disabled={isLoading} >{isLoading ? <i className="loadingIcon"> </i> : "log in"}</button>
+        			<button type="button" onClick={handleSubmit} disabled={isLoading} >{isLoading ? <i className="loadingIcon"> </i> : "log in"}</button>
         		</form>
         		<span>Don't have an account ?<a onClick={handleSignUpLink}> Sign up</a></span>
         	</div>

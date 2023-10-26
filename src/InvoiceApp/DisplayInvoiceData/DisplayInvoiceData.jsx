@@ -2,6 +2,7 @@ import {useEffect, useState} from 'react';
 import {BiSolidChevronRight} from "react-icons/bi"
 import {VscCircleLargeFilled} from "react-icons/vsc"
 import{NavLink} from "react-router-dom"
+import { numberFormat } from '../assets/numberFormat';
 
 import './styles.scss';
 
@@ -55,7 +56,7 @@ export const DisplayInvoiceData = props => {
 
   return (	
 	  	<NavLink to={`/dashboard/invoice/${invoiceData.id}`} key={invoiceData.id}>
-			<button className="tableRow" index={index} onClick={handleEdit}>
+			<div className="tableRow" index={index} onClick={handleEdit}>
 					<h4 className="invoiceId" index={index}>
 						#{invoiceData.id.slice(0,6)}
 					</h4>
@@ -66,14 +67,14 @@ export const DisplayInvoiceData = props => {
 						{invoiceData.clientName}
 					</p>
 					<p className = "invoicePrice" index={index}>
-						£{totalAmount}
+						£{numberFormat(totalAmount)}
 					</p>
 					<span className={invoiceData.status =="pending" ? "invoiceStatusPending" : invoiceData.status == "paid" ? "invoiceStatusPaid" : "invoiceStatusDraft"} index={index}>
 						<VscCircleLargeFilled />
 						<p>{invoiceData.status}</p>
 					</span>
 					<BiSolidChevronRight className="icon" index={index} />
-			</button>
+			</div>
 		</NavLink>
   )
 }

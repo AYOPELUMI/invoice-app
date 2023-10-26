@@ -9,6 +9,7 @@ import {ThemeContextWrapper} from "../ThemeContextWrapper"
 import {ThemeContext, themes} from "../ThemeContext.js"
 import {useNavigate, useLocation} from "react-router-dom"
 import {Auth} from "../assets/Auth"
+import {numberFormat} from "../assets/numberFormat.js"
 
 import './styles.scss';
 
@@ -105,8 +106,8 @@ export const ViewInvoiceCard = props => {
 			<div className="itemDiv" key={i} index={i}>
    				<h3>{itemList[i].name}</h3>
    				<h4>{itemList[i].quantity}</h4>
-   				<h4>£{itemList[i].price.toFixed(2)}</h4>
-   				<h3> £{(Number(itemList[i].quantity)*Number(itemList[i].price.toFixed(2))).toFixed(2)}</h3>
+   				<h4>£{numberFormat(itemList[i].price.toFixed(2))}</h4>
+   				<h3> £{numberFormat((Number(itemList[i].quantity)*Number(itemList[i].price.toFixed(2))).toFixed(2))}</h3>
    			</div>
 		)
 		itemListDisplay.push(el)
@@ -235,7 +236,7 @@ export const ViewInvoiceCard = props => {
 								   			{itemListDisplay}
 									   		<div className="totalDiv">
 									   			<h5>Amount Due</h5>
-									   			<h2>£{totalAmount}</h2>
+									   			<h2>£{numberFormat(totalAmount)}</h2>
 									   		</div>
 								   		</div>
 							   		</div>
