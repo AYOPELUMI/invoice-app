@@ -1,17 +1,17 @@
 import {useState, useEffect, useContext} from 'react';
 import {ItemDetails} from "./ItemDetails/ItemDetails"
 import {Input} from "../assets/Input"
-import invoiceObj from "../assets/InvoiceData.js"
 import {BillerComponent} from "./BillerComponent/BillerComponent"
 import {ClientComponent} from "./ClientComponent/ClientComponent"
 import {DateComponent} from "./DateComponent/DateComponent"
 import toast, {Toaster} from "react-hot-toast"
 import {Auth} from "../assets/Auth"
-import {useNavigate, useParams, redirect,useLocation} from "react-router-dom"
-
+import {useNavigate, useParams, useLocation} from "react-router-dom"
+import dayjs from 'dayjs';
 import './styles.scss';
-	let itemArray =[]
-	let displayItemDetailsArr = []
+
+let itemArray =[]
+let displayItemDetailsArr = []
 
 export function NewInvoiceModal (props) {
 
@@ -49,6 +49,7 @@ export function NewInvoiceModal (props) {
 	useEffect(() =>{
 		setDraft(false)
 	},[invoiceData])
+
 	useEffect(() => {
 		// console.log({authenticateUser})
 		let localUser = localStorage.getItem("user")
@@ -71,18 +72,13 @@ export function NewInvoiceModal (props) {
 		        .then((response) => response.json())
 		        .then((data) => {
 
-		            console.log({data})
-		    		let formatedDate = new Date(data.invoice.invoiceDate)
-					console.log({ formatedDate })
-					let yr = formatedDate.getFullYear()
-					let month = formatedDate.getMonth()
-					let day = formatedDate.getDate()
-					let ymd = [yr, month, day]
-					console.log([yr,month,day])
+		    		let invoiceFormattedDate = dayjs(data.invoice.invoiceDate).format('YYYY-MM-DD')
+					
 		 			setInvoiceData({
 		 				...data.invoice,
-		 				invoiceDate: [yr, month, day].join('-')
+		 				invoiceDate: invoiceFormattedDate
 		 			})
+
 		 			if (data.invoice.status == "draft") {
 		 				setDraft(true)
 		 			}
@@ -492,6 +488,7 @@ export function NewInvoiceModal (props) {
 					getClientCountryData={GetClientCountryData}
 	 				invoiceDetail={invoiceData}
 	 			/>
+
 	 			<DateComponent 
 	 			getData={GetDateData}
 	 			invoiceDetail={invoiceData}/>
