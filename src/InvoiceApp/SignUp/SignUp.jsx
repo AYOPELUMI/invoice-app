@@ -1,6 +1,5 @@
 import {useState, useEffect, useContext} from 'react';
-import {FcGoogle} from "react-icons/fc"
-import {AiFillApple} from "react-icons/ai"
+import { Button } from '../assets/Button/Button';
 import {Input} from "../assets/Input"
 import {useNavigate} from "react-router-dom"
 import {Auth} from "../assets/Auth"
@@ -252,7 +251,7 @@ export const SignUp = props => {
 		    			inputClassName={confirmPasswordValidity ? "error" : undefined}
 		    			errorMsg={confirmPasswordValidity ? confirmPasswordErrorMsg : ""}/>
 				</form>
-		    	<button type = "submit" onClick={handleSubmit} disabled={isLoading}>{isLoading ? <i className="loadingIcon"></i> : "Create account"}</button>
+		    	<Button propsType = "submit" propsOnClick={handleSubmit} propsDisabled={isLoading}>{isLoading ? <i className="loadingIcon"></i> : "Create account"}</Button>
 				<span>Already have an account ?<a onClick={handleLoginLink}> Log in</a></span>
 			</div>
 			<div className="displayCtnr">

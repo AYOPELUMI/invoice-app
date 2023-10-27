@@ -1,11 +1,10 @@
 import {useState, useEffect, useContext} from 'react';
 import {Input} from "../assets/Input"
-import {FcGoogle} from "react-icons/fc"
-import userData from "../assets/userData.json"
+import { Button } from '../assets/Button/Button';
 import{useNavigate} from "react-router-dom"
 import toast ,{Toaster} from "react-hot-toast"
 import {Auth} from "../assets/Auth"
-import {AiOutlineLoading3Quarters} from "react-icons/ai"
+
 import './styles.scss';
 
 
@@ -164,7 +163,7 @@ export const LoginPage = props => {
                         />
     	    			<p className="resetPasswordLink">Forgot password</p>
         			</div>
-        			<button type="button" onClick={handleSubmit} disabled={isLoading} >{isLoading ? <i className="loadingIcon"> </i> : "log in"}</button>
+        			<Button propsType="button" propsOnClick={handleSubmit} propsDisabled={isLoading} >{isLoading ? <i className="loadingIcon"> </i> : "log in"}</Button>
         		</form>
         		<span>Don't have an account ?<a onClick={handleSignUpLink}> Sign up</a></span>
         	</div>

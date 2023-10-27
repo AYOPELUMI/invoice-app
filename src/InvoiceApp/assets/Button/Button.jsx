@@ -10,18 +10,19 @@ export const Button = props => {
 		propsClassName,
 		propsOnClick,
 		children,
-		displayWord
+		displayWord,
+		propsDisabled
 	} = props
-	const [isLoading, setIsLoading] = useState(false)
+	
   return (
   	<>
   		<button 
   			type={propsType} 
   			onClick={propsOnClick} 
   			className={propsClassName ? propsClassName : undefined}
-  			disabled={isLoading}>
+  			disabled={propsDisabled}>
 				{displayWord}
-  			{isLoading ? <i className="loadingIcon"></i> : children}
+  			{propsDisabled ? <i className="loadingIcon"></i> : children}
   		</button>
   	</>
   )
