@@ -16,13 +16,12 @@
 
 
 	.goBackDiv{
-		width: 100%;
+		width: fit-content;
 		display: flex;
-		align-items: center;
+		margin-right: auto;
 		text-align: left;
 		font-size: var(--fontSize-16);
 		background: transparent;
-		padding: 5px 90px;
 		cursor: pointer;
 		a{
 			display: flex;

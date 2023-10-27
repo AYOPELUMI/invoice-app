@@ -124,11 +124,6 @@ export function InvoiceApp (props) {
 		console.log({args})
 		setInvoiceArr(args)
 	}
-	// function updateFilterState (args) {
-	// 	let filterStateClone = [...filterState]
-	// 	filterStateClone[args[0]] = args[1]
-	// 	setFilterState(filterStateClone)
-	// }
 	function updateDisplayIndex (args) {
 		setDisplayIndex(args)
 	}

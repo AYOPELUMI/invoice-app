@@ -16,16 +16,11 @@ export const ViewInvoiceCard = props => {
 	const{
 		invoiceData,
 		invoiceArr,
-		updateInvoiceData,
 		index,
 		ResetEditIndex,
 		updateInvoiceArr,
-		updateOpenEditModal,
 		SideMenu,
-		updateDarkMode,
-		updateEditIndex,
 		authenticateUser,
-		editIndex,
 		setLastLocation
 	} = props
 	console.log({props})
