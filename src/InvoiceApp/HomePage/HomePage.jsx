@@ -12,7 +12,21 @@ import "./styles.scss"
 
 export const HomePage = props => {
 	const {
-		invoiceArr, editIndex, editInvoice, displayIndex, filterState, showFilter, darkMode, updateShowFilter, updateEditIndex, updateDisplayIndex, updateEditInvoice, updateFilterState, updateDarkMode, SideMenu, updateInvoiceArr, setLastLocation, authenticateUser
+		invoiceArr,
+		editIndex,
+	  	editInvoice,
+	  	 displayIndex,
+	  	 filterState,
+	  	 showFilter,
+	  	 updateShowFilter,
+	  	  updateEditIndex,
+	  	   updateDisplayIndex,
+	  	    updateEditInvoice,
+	  	     updateFilterState,
+	  	      updateDarkMode,
+	  	       SideMenu,
+	  	        updateInvoiceArr,
+	  	         setLastLocation
 	} = props;
 
 	const filterList = ["Draft", "Pending", "Paid"];
@@ -110,7 +124,15 @@ export const HomePage = props => {
 	function setFilterState(args) {
 		let filterStateClone = [...filterState];
 
-		// console.log({args})
+		console.log({args})
+		for (var i = 0; i < filterStateClone.length; i++) {
+			if (args[0] ==i) {
+				filterStateClone[i] = args[1]
+			}
+			else{
+				filterStateClone[i] = false
+			}
+		}
 		filterStateClone[args[0]] = args[1];
 
 		// console.log({filterStateClone})
@@ -232,8 +254,7 @@ export const HomePage = props => {
 					</div>
 					<div className="btnHeaderCtnr">
 						<button className="filterBtn" onClick={handleShowFilter}>
-							filter by
-
+							filter by status
 							{showFilter ? <IoIosArrowUp /> : <IoIosArrowDown />}
 							{showFilter ? <ul>
 								{filterArray}
@@ -256,5 +277,5 @@ export const HomePage = props => {
 			{invoiceArr.length == 0 && showWelcomeModal ? <WelcomeModal  updateShowWelcomeModal ={updateShowWelcomeModal} showWelcomeModal={showWelcomeModal}/> : null}
 			<Outlet />
 		</div>
-	);
+	)
 };

@@ -1,6 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import {Button} from "../Button/Button"
 import {UseIdle} from "../UseIdle";
+import {Auth} from "../Auth";
+import './styles.scss';
+
+
 
 
 export const SessionTimer =(props) =>{
@@ -8,8 +13,8 @@ export const SessionTimer =(props) =>{
 
   const navigate = useNavigate();
   const [isActive, setIsActive] = useState(false);
-  const [remainingTime, setRemainingTime] = useState(100);
-
+  const [remainingTime, setRemainingTime] = useState(10);
+  const {dispatch} = useContext(Auth)
 
   const events =["click", "load", "keydown", "scroll"]
   const eventHandler =(eventType) =>{
@@ -33,7 +38,7 @@ export const SessionTimer =(props) =>{
 
   const handleIdle = () => {
     setIsActive(false); //show modal
-    setRemainingTime(100); //set 15 seconds as time remaining
+    setRemainingTime(10); //set 15 seconds as time remaining
   };
 
   const { isIdle } = UseIdle({ onIdle: handleIdle, idleTime: 3});
@@ -67,12 +72,28 @@ useEffect(() =>{
   useEffect(() => {
     if (remainingTime === 0) {
       // alert("Time out!");
-      // setShowModal(false);
-      navigate("/login");
+      // setShowModal(false)
+        removeEvents()
+  dispatch({type: "LOGOUT", payload: null})
+
     }
   }, [remainingTime, isActive, navigate]); // this is responsoble for logging user out after timer is down to zero and they have not clicked anything
 
+const handleLogout =() =>{
+  navigate("/login")
+  dispatch({type: "LOGOUT", payload: null})
 
+}
+const LogoutModal = () => {
+  return(
+    <div className="LogoutModal">
+      <div className="logoutCtnr">
+        <h3>Session Timeout</h3>
+        <span>kindly login again to continue</span>
+        <Button type="button" propsOnClick={handleLogout} propsClassName="logoutBtn" displayWord="Ok"/>
+      </div>
+    </div>)
+}
 
   function millisToMinutesAndSeconds(millis) {
     var minutes = Math.floor(millis / 60000);
@@ -83,6 +104,7 @@ useEffect(() =>{
   return (
     <>
      {props.children}
+     {remainingTime ==0 ? <LogoutModal /> : null}
     </>
   );
 }

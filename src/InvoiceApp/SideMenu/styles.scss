@@ -1,14 +1,11 @@
 .sideMenu{
-    width: 70px;
     background: var(--sideMenu-bg);
-    position: absolute;
-    z-index: 3;
-    top: 0;
-    bottom: 0;
-    left: 0;
     border-bottom-right-radius: 20px;
     border-top-right-radius: 20px;
     display: flex;
+    position: relative;
+    z-index: 3;
+    transition: width 0.5s ease;
 
 .sideBar1{
     display: flex;
@@ -59,3 +56,8 @@
         }
     }
 }
+.logoutIcon{
+        font-size: var(--fontSize-32);
+        color: #ffffff;
+        cursor: pointer;
+    }
