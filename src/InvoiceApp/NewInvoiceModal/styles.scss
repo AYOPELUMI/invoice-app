@@ -63,6 +63,10 @@
 			border-radius: 4px;
 			font-size: var(--fontSize-14);
 			cursor: auto;
+
+			&:active, &:focus{
+				border:1px solid var(--header-btn-bg);
+			}
 		}
 		h4{
 			font-size: var(--fontSize-12);
