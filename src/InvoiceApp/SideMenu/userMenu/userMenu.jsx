@@ -12,11 +12,11 @@ export const UserMenu = props => {
     } = props
     const {dispatch} = useContext(Auth)
     const Navigate = useNavigate()
-
     console.log({dispatch})
     const [left, setLeft] =useState(-300)
     const [opacity, setOpacity] = useState(0)
-    useEffect(()=>{
+    
+    useEffect(() =>{
         if (userMenuBool) {
             setLeft(0)
             setOpacity(1)
@@ -27,14 +27,17 @@ export const UserMenu = props => {
         }
         
     },[userMenuBool])
+   
     const handleIconClick =() =>{
         handleUserMenu(false)
     }
+   
     const logout =() =>{
         dispatch({type: "LOGOUT", payload: null})
         Navigate("/login")
         handleUserMenu(false)
     }
+   
     return (
         <div className='userMenuCtnr' style={{
             left: left +"%",
