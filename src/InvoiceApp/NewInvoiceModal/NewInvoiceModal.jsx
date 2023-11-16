@@ -8,6 +8,7 @@ import {DateComponent} from "./DateComponent/DateComponent"
 import toast, {Toaster} from "react-hot-toast"
 import {Auth} from "../assets/Auth"
 import {useNavigate, useParams, redirect,useLocation} from "react-router-dom"
+import apiFetch from '../../apiFetch';
 
 import './styles.scss';
 import dayjs from 'dayjs';
@@ -62,7 +63,7 @@ export function NewInvoiceModal (props) {
 		else{
 			console.log({user})
 			const fetchInvoiceDetails =() =>{
-		        fetch("https://invoice-api-production-b7bc.up.railway.app/api/v1/invoices/"+invoiceDetail.id,{
+		        apiFetch("/invoices/"+invoiceDetail.id,{
 		            method: 'GET',
 		            headers: {
 		                'content-type': 'application/json',
@@ -319,7 +320,7 @@ export function NewInvoiceModal (props) {
 			console.log({invoiceData})
 			// updateInvoiceData(invoiceData)
 			const updateUserDetails =() =>{
-			        simpleCustomFetch("https://invoice-api-production-b7bc.up.railway.app/api/v1/invoices/"+invoiceData.id+"/update",{
+			        simpleCustomapiFetch("/invoices/"+invoiceData.id+"/update",{
 			            method: 'PATCH',
 			            headers: {
 			                'content-type': 'application/json',
@@ -363,7 +364,7 @@ export function NewInvoiceModal (props) {
 		    	if (draft){
 		    		console.log({draft})
 				    const postUserDetailsDraft =() =>{
-				        fetch("https://invoice-api-production-b7bc.up.railway.app/api/v1/invoices/new?saveAsDraft=true",{
+				        apiFetch("/invoices/new?saveAsDraft=true",{
 				            method: 'POST',
 				            headers: {
 				                'content-type': 'application/json',
@@ -409,7 +410,7 @@ export function NewInvoiceModal (props) {
 		    	}
 		    	else {
 				    const postUserDetailsPending =() =>{
-				        fetch("https://invoice-api-production-b7bc.up.railway.app/api/v1/invoices/new",{
+				        apiFetch("/invoices/new",{
 				            method: 'POST',
 				            headers: {
 				                'content-type': 'application/json',

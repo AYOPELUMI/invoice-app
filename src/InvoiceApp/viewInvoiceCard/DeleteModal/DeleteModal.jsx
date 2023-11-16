@@ -2,6 +2,7 @@ import React from 'react';
 import {useNavigate} from "react-router-dom"
 
 import './styles.scss';
+import apiFetch from '../../../apiFetch';
 
 
 export const DeleteModal = props => {
@@ -25,7 +26,7 @@ export const DeleteModal = props => {
 		}
 
 			const fetchInvoiceDetails =() =>{
-		        fetch("https://invoice-api-production-b7bc.up.railway.app/api/v1/invoices/"+ invoiceData.id +"/delete",{
+		        apiFetch("/invoices/"+ invoiceData.id +"/delete",{
 		            method: 'DELETE',
 		            headers: {
 		                'content-type': 'application/json',

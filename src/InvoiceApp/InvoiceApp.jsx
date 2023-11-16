@@ -14,6 +14,8 @@ import {SessionTimer} from "./assets/SessionTimer/SessionTimer"
 import {BrowserRouter, Routes, Route, NavLink, Outlet, useNavigate, useLocation,redirect} from "react-router-dom"
 import {Auth} from "./assets/Auth" 
 import {AuthProvider} from "./assets/Auth"
+import apiFetch from '../apiFetch'
+
 import {Test} from "./Test"
 import './styles.scss';
 import "./mainStyle.css"
@@ -42,7 +44,7 @@ export function InvoiceApp (props) {
 		if (user) {
 			console.log(JSON.parse(localStorage.getItem("invoices")))
 			// setInvoiceArr(JSON.parse(localStorage.getItem("invoices")))
-			fetch("https://invoice-api-production-b7bc.up.railway.app/api/v1/invoices/list",{
+			apiFetch("/invoices/list",{
 					method: 'GET',
 		            headers: {
 		                'content-type': 'application/json',
@@ -256,5 +258,37 @@ export function InvoiceApp (props) {
     	</AuthProvider>
   )
 }
+
+
+// createBrowserRouter([
+// 	{
+// 		path: '/signup',
+// 		elemnt: 'signup',
+// 	},
+// 	{
+// 		path: '/update',
+// 		element: ''
+// 	},
+// 	{
+// 		children: [
+// 			{
+// 				path: '/dashboard',
+// 				element: 'dashboard'
+// 			},
+// 			{
+// 				path: '/profile',
+// 				element: 'profile'
+// 			},
+// 			{
+// 				path: '/invoice/:invoiceId',
+// 				element: 'invoiceId'
+// 			}
+// 		]
+// 	},
+// 	{
+// 		path: '/authenticated-page-but-another-layout',
+// 		elemnt: <div></div>
+// 	}
+// ])
 
 

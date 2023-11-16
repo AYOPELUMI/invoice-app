@@ -5,6 +5,7 @@ import {useNavigate} from "react-router-dom"
 import {Auth} from "../assets/Auth"
 import toast ,{Toaster} from "react-hot-toast"
 import './styles.scss';
+import apiFetch from '../../apiFetch';
 
 const DEFAULT_HEADER = {
 	'content-type': 'application/json',
@@ -110,7 +111,11 @@ export const SignUp = props => {
 	}
 
 	const handlePasswordValidity = () =>{
+		// accept any password on development mode
+		if (import.meta.env.DEV === true) return false 
+
 		let passwordVerification = IsAllPresent(password)
+
 		if (password == "") {
 			console.log("i am in the of statement")
 			setPasswordValidity(true)
@@ -159,7 +164,7 @@ export const SignUp = props => {
 		},[checkValidity])
 	const fetchUserDetails =() =>{
 		setIsLoading(true)
-		fetch("https://invoice-api-production-b7bc.up.railway.app/api/v1/signup",{
+		apiFetch("/signup",{
 			method: 'POST',
 			headers: {
 				...DEFAULT_HEADER,

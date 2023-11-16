@@ -7,6 +7,7 @@ import { Input } from "../assets/Input";
 import { Auth } from "../assets/Auth";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { WelcomeModal } from "./WelcomeModal/WelcomeModal";
+import apiFetch from '../../apiFetch';
 
 import "./styles.scss"
 
@@ -57,8 +58,9 @@ export const HomePage = props => {
 				navigate("/login");
 			}
 			else {
+				
 				console.log(localStorage.getItem("user"));
-				fetch("https://invoice-api-production-b7bc.up.railway.app/api/v1/invoices/list", {
+				apiFetch("/invoices/list", {
 					method: 'GET',
 					headers: {
 						'content-type': 'application/json',
@@ -81,7 +83,7 @@ export const HomePage = props => {
 			}
 		}
 		setLastLocation(location.pathname);
-	}, []);
+	}, [location.pathname]);
 	
 	const handleShowFilter = (e) => {
 		updateShowFilter(true);

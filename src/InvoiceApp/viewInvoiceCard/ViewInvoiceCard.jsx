@@ -7,6 +7,7 @@ import {useParams, Outlet} from "react-router-dom"
 import {useNavigate, useLocation} from "react-router-dom"
 import {Auth} from "../assets/Auth"
 import {numberFormat} from "../assets/numberFormat.js"
+import apiFetch from '../../apiFetch';
 
 import './styles.scss';
 import  dayjs  from 'dayjs';
@@ -58,7 +59,7 @@ export const ViewInvoiceCard = props => {
 				}
 			}
 			const fetchInvoiceDetails =() =>{
-		        fetch("https://invoice-api-production-b7bc.up.railway.app/api/v1/invoices/"+invoiceId,{
+		        apiFetch("/invoices/"+invoiceId,{
 		            method: 'GET',
 		            headers: {
 		                'content-type': 'application/json',
@@ -114,7 +115,7 @@ export const ViewInvoiceCard = props => {
 		console.log({invoiceId})
 		console.log(user.token)
 					const fetchInvoiceDetails =() =>{
-		        fetch("https://invoice-api-production-b7bc.up.railway.app/api/v1/invoices/"+invoiceId+"/mark-as-paid",{
+		        apiFetch("/invoices/"+invoiceId+"/mark-as-paid",{
 		            method: 'POST',
 		            headers: {
 		                'content-type': 'application/json',

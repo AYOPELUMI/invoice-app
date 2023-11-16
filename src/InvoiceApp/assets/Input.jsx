@@ -27,6 +27,7 @@ export function Input (props) {
 	const [divClickBoolean, setDivClickBoolean] = useState(false)
 	const inputRef = useRef(null);
 	const [showPassword, setShowPassword] = useState(false)
+	
 	let style = {}
 
 	useEffect(() => {

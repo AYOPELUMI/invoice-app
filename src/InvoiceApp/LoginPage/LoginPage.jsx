@@ -6,6 +6,7 @@ import toast ,{Toaster} from "react-hot-toast"
 import {Auth} from "../assets/Auth"
 
 import './styles.scss';
+import apiFetch from '../../apiFetch';
 
 
 export const LoginPage = props => {
@@ -13,8 +14,6 @@ export const LoginPage = props => {
         getUserData,
         lastLocation
     } = props
-
-    console.log({props})
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -34,7 +33,7 @@ export const LoginPage = props => {
     const fetchUserDetails =() =>{
         setIsloading(true)
         console.log(localStorage.getItem("user"))
-      return  fetch("https://invoice-api-production-b7bc.up.railway.app/api/v1/login",{
+      return apiFetch("/login",{
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
