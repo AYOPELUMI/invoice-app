@@ -1,3 +1,5 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
+/* eslint-disable react/no-children-prop */
  import {useState, useEffect,useContext} from 'react'
 import {RiMoonFill} from "react-icons/ri"
 import {RiSunFill} from "react-icons/ri"

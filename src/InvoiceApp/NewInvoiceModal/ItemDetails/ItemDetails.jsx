@@ -37,12 +37,12 @@ export function ItemDetails(props){
 	}
 	const handleQty =(event) =>{
 		let value = event.target.value
-		setQtyValue(value)
+		Number(value) ? setQtyValue(removeComma(value)) : null;
 	}
 	const handlePrice =(event) =>{
 		let value = event.target.value
 		console.log({value})
-		setPriceValue(removeComma(value))
+		Number(value) ?	setPriceValue(removeComma(value)) : null;
 	}
 	const handleDeleteItem =() =>{
 		console.log({index})
@@ -75,7 +75,7 @@ export function ItemDetails(props){
 				<h4>
 					Qty
 				</h4>
-				<input type="text" value={qtyValue} onChange={handleQty} />
+				<input type="text" value={numberFormat(qtyValue)} onChange={handleQty} />
 			</label>
 			<label htmlFor="" className="priceLabel">
 				<h4>Price</h4>

@@ -3,7 +3,7 @@ import {BiSolidChevronRight} from "react-icons/bi"
 import {VscCircleLargeFilled} from "react-icons/vsc"
 import{NavLink} from "react-router-dom"
 import { numberFormat } from '../assets/numberFormat';
-
+import  dayjs  from 'dayjs';
 import './styles.scss';
 
 
@@ -38,13 +38,8 @@ export const DisplayInvoiceData = props => {
 	},[mainEditIndex])
 
 	const formattedDate = (args) =>{
-		let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug","Sept","Oct", "Nov", "Dec"]
-		let newDate = new Date(args)
-		let yr = newDate.getFullYear()
-		let month = months[newDate.getMonth()]
-		let day = newDate.getDate()
-		let ymd = [yr, month, day]
-		return ymd.join("-")
+		let newDate = dayjs(args).format("YYYY-MM-DD")
+		return newDate
 	}
 	const handleEdit = () =>{
 		setEditIndex(props.index)

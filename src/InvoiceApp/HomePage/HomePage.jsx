@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 import { useEffect, useContext, useState } from 'react';
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { AiFillPlusCircle } from "react-icons/ai";
@@ -16,18 +17,18 @@ export const HomePage = props => {
 		invoiceArr,
 		editIndex,
 	  	editInvoice,
-	  	 displayIndex,
-	  	 filterState,
-	  	 showFilter,
-	  	 updateShowFilter,
-	  	  updateEditIndex,
-	  	   updateDisplayIndex,
-	  	    updateEditInvoice,
-	  	     updateFilterState,
-	  	      updateDarkMode,
-	  	       SideMenu,
-	  	        updateInvoiceArr,
-	  	         setLastLocation
+	  	displayIndex,
+	  	filterState,
+	  	showFilter,
+	  	updateShowFilter,
+	  	updateEditIndex,
+	  	updateDisplayIndex,
+	  	updateEditInvoice,
+	  	updateFilterState,
+	  	updateDarkMode,
+	  	SideMenu,
+	  	updateInvoiceArr,
+	  	setLastLocation
 	} = props;
 
 	const filterList = ["Draft", "Pending", "Paid"];

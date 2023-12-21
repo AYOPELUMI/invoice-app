@@ -33,11 +33,6 @@ export const DeleteModal = props => {
 		                'authorization' : authenticateUser
 		            }
 		        })
-		        .then((response) => response.json())
-		        .then((data) => {
-
-
-		        })
 		        .catch((err) => {
 		           console.log(err.message);
 		        })

@@ -14,7 +14,7 @@ export function Input (props) {
 		inputChange,
 		labelFor,
 		labelClassName,
-		propValue,
+		value,
 		updateState,
 		index,
 		span,
@@ -30,17 +30,17 @@ export function Input (props) {
 	
 	let style = {}
 
-	useEffect(() => {
-		if (propValue) {
-			if (type=="checkbox") {
-				setCheckedValue(propValue)
-			}
-			else{
-				setValue(propValue)
-				setFocusBoolean(true)
-			}
-		}
-	},[propValue])
+	// useEffect(() => {
+	// 	if (propValue) {
+	// 		if (type=="checkbox") {
+	// 			setCheckedValue(propValue)
+	// 		}
+	// 		else{
+	// 			setValue(propValue)
+	// 			setFocusBoolean(true)
+	// 		}
+	// 	}
+	// },[propValue])
 	const handleChange = (e) => {
 	
 		if (type == "checkbox" || span) {
@@ -49,11 +49,7 @@ export function Input (props) {
 			checkedValueFunction([index,value])
 		}
 		else{
-			if (updateState) {
-				updateState()
-			}
-			let value = e.target.value
-			setValue(value)
+			updateState(e.target.value)
 		}
 	}
 
@@ -68,28 +64,28 @@ export function Input (props) {
 		inputRef.current.focus()		
 	}
 
-	const handleBlur = (e) => {
-		if (!inputValue) {
-			setFocusBoolean(false)
-			// setDivClickBoolean(false)
-		}
-		else{
-			setFocusBoolean(true)
-			updateState(inputValue)
-			// setDivClickBoolean(true)
-		}
-	}
-	useEffect(() =>{
-		if (inputValue) {
-			setFocusBoolean(true)
-			setDivClickBoolean(true)
-		}
-		else{
-			setFocusBoolean(false)
-			setDivClickBoolean(false)
-		}
+	// const handleBlur = (e) => {
+	// 	if (!value) {
+	// 		setFocusBoolean(false)
+	// 		// setDivClickBoolean(false)
+	// 	}
+	// 	else{
+	// 		setFocusBoolean(true)
+	// 		// updateState(inputValue)
+	// 		// setDivClickBoolean(true)
+	// 	}
+	// }
+	// useEffect(() =>{
+	// 	if (value) {
+	// 		setFocusBoolean(true)
+	// 		setDivClickBoolean(true)
+	// 	}
+	// 	else{
+	// 		setFocusBoolean(false)
+	// 		setDivClickBoolean(false)
+	// 	}
 
-	},[inputValue])
+	// },[value])
 	const handleShowPassword = () =>{
 		setShowPassword(!showPassword)
 		console.log("i pass here")
@@ -97,11 +93,11 @@ export function Input (props) {
 
 	if (!inputClassName || errorMsg || inputClassName=="error") {
 		style={
-			fontSize: focusBoolean ? "12px" : null,
-			transform:  focusBoolean ? "translateY(-50px)" : "translateY(-160%)",
-			zIndex : focusBoolean ? "2" : "1",
-			left : focusBoolean ? "-2px" :"12px",
-			opacity : focusBoolean? '0' : '1',
+			fontSize: value ? "12px" : null,
+			transform:  value ? "translateY(-50px)" : "translateY(-160%)",
+			zIndex : value ? "2" : "1",
+			left : value ? "-2px" :"12px",
+			opacity : value? '0' : '1',
 			color: inputClassName == "error" ? "red" : undefined
 		}
 	}
@@ -113,9 +109,8 @@ export function Input (props) {
 		}}>
 			{labelFor}
 			{errorMsg ? <p className="errorMsg" style={{
-				 // top : type=="password" ?"100%" : undefined,
-				 fontSize: type== "password" ? "12px" : undefined,
-				 position : "static" 
+				fontSize: type== "password" ? "12px" : undefined,
+				position : "static" 
 			}}>{errorMsg}</p> : null}
 			<div style={{
 				position : "relative"
@@ -125,11 +120,11 @@ export function Input (props) {
 						required={required ? true :false }  
 						ref={inputRef} 
 						checked={checkedValue} 
-						onBlur={span ? null : handleBlur}  
+						 
 						onFocus={span ? null : handleOnFocus} 
 						className={inputClassName ? inputClassName : undefined} 
 						onChange={handleChange} 
-						value={inputValue}
+						value={value}
 						index={index}
 						name={span}
 						id={span}

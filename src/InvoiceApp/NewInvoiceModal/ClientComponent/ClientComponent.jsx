@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-mixed-spaces-and-tabs */
 import {useState, useEffect} from 'react';
 import{Input} from "../../assets/Input"
 import './styles.scss';
@@ -25,7 +27,7 @@ const {
 	 					placeHolder={"Client's Name"}
 	 					updateState={getClientNameData}
 	 					required={true}
-	 					propValue={invoiceDetail.clientName}
+	 					value={invoiceDetail.clientName}
 	 				></Input>
 	 				<Input
 	 					labelClassName ={"firstChild"}
@@ -34,7 +36,7 @@ const {
 	 					placeHolder={"Client's email"}
 	 					updateState={getClientEmailData}
 	 					required={true}
-	 					propValue={invoiceDetail.clientEmail}
+	 					value={invoiceDetail.clientEmail}
 	 				></Input>
 	 				<Input
 	 					labelClassName ={"firstChild"}
@@ -43,7 +45,7 @@ const {
 	 					placeHolder={"Street Address"}
 	 					updateState={getClientStreetAddressData}
 	 					required={true}
-	 					propValue={invoiceDetail.clientStreetAddress}
+	 					value={invoiceDetail.clientStreetAddress}
 	 				></Input>
  					<div className="topLabelSecondDiv">
 	 					<Input
@@ -53,7 +55,7 @@ const {
 	 					placeHolder={"City"}
 	 					updateState={getClientCityData}
 	 					required={true}
-	 					propValue={invoiceDetail.clientCity}>
+	 					value={invoiceDetail.clientCity}>
 	 					</Input>
 	 					<Input
 	 					labelClassName ={'splitLabel'}
@@ -62,7 +64,7 @@ const {
 	 					placeHolder={"Post Code"}
 	 					updateState={getClientPostCodeData}
 	 					required={true}
-	 					propValue={invoiceDetail.clientPostCode}>
+	 					value={invoiceDetail.clientPostCode}>
 	 					</Input>
 	 					<Input
 	 					labelClassName ={'splitLabel'}
@@ -71,7 +73,7 @@ const {
 	 					placeHolder={"Country"}
 	 					updateState={getClientCountryData}
 	 					required={true}
-	 					propValue={invoiceDetail.clientCountry}>
+	 					value={invoiceDetail.clientCountry}>
 	 					</Input>
  					</div>
  				</div>

@@ -40,7 +40,7 @@ export const SideMenu = (props) =>{
 		}
 		    const logout =() =>{
         dispatch({type: "LOGOUT", payload: null})
-        Navigate("/login")
+        navigate("/login")
         handleUserMenuFn(false)
     }
 		return(

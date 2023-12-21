@@ -146,7 +146,7 @@ export const LoginPage = props => {
                             labelFor={<h5>Email <span>*</span></h5>}
                             placeHolder="Enter your email"
                             type="email"
-                            propValue={email}
+                            value={email}
                             updateState={updateEmail}
                             inputClassName={errorValidity ? undefined : errorValidity == false ?"error" : undefined}
                             errorMsg={!errorValidity ? "" : " "}
@@ -156,7 +156,7 @@ export const LoginPage = props => {
                             labelFor={<h5>Password <span>*</span></h5>}
                             placeHolder="Password"
                             type="password"
-                            propValue={password}
+                            value={password}
                             updateState={updatePassword}
                             inputClassName={errorValidity ? undefined : errorValidity == false ?"error" : errorValidity == null ? undefined : undefined}
                         />

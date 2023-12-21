@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 import {useState, useEffect, useContext} from 'react';
 import {ItemDetails} from "./ItemDetails/ItemDetails"
 import {Input} from "../assets/Input"
@@ -30,7 +31,6 @@ export function NewInvoiceModal (props) {
 	} = props
 
 	console.log({props})
-	const {params} = useParams()
 	const [left,setLeft] = useState(-100)
 	const [display, setDisplay] = useState(0)
 	const [displayItemDetailsArray, setDisplayItemDetailArray] = useState([])
@@ -61,45 +61,26 @@ export function NewInvoiceModal (props) {
 			setLastLocation(location.pathname)
 		}
 		else{
-			console.log({user})
-			const fetchInvoiceDetails =() =>{
-		        apiFetch("/invoices/"+invoiceDetail.id,{
-		            method: 'GET',
-		            headers: {
-		                'content-type': 'application/json',
-		                'authorization' : user.token
-		            }
-		        })
-		        .then((response) => response.json())
-		        .then((data) => {
-
-		            console.log({data})
-		    		let formatedDate = dayjs(data.invoice.invoiceDate).format("YYYY-MM-DD")
+			   if (invoiceDetail) {
+		    		// fetchInvoiceDetails()
+					let formatedDate = dayjs(invoiceDetail.invoiceDate).format("YYYY-MM-DD")
 		 			setInvoiceData({
-		 				...data.invoice,
+		 				...invoiceDetail,
 		 				invoiceDate: formatedDate
 		 			})
-		 			if (data.invoice.status == "draft") {
+		 			if (invoiceDetail.status == "draft") {
 		 				setDraft(true)
 		 			}
-		 			setItemsDataArr(data.invoice.itemList)
+		 			setItemsDataArr(invoiceDetail.itemList)
 		 			// console.log("itemList is "+data.invoice.itemList)
-		 			setItemIndex(data.invoice.itemList.length +1)
+		 			setItemIndex(invoiceDetail.itemList.length +1)
 		 			let displayArr = []
-		 			for (var i = 0; i < data.invoice.itemList.length; i++) {
+		 			for (var i = 0; i < invoiceDetail.itemList.length; i++) {
 		 				displayArr.push(i)
 		 			}
 		 			setDisplayItemDetailArray(displayArr)
 		 			setEditInvoice(true)
 		 			toast.success("invoice retrieved")
-		        })
-		        .catch((err) => {
-		           console.log(err.message);
-		           toast.error(err.message)
-		        })
-			    }
-			   if (invoiceDetail) {
-		    		fetchInvoiceDetails()
 			   }
 		}
 		console.log("location path is -"+ location.pathname)
@@ -497,7 +478,7 @@ export function NewInvoiceModal (props) {
 					placeHolder={"Payment Description"}
 					required={true}
 					updateState={updateDescription}
-					propValue={invoiceData.projectDescription}
+					value={invoiceData.projectDescription}
 					
 				/>
 	 			<div>

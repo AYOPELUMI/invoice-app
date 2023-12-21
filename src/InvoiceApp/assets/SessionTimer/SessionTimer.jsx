@@ -41,7 +41,7 @@ export const SessionTimer =(props) =>{
     setRemainingTime(10); //set 15 seconds as time remaining
   };
 
-  const { isIdle } = UseIdle({ onIdle: handleIdle, idleTime: 3});
+  const { isIdle } = UseIdle({ onIdle: handleIdle, idleTime: 6});
 
 useEffect(() =>{
     addEvents()
