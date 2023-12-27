@@ -1,8 +1,9 @@
+/* eslint-disable react/no-children-prop */
 /* eslint-disable no-mixed-spaces-and-tabs */
 import {useState, useEffect, useContext} from 'react';
 import {ItemDetails} from "./ItemDetails/ItemDetails"
 import {Input} from "../assets/Input"
-import invoiceObj from "../assets/InvoiceData.js"
+import { Button } from '../assets/Button/Button.jsx';
 import {BillerComponent} from "./BillerComponent/BillerComponent"
 import {ClientComponent} from "./ClientComponent/ClientComponent"
 import {DateComponent} from "./DateComponent/DateComponent"
@@ -12,6 +13,7 @@ import {useNavigate, useParams, redirect,useLocation} from "react-router-dom"
 import apiFetch from '../../apiFetch';
 
 import './styles.scss';
+import "./Reponsive.scss"
 import dayjs from 'dayjs';
 	let itemArray =[]
 	let displayItemDetailsArr = []
@@ -19,14 +21,8 @@ import dayjs from 'dayjs';
 export function NewInvoiceModal (props) {
 
 	const {
-		openModal,
-		updateOpenModal,
-		getData,
 		invoiceDetail,
-		editIndex,
-		updateInvoiceData,
 		invoiceArr,
-		authenticateUser,
 		setLastLocation
 	} = props
 
@@ -38,7 +34,7 @@ export function NewInvoiceModal (props) {
 	const [invoiceData, setInvoiceData] = useState({})
 	const [itemsDataArr, setItemsDataArr] = useState([])
 	const [draft, setDraft] = useState(false)
-	const [editInvoice, setEditInvoice] = useState(false)
+	const [isLoading, setisLoading] = useState(false)
 	const [errorMsg, setErrorMsg] = useState("")
 	const navigate = useNavigate()
 	const location = useLocation()
@@ -79,7 +75,7 @@ export function NewInvoiceModal (props) {
 		 				displayArr.push(i)
 		 			}
 		 			setDisplayItemDetailArray(displayArr)
-		 			setEditInvoice(true)
+		 			
 		 			toast.success("invoice retrieved")
 			   }
 		}
@@ -294,6 +290,7 @@ export function NewInvoiceModal (props) {
 
 	const handlesubmit = (event) =>{
 		event.preventDefault()
+		setisLoading(true)
 		let invoiceDataClone = {...invoiceData}
 		let invoiceArrLength = invoiceArr.length
 		if (invoiceDetail) {
@@ -301,7 +298,7 @@ export function NewInvoiceModal (props) {
 			console.log({invoiceData})
 			// updateInvoiceData(invoiceData)
 			const updateUserDetails =() =>{
-			        simpleCustomapiFetch("/invoices/"+invoiceData.id+"/update",{
+			        apiFetch("/invoices/"+invoiceData.id+"/update",{
 			            method: 'PATCH',
 			            headers: {
 			                'content-type': 'application/json',
@@ -327,6 +324,7 @@ export function NewInvoiceModal (props) {
 			        .then((data) =>  {
 			        	console.log({data})
 			        	toast.success('invoice saved successfully')
+						setisLoading(false)
 			        	setTimeout(() => {
 			        		handleCloseModal()
 			        	}, 3000)
@@ -335,6 +333,7 @@ export function NewInvoiceModal (props) {
 			        	console.log({err})
 			        	 // console.log(err.data.message)
 			        	 setErrorMsg(err.data.errors)
+						 setisLoading(false)
 				         toast.error(data.errors[0])
 			        })
 			}
@@ -373,6 +372,7 @@ export function NewInvoiceModal (props) {
 				            console.log({data})
 				            if (data.message == "Invoice created successfully") {
 								toast.success("invoice saved successfully")
+								setisLoading(false)
 								setTimeout(() => {
 									handleCloseModal()
 								}, 3000)
@@ -380,11 +380,13 @@ export function NewInvoiceModal (props) {
 				            else{
 				            	setErrorMsg(data.errors[0])
 				            	toast.error(data.errors[0])
+								setisLoading(false)
 				            }
 				        })
 				        .catch((err) => {
 				           console.log(err.message);
 				           toast.error(err.message)
+						   setisLoading(false)
 				        })
 				    }
 				    postUserDetailsDraft()
@@ -418,6 +420,7 @@ export function NewInvoiceModal (props) {
 				            console.log({data})
 				            if (data.message == "Invoice created successfully") {
 								toast.success("invoice saved successfully")
+								setisLoading(false)
 								setTimeout(() => {
 									handleCloseModal()
 								}, 3000)
@@ -425,12 +428,14 @@ export function NewInvoiceModal (props) {
 				            else{
 				            	setErrorMsg(data.errors[0])
 				            	toast.error(data.errors[0])
+								setisLoading(false)
 				            	
 				            }
 				        })
 				        .catch((err) => {
 				           console.log(err.message);
 				           toast.error(err.message)
+						   setisLoading(false)
 				        })
 				    }
 				    postUserDetailsPending()
@@ -492,9 +497,9 @@ export function NewInvoiceModal (props) {
 	 						<button className="discardBtn" onClick={handleCloseModal}>Discard</button>
 	 					}
 	 				<div>
-	 					{invoiceDetail ? <button className="discardBtn"type ="button" onClick={handleCloseModal}>Cancel</button> : null}
-		 				{invoiceDetail ? null : <button type = "submit" onClick={handleDraft} className="saveBtn">Save as Draft</button>}
-		 				<button  type = "submit" className="sendBtn" >{invoiceDetail ? "Save Changes" :"Send & Send"}</button>
+	 					{invoiceDetail ? <Button className="discardBtn" disabled={isLoading} type ="button" onClick={handleCloseModal} children="Cancel"/> : null}
+		 				{invoiceDetail ? null : <Button  disabled={isLoading} type = "submit" onClick={handleDraft} className="saveBtn" children={"Save as Draft"}/>}
+		 				<Button  type = "submit" disabled={isLoading}className="sendBtn" children={invoiceDetail ? <>Save Changes</> :<>Send & Send</>} />
 	 				</div>
 	 			</div>
 	 		</form>

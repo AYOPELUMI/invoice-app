@@ -1,0 +1,33 @@
+@import "../assets/mobileDesign.scss";
+
+.invoiceTableContainer{
+    @include xs{
+        .tableRow{
+            width: 100%;
+            gap: 4px;
+           flex-wrap: wrap;
+           text-align: left;
+           padding: 20px;
+           align-items: center;
+            *{
+                flex: 50%;
+            }
+            .invoiceClient{
+                font-size: var(--fontSize-14);
+            }
+            .icon{
+                display: none;
+            }
+            span{
+                display: flex;
+                align-items: center;
+                &:first-child{
+                    flex-direction: column;
+                    gap: 12px;
+                    justify-content: center;
+                    align-items: revert;
+                }
+            }
+        }
+    }
+}

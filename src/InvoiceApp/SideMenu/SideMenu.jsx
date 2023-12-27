@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import {ThemeContextWrapper} from "../ThemeContextWrapper"
 import {ThemeContext, themes} from "../ThemeContext.js"
 import {RiMoonFill} from "react-icons/ri"
 import {RiSunFill} from "react-icons/ri"
@@ -8,8 +7,8 @@ import {BiLogOut} from "react-icons/bi"
 import {useNavigate} from "react-router-dom"
 // import { RiMenuFill } from 'react-icons/ri';
 import './styles.scss';
+import "./SideMenuReponsive.scss"
 import { useContext } from 'react';
-// import { UserMenu } from './userMenu/userMenu';
 
 
 export const SideMenu = (props) =>{
@@ -44,9 +43,7 @@ export const SideMenu = (props) =>{
         handleUserMenuFn(false)
     }
 		return(
-		  	<div className="sideMenu" style={{
-		  		width: sideMenuWidth+"px" 
-		  	}}>
+		  	<div className="sideMenu" >
 		    	<div className='sideBar1'>
 		    						{/*<RiMenuFill className='menuIcon' onClick={handleUserMenu}/>*/}
 		    						<BiLogOut className="logoutIcon" onClick={logout}/>

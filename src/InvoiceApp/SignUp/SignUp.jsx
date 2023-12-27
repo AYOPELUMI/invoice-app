@@ -256,7 +256,7 @@ export const SignUp = props => {
 		    			inputClassName={confirmPasswordValidity ? "error" : undefined}
 		    			errorMsg={confirmPasswordValidity ? confirmPasswordErrorMsg : ""}/>
 				</form>
-		    	<Button propsType = "submit" propsOnClick={handleSubmit} propsDisabled={isLoading}>{isLoading ? <i className="loadingIcon"></i> : "Create account"}</Button>
+		    	<Button type = "submit" onClick={handleSubmit} disabled={isLoading}>{isLoading ? <i className="loadingIcon"></i> : "Create account"}</Button>
 				<span>Already have an account ?<a onClick={handleLoginLink}> Log in</a></span>
 			</div>
 			<div className="displayCtnr">

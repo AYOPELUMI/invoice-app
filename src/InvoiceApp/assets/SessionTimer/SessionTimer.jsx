@@ -90,7 +90,7 @@ const LogoutModal = () => {
       <div className="logoutCtnr">
         <h3>Session Timeout</h3>
         <span>kindly login again to continue</span>
-        <Button type="button" propsOnClick={handleLogout} propsClassName="logoutBtn" displayWord="Ok"/>
+        <Button type="button" onClick={handleLogout} className="logoutBtn" displayWord="Ok"/>
       </div>
     </div>)
 }

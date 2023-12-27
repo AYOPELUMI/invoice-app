@@ -162,7 +162,7 @@ export const LoginPage = props => {
                         />
     	    			<p className="resetPasswordLink">Forgot password</p>
         			</div>
-        			<Button propsType="button" propsOnClick={handleSubmit} propsDisabled={isLoading} >{isLoading ? <i className="loadingIcon"> </i> : "log in"}</Button>
+        			<Button type="button" onClick={handleSubmit} disabled={isLoading} children={"log in"} />
         		</form>
         		<span>Don't have an account ?<a onClick={handleSignUpLink}> Sign up</a></span>
         	</div>

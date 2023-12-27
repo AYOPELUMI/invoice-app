@@ -2,6 +2,7 @@ import React from 'react';
 import {useNavigate} from "react-router-dom"
 
 import './styles.scss';
+import "./Reponsive.scss"
 import apiFetch from '../../../apiFetch';
 
 
@@ -58,7 +59,7 @@ export const DeleteModal = props => {
     	<div className="delCtnr">
     		<div className="textCtnr">
     		<h2>Confirm Deletion</h2>
-    		<p>Are yoi sire you want to delete invoice #{invoiceData.Id}.This action cannot be undone</p>
+    		<p>Are yoi sire you want to delete invoice #{invoiceData.id.slice(0,6)} ? This action cannot be undone</p>
     		</div>
 	    	<div className="btnCtnr">
 	    	<button className="cancelBtn" onClick={handleCancel}>Cancel</button>

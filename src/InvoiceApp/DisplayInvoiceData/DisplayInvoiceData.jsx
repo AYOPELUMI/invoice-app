@@ -5,6 +5,7 @@ import{NavLink} from "react-router-dom"
 import { numberFormat } from '../assets/numberFormat';
 import  dayjs  from 'dayjs';
 import './styles.scss';
+import "./DisplayInvoiceDataReponsive.scss"
 
 
 export const DisplayInvoiceData = props => {
@@ -52,21 +53,25 @@ export const DisplayInvoiceData = props => {
   return (	
 	  	<NavLink to={`/dashboard/invoice/${invoiceData.id}`} key={invoiceData.id}>
 			<div className="tableRow" index={index} onClick={handleEdit}>
-					<h4 className="invoiceId" index={index}>
-						#{invoiceData.id.slice(0,6)}
-					</h4>
-					<h5 className="invoiceDueDate" index={index}>
-						Due {formattedDate(invoiceData.invoiceDate)}
-					</h5>
+					<span>
+						<h4 className="invoiceId" index={index}>
+							#{invoiceData.id.slice(0,6)}
+						</h4>
+						<h5 className="invoiceDueDate" index={index}>
+							Due {formattedDate(invoiceData.invoiceDate)}
+						</h5>
+					</span>
 					<p className="invoiceClient" index={index}>
 						{invoiceData.clientName}
 					</p>
-					<p className = "invoicePrice" index={index}>
-						£{numberFormat(totalAmount)}
-					</p>
-					<span className={invoiceData.status =="pending" ? "invoiceStatusPending" : invoiceData.status == "paid" ? "invoiceStatusPaid" : "invoiceStatusDraft"} index={index}>
-						<VscCircleLargeFilled />
-						<p>{invoiceData.status}</p>
+					<span>
+						<p className = "invoicePrice" index={index}>
+							£{numberFormat(totalAmount)}
+						</p>
+						<span className={invoiceData.status =="pending" ? "invoiceStatusPending" : invoiceData.status == "paid" ? "invoiceStatusPaid" : "invoiceStatusDraft"} index={index}>
+							<VscCircleLargeFilled />
+							<p>{invoiceData.status}</p>
+						</span>
 					</span>
 					<BiSolidChevronRight className="icon" index={index} />
 			</div>

@@ -1,0 +1,82 @@
+@import "../assets/mobileDesign.scss";
+@include xs{
+.invoiceCardModal{
+
+        flex-direction: column;
+       
+        .invoiceCardCtnr{
+            padding-top: 0;
+            .statusBtnCtnr {
+                div{
+                    &:last-child{
+                    position: absolute;
+                    bottom: 0;
+                    width: 80%;
+                    padding: 10px;
+                    gap: 20px;
+                    justify-content: end;
+
+                    button{
+                        width: fit-content;
+                        padding: 8px 10px;
+                    }
+                    }
+                }
+            }
+
+            .mainInvoiceCard{
+                .cardBiller{
+                    flex-direction: column;
+                    gap: 25px;
+                }
+
+                .cardClient{
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 30px;
+                    div{
+                        &:last-child{
+                            flex: 60%;
+                        }
+                    }
+                }
+
+                .itemDetailCtnr{
+                    div{
+                        &:first-child{
+                            display: none;
+                        }
+                   
+                    }
+                    .itemDiv{
+                        display: grid;
+                        grid-template-columns: 1fr 1fr;
+                        padding-bottom: 10px;
+                        span{
+                            display: flex;
+                            gap: 2px;
+                            align-items: center;
+                            *{
+                                flex: 0;    
+                            }
+                        }
+                        .reponsiveDisplay{
+                            display: block;
+                        }
+                        .gridLastChild{
+                            grid-row-start: 1;
+                            grid-row-end: 3;
+                              grid-column-start: 2;
+                              display: flex;
+                              align-items: center;
+                              justify-content: end;
+                        }
+                    }
+                    .totalDiv{
+                        padding: 20px 12px;
+                    }
+                }
+            }
+        }
+    }
+}

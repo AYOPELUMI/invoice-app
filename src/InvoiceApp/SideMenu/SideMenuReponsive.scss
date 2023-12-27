@@ -1,0 +1,29 @@
+@import "../assets/mobileDesign.scss";
+
+.sideMenu{
+    @include xs{
+        position: sticky;
+        top: 0;
+        width: 100%;
+        height: 90px;
+        min-height: 50px;
+        border-radius: 0;
+
+          .sideBar1{
+            width: 100%;
+            flex-direction: row;
+            align-items: center;
+            gap: 15px;
+
+            .avatarCtnr{
+                flex-direction: row;
+                padding: 0;
+                align-items: center;
+
+                span{
+                  display: none;
+                }
+            }
+          }
+    }
+}

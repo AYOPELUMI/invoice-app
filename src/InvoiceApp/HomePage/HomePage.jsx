@@ -11,6 +11,7 @@ import { WelcomeModal } from "./WelcomeModal/WelcomeModal";
 import apiFetch from '../../apiFetch';
 
 import "./styles.scss"
+import "./HomePageReponsive.scss"
 
 export const HomePage = props => {
 	const {
@@ -22,10 +23,8 @@ export const HomePage = props => {
 	  	showFilter,
 	  	updateShowFilter,
 	  	updateEditIndex,
-	  	updateDisplayIndex,
 	  	updateEditInvoice,
 	  	updateFilterState,
-	  	updateDarkMode,
 	  	SideMenu,
 	  	updateInvoiceArr,
 	  	setLastLocation
@@ -253,7 +252,7 @@ export const HomePage = props => {
 				<header className="invoiceAppHeader">
 					<div className="pageTitle">
 						<h2>Invoices</h2>
-						{invoiceArr.length ? <p>There are {invoiceArr.length} total invoices</p> : <p>no invoices</p>}
+						{invoiceArr.length ?<div> <span>There are </span><p>{invoiceArr.length}</p><span>total</span> <p>invoices</p> </div>: <p>no invoices</p>}
 					</div>
 					<div className="btnHeaderCtnr">
 						<button className="filterBtn" onClick={handleShowFilter}>
@@ -266,7 +265,7 @@ export const HomePage = props => {
 						<NavLink to="newInvoice">
 							<button className="addNewInvoiceBtn">
 								<AiFillPlusCircle className="addNewInvoiceIcon" />
-								<p>New Invoice</p>
+								<p>New</p> <span>Invoice</span>
 							</button>
 						</NavLink>
 					</div>

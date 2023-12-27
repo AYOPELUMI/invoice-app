@@ -2,7 +2,8 @@
 	width: 100%;
 	display: flex;
 	background: var(--default-bg);
-	min-height: 100vh;
+	height: 100vh;
+	overflow: scroll;
 
 	button{
 		&:hover{
@@ -39,7 +40,7 @@
 					font-weight: var(--fontWeight-bold);
 					line-height: var(--lineHeight-36);
 				}
-				p{
+				p, span{
 					color: var(--header-h2-color);
 					font-size: var(--fontSize-12);
 					letter-spacing: var(--letterSpacing-025)
