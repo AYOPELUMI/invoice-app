@@ -1,11 +1,12 @@
 @import "../assets/mobileDesign.scss";
 @include xs{
 .invoiceCardModal{
-
+        padding: 0;
         flex-direction: column;
-       
+        gap: 40px;
         .invoiceCardCtnr{
             padding-top: 0;
+            margin-bottom: 60px;
             .statusBtnCtnr {
                 div{
                     &:last-child{
@@ -25,6 +26,7 @@
             }
 
             .mainInvoiceCard{
+                padding: 20px 30px;
                 .cardBiller{
                     flex-direction: column;
                     gap: 25px;

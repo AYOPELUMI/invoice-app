@@ -6,14 +6,16 @@
         top: 0;
         width: 100%;
         height: 90px;
-        min-height: 50px;
+        min-height: 70px;
         border-radius: 0;
+        padding: 12px;
 
           .sideBar1{
             width: 100%;
             flex-direction: row;
             align-items: center;
             gap: 15px;
+            padding: 0;
 
             .avatarCtnr{
                 flex-direction: row;
