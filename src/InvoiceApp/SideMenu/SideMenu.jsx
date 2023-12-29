@@ -7,7 +7,7 @@ import {BiLogOut} from "react-icons/bi"
 import {useNavigate} from "react-router-dom"
 // import { RiMenuFill } from 'react-icons/ri';
 import './styles.scss';
-import "./SideMenuReponsive.scss"
+import "./Reponsive.scss"
 import { useContext } from 'react';
 
 

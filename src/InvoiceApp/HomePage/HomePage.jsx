@@ -1,5 +1,5 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
-import { useEffect, useContext, useState } from 'react';
+import { useEffect, useContext, useState,useRef,useCallback } from 'react';
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { AiFillPlusCircle } from "react-icons/ai";
 import { DisplayInvoiceData } from "../DisplayInvoiceData/DisplayInvoiceData";
@@ -11,7 +11,7 @@ import { WelcomeModal } from "./WelcomeModal/WelcomeModal";
 import apiFetch from '../../apiFetch';
 
 import "./styles.scss"
-import "./HomePageReponsive.scss"
+import "./Reponsive.scss"
 
 export const HomePage = props => {
 	const {
@@ -35,6 +35,7 @@ export const HomePage = props => {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const { user } = useContext(Auth);
+	const filterRef = useRef(null)
 
 	console.log({ user });
 	let authUser
@@ -84,10 +85,30 @@ export const HomePage = props => {
 		}
 		setLastLocation(location.pathname);
 	}, [location.pathname]);
-	
+
 	const handleShowFilter = (e) => {
-		updateShowFilter(true);
-	};
+		e.stopPropagation()
+		updateShowFilter(!showFilter);
+	}
+	function useOutsideClick(handleClose, ref) {
+		const handleClick = useCallback((event) => {
+		  if (ref?.current?.contains && !ref.current.contains(event.target)) {
+			  handleClose();
+		  }
+		},[handleClose, filterRef])
+	   
+		useEffect(() => {
+		  document.addEventListener("mouseup", handleClick);
+	   
+		  return () => { document.removeEventListener("mouseup", handleClick); };
+		}, [handleClick])
+	}
+	const handleCloseFilter =() =>{
+		updateShowFilter(false)
+	}
+		useOutsideClick(handleCloseFilter, filterRef);
+	
+
 
 	function updateShowWelcomeModal(args) {
 		setShowWelcomeModal(!showWelcomeModal);
@@ -225,9 +246,9 @@ export const HomePage = props => {
 
 		// console.log({displayArr})
 	}
-	useEffect(() => {
-		updateShowFilter(false);
-	}, [filterState]);
+	// useEffect(() => {
+	// 	updateShowFilter(false);
+	// }, [filterState]);
 
 
 
@@ -239,7 +260,7 @@ export const HomePage = props => {
 				index={i}
 				key={i}
 				checkedValueFunction={setFilterState}
-				propValue={filterState[i]}
+				checked={filterState[i]}
 				span={filterList[i]} />
 		);
 		filterArray.push(el);
@@ -255,13 +276,13 @@ export const HomePage = props => {
 						{invoiceArr.length ?<div> <span>There are </span><p>{invoiceArr.length}</p><span>total</span> <p>invoices</p> </div>: <p>no invoices</p>}
 					</div>
 					<div className="btnHeaderCtnr">
-						<button className="filterBtn" onClick={handleShowFilter}>
+						<div className="filterBtn" ref={filterRef} onClick={handleShowFilter}>
 							filter by status
 							{showFilter ? <IoIosArrowUp /> : <IoIosArrowDown />}
-							{showFilter ? <ul>
+							{showFilter ? <ul ref={filterRef}>
 								{filterArray}
 							</ul> : null}
-						</button>
+						</div>
 						<NavLink to="newInvoice">
 							<button className="addNewInvoiceBtn">
 								<AiFillPlusCircle className="addNewInvoiceIcon" />
@@ -280,4 +301,4 @@ export const HomePage = props => {
 			<Outlet />
 		</div>
 	)
-};
+}

@@ -4,29 +4,24 @@
         padding: 0;
         flex-direction: column;
         gap: 40px;
+        height: 100vh;
+        
         .invoiceCardCtnr{
             padding-top: 0;
-            padding-bottom: 80px;
+            width: 100%;
+            padding-left: 30px;
+
             .statusBtnCtnr {
                 div{
                     &:last-child{
-                    position: absolute;
-                    bottom: 0;
-                    width: 80%;
-                    padding: 10px;
-                    gap: 20px;
-                    justify-content: end;
-
-                    button{
-                        width: fit-content;
-                        padding: 8px 10px;
-                    }
+                    display: none;
                     }
                 }
             }
 
             .mainInvoiceCard{
-                padding: 20px 30px;
+                padding: 20px 20px;
+                padding-left: 0;
                 .cardBiller{
                     flex-direction: column;
                     gap: 25px;
@@ -76,6 +71,51 @@
                     }
                     .totalDiv{
                         padding: 20px 12px;
+                    }
+                }
+            }
+
+            .reponsiveBtnCtnr{
+                display: flex;
+                width: 90%;
+                justify-content: end;
+                gap: 20px;
+                align-items: center;
+                padding-bottom: 20px;
+                position: absolute;
+                bottom: 0;
+
+                button{
+                    border: none;
+                    outline: none;
+                    cursor: pointer;
+                    text-align: center;
+                    border-radius: 22px;
+                    font-size: var(--fontSize-12);
+                    width: fit-content;
+                    padding: 8px 10px;
+                }
+                .paidBtn{
+                    background: var(--header-btn-bg);
+                    color: var(--color-default-white);
+    
+                    &:disabled{
+                        cursor: not-allowed;
+                    }
+                }
+                .delBtn{
+                    background: var(--delBtn-bg);
+                    color: var(--color-default-white);
+                }
+                .editBtn{
+                    background: var(--editBtn-bg);
+                    color: var(--editBtn-color);
+    
+                    &:disabled{
+                        cursor: not-allowed;
+                    }
+                    &:hover{
+                    background: var(--btn-default-bg-hover);
                     }
                 }
             }

@@ -13,7 +13,7 @@ import {Auth} from "../assets/Auth"
 import {numberFormat} from "../assets/numberFormat.js"
 import apiFetch from '../../apiFetch';
 import './styles.scss';
-import "./ViewInvoiceCardReponsive.scss"
+import "./Reponsive.scss"
 import  dayjs  from 'dayjs';
 
 
@@ -105,8 +105,9 @@ export const ViewInvoiceCard = props => {
 			<div className="itemDiv" key={i} index={i}>
    				<h3>{itemList[i].name}</h3>
 				<span>
-   				<h4>{numberFormat(itemList[i].quantity)}</h4><p className='reponsiveDisplay'>x</p>
-   				<h4>£{numberFormat(itemList[i].price.toFixed(2))}</h4>
+					<h4>{numberFormat(itemList[i].quantity)}</h4>
+					<p className='reponsiveDisplay'>x</p>
+					<h4>£{numberFormat(itemList[i].price.toFixed(2))}</h4>
 				</span>
    				<h3 className="gridLastChild"> £{numberFormat((Number(itemList[i].quantity)*Number(itemList[i].price.toFixed(2))).toFixed(2))}</h3>
    			</div>
@@ -181,7 +182,7 @@ export const ViewInvoiceCard = props => {
 									<p className={invoiceDetail.status == "pending" ? "pending" :invoiceDetail.status == "paid" ? "paid" : "draft"}><VscCircleLargeFilled /> {invoiceDetail.status}</p>
 								</div>
 								<div>
-									<NavLink to={`editInvoice/${invoiceDetail.id}`}>
+									<NavLink to={`editInvoice`}>
 										<Button className="editBtn" btnDisabled={invoiceDetail.status == "paid"} children="Edit"/>
 									</NavLink>
 									<Button className="delBtn" onClick={handleDeleteInvoice}children="Delete" />
@@ -241,6 +242,13 @@ export const ViewInvoiceCard = props => {
 										<h2>£{numberFormat(totalAmount)}</h2>
 									</div>
 								</div>
+							</div>
+							<div className='reponsiveBtnCtnr'>
+									<NavLink to={`editInvoice`}>
+										<Button className="editBtn" btnDisabled={invoiceDetail.status == "paid"} children="Edit"/>
+									</NavLink>
+									<Button className="delBtn" onClick={handleDeleteInvoice}children="Delete" />
+									<Button className="paidBtn" disabled={isLoading} btnDisabled={invoiceDetail.status == "paid"} onClick={updateInvoiceStatusPd} children="Mark as Paid"/>
 							</div>
 						</div>
 						<Outlet />

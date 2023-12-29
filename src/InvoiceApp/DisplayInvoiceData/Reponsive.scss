@@ -1,6 +1,7 @@
 @import "../assets/mobileDesign.scss";
 
 .invoiceTableContainer{
+    padding-right: 0;
     @include xs{
         .tableRow{
             width: 100%;
@@ -23,7 +24,7 @@
                 align-items: center;
                 &:first-child{
                     flex-direction: column;
-                    gap: 12px;
+                    gap: 3px;
                     justify-content: center;
                     align-items: revert;
                 }

@@ -27,14 +27,18 @@
 
 		.closeModalSpan{
 			position: relative;
-			width: fit-content;
-			height: fit-content;
+			width: 24px;
+			height: 24px;
+			border-radius: 12px;
 			left: 103%;
 			top: -18%;
+			background: red;
+			display: flex;
+			align-items: center;
+			justify-content: center;
 			
 			.icon{
-				background-color: #fff;
-				color: red;
+				color: white;
 				width: 20px;
 				height: 20px;
 				display: block;

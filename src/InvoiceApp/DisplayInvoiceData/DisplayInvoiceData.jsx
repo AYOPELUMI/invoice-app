@@ -5,7 +5,7 @@ import{NavLink} from "react-router-dom"
 import { numberFormat } from '../assets/numberFormat';
 import  dayjs  from 'dayjs';
 import './styles.scss';
-import "./DisplayInvoiceDataReponsive.scss"
+import "./Reponsive.scss"
 
 
 export const DisplayInvoiceData = props => {

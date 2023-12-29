@@ -135,7 +135,7 @@ export function InvoiceApp (props) {
 		setEditInvoice(args)
 	}
 	function updateFilterState (args) {
-		setFilterState(args)
+		setFilterState(args) 
 	}
 	function updateDarkMode (args) {
 		setDarkMode(args)
@@ -220,7 +220,7 @@ export function InvoiceApp (props) {
 			/>,
 				children: [
 				{
-					path: "editInvoice/:Id",
+					path: "editInvoice/",
 					element: 
 					<SessionTimer 
 						children={
@@ -246,7 +246,8 @@ export function InvoiceApp (props) {
 	    				getUserData={getUserData}
 	    				lastLocation={currentLocation}
 	    			/>
-	    },{
+	    },
+		{
 	    	path: "/test",
 	    	element:<Test></Test>
 	    }

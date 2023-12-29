@@ -11,7 +11,7 @@ export function Input (props) {
 		placeHolder,
 		checkedValueFunction,
 		required,
-		inputChange,
+		checked,
 		labelFor,
 		labelClassName,
 		value,
@@ -22,7 +22,6 @@ export function Input (props) {
 	} = props
 
 	const [inputValue, setValue] = useState("")
-	const [checkedValue, setCheckedValue] = useState(false)
 	const [focusBoolean, setFocusBoolean] = useState(false)
 	const [divClickBoolean, setDivClickBoolean] = useState(false)
 	const inputRef = useRef(null);
@@ -45,7 +44,6 @@ export function Input (props) {
 	
 		if (type == "checkbox" || span) {
 			let value = e.target.checked
-			setCheckedValue(value)
 			checkedValueFunction([index,value])
 		}
 		else{
@@ -119,8 +117,7 @@ export function Input (props) {
 						type={showPassword ? "text" : type} 
 						required={required ? true :false }  
 						ref={inputRef} 
-						checked={checkedValue} 
-						 
+						checked={checked}
 						onFocus={span ? null : handleOnFocus} 
 						className={inputClassName ? inputClassName : undefined} 
 						onChange={handleChange} 

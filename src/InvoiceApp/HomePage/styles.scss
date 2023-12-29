@@ -19,6 +19,7 @@
 		flex-direction: column;
 		min-height: 100vh;
 		padding-left: 50px;
+		padding-right: 30px;
 
 		.invoiceAppHeader{
 			width: 100%;
@@ -85,7 +86,10 @@
 					}
 				}
 				.filterBtn{
-					width: fit-content;
+					width: 140px;
+					padding: 10px;
+					display: flex;
+					gap: 15px;
 					border-radius: 20px;
 					justify-content: center;
 					background: transparent;
@@ -100,7 +104,6 @@
 						top: 100%;
 						display: flex;
 						flex-direction: column;
-						gap: 7px;
 						padding: 12px 20px;
 						background: var(--bg-default-white);
 						z-index: inherit;
@@ -109,6 +112,11 @@
 							label{
 								justify-content: start;
 								align-items: center;
+								padding: 6px 3px;
+
+								&:hover{
+									opacity: 0.8;
+								}
 							}
 
 							input{
