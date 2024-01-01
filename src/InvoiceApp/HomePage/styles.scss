@@ -31,6 +31,9 @@
 			align-items: center;
 			justify-content: space-between;
 
+			div{
+				display: flex;
+			}
 			.pageTitle{
 				display: flex;
 				flex-direction: column;

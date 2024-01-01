@@ -20,7 +20,7 @@ export const DisplayInvoiceData = props => {
 		updateInvoiceArr,
 		updateOpenEditModal
 	} = props
-	console.log({props})
+	
 
 	const [totalAmount, setTotalAmount] = useState(0)
 	const [editIndex, setEditIndex] = useState("")
@@ -44,7 +44,6 @@ export const DisplayInvoiceData = props => {
 	}
 	const handleEdit = () =>{
 		setEditIndex(props.index)
-		console.log("i am here")
 		updateEditIndex(props.index)
 		localStorage.setItem("lastIndex", props.index)
 	}

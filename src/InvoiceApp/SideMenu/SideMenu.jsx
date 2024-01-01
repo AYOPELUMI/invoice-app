@@ -69,13 +69,3 @@ export const SideMenu = (props) =>{
 	}
 
 
-	// function Layout({ children }) {
-	// 	return (
-	// 		<div className='dashboard-layout'>
-	// 			<SideMenu />
-	// 			<div style={{ maxWidth: 900, marginLeft: 'auto', marginRight: 'auto', marginTop: '3rem'}}>
-	// 				{children}
-	// 			</div>
-	// 		</div>
-	// 	)
-	// }

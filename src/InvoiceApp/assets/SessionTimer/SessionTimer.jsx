@@ -66,8 +66,7 @@ useEffect(() =>{
       clearInterval(interval);
     };
   }, [isIdle, isActive]);
-  console.log({remainingTime})
-  console.log({isIdle})
+
 
   useEffect(() => {
     if (remainingTime === 0) {

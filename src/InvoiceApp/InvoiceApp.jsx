@@ -1,11 +1,9 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 /* eslint-disable react/no-children-prop */
  import {useState, useEffect,useContext} from 'react'
-import {RiMoonFill} from "react-icons/ri"
-import {RiSunFill} from "react-icons/ri"
+
 import {SideMenu} from "./SideMenu/SideMenu"
 import {ThemeContextWrapper} from "./ThemeContextWrapper"
-import {ThemeContext, themes} from "./ThemeContext.js"
 import {ViewInvoiceCard} from "./viewInvoiceCard/ViewInvoiceCard"
 import {NewInvoiceModal} from "./NewInvoiceModal/NewInvoiceModal"
 import {HomePage} from "./HomePage/HomePage"
@@ -13,8 +11,7 @@ import{SignUp} from "./SignUp/SignUp"
 import{LoginPage} from "./LoginPage/LoginPage"
 import {RedirectToDashboard} from "./redirectToDashboard.jsx"
 import {SessionTimer} from "./assets/SessionTimer/SessionTimer"
-import {BrowserRouter, Routes, Route, NavLink, Outlet, useNavigate, useLocation,redirect} from "react-router-dom"
-import {Auth} from "./assets/Auth" 
+
 import {AuthProvider} from "./assets/Auth"
 import apiFetch from '../apiFetch'
 
@@ -35,7 +32,7 @@ export function InvoiceApp (props) {
 	const [editIndex, seteditIndex] = useState(0)
 	const [displayIndex, setDisplayIndex] = useState("")
 	const [editInvoice, setEditInvoice] = useState(false)
-	const [showFilter, setShowFilter] = useState(true)
+	const [showFilter, setShowFilter] = useState(false)
 	const [authenticateUser, setAuthenticateUser] = useState(undefined)
 	const [filterState, setFilterState] = useState([false,false, false])
 	const [currentLocation, setCurrentLocation] = useState(null)
@@ -246,10 +243,6 @@ export function InvoiceApp (props) {
 	    				getUserData={getUserData}
 	    				lastLocation={currentLocation}
 	    			/>
-	    },
-		{
-	    	path: "/test",
-	    	element:<Test></Test>
 	    }
 	])
   return (
@@ -263,35 +256,6 @@ export function InvoiceApp (props) {
 }
 
 
-// createBrowserRouter([
-// 	{
-// 		path: '/signup',
-// 		elemnt: 'signup',
-// 	},
-// 	{
-// 		path: '/update',
-// 		element: ''
-// 	},
-// 	{
-// 		children: [
-// 			{
-// 				path: '/dashboard',
-// 				element: 'dashboard'
-// 			},
-// 			{
-// 				path: '/profile',
-// 				element: 'profile'
-// 			},
-// 			{
-// 				path: '/invoice/:invoiceId',
-// 				element: 'invoiceId'
-// 			}
-// 		]
-// 	},
-// 	{
-// 		path: '/authenticated-page-but-another-layout',
-// 		elemnt: <div></div>
-// 	}
-// ])
+
 
 

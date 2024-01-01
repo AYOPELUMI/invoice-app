@@ -37,7 +37,7 @@ export const HomePage = props => {
 	const { user } = useContext(Auth);
 	const filterRef = useRef(null)
 
-	console.log({ user });
+	// console.log({ user });
 	let authUser
 		if (JSON.parse(localStorage.getItem("user"))) {
 			authUser = JSON.parse(localStorage.getItem("user")).token
@@ -46,21 +46,21 @@ export const HomePage = props => {
 			authUser = user.token
 		}
 	useEffect(() => {
-		console.log({ user });
+	
 		let localUser = localStorage.getItem("user");
-		console.log({ localUser });
+	
 		
 		
-		console.log({authUser})
+	
 
 		if (location.pathname == "/dashboard") {
 			if (user == null && localUser == null) {
-				console.log("i am passing here")
+			
 				navigate("/login");
 			}
 			else {
 				
-				console.log(localStorage.getItem("user"));
+				
 				apiFetch("/invoices/list", {
 					method: 'GET',
 					headers: {
@@ -70,8 +70,6 @@ export const HomePage = props => {
 				})
 					.then((response) => response.json())
 					.then((data) => {
-						console.log({ data });
-						console.log("i am here");
 						if (user) {
 							updateInvoiceArr(data.data);
 							localStorage.setItem("invoices", JSON.stringify(data.data));
@@ -87,8 +85,9 @@ export const HomePage = props => {
 	}, [location.pathname]);
 
 	const handleShowFilter = (e) => {
-		e.stopPropagation()
-		updateShowFilter(!showFilter);
+		updateShowFilter(true);
+		e.preventDefault()
+		
 	}
 	function useOutsideClick(handleClose, ref) {
 		const handleClick = useCallback((event) => {
@@ -120,9 +119,7 @@ export const HomePage = props => {
 		setInvoiceArr(invoiceArrClone);
 		// ArrayInvoice.push(args)
 	}
-	console.log({ editIndex });
-	console.log({ editInvoice });
-	console.log({ displayIndex });
+
 	
 	const handleGoBack = () => {
 		seteditIndex(undefined);
@@ -171,7 +168,7 @@ export const HomePage = props => {
 		updateEditInvoice(true);
 		// updateDisplayIndex(index)
 	};
-	console.log({ invoiceArr });
+
 
 	let displayArr = [];
 	for (var i = invoiceArr.length - 1; i >= 0; i--) {

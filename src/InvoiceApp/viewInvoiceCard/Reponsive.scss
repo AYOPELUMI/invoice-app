@@ -3,13 +3,14 @@
 .invoiceCardModal{
         padding: 0;
         flex-direction: column;
-        gap: 40px;
+        gap: 25px;
         height: 100vh;
         
         .invoiceCardCtnr{
             padding-top: 0;
             width: 100%;
             padding-left: 30px;
+            gap: 15px;
 
             .statusBtnCtnr {
                 div{
