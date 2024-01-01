@@ -63,7 +63,7 @@ export const DisplayInvoiceData = props => {
 					<p className="invoiceClient" index={index}>
 						{invoiceData.clientName}
 					</p>
-					<span>
+					<span className='secondSpan'>
 						<p className = "invoicePrice" index={index}>
 							£{numberFormat(totalAmount)}
 						</p>
