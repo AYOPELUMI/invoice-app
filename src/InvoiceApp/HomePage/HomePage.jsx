@@ -86,7 +86,7 @@ export const HomePage = props => {
 
 	const handleShowFilter = (e) => {
 		updateShowFilter(true);
-		e.preventDefault()
+		
 		
 	}
 	function useOutsideClick(handleClose, ref) {
@@ -273,7 +273,7 @@ export const HomePage = props => {
 						{invoiceArr.length ?<div> <span>There are </span><p>{invoiceArr.length}</p><span>total</span> <p>invoices</p> </div>: <p>no invoices</p>}
 					</div>
 					<div className="btnHeaderCtnr">
-						<div className="filterBtn" ref={filterRef} onClick={handleShowFilter}>
+						<div className="filterBtn"  onClick={handleShowFilter}>
 							filter by status
 							{showFilter ? <IoIosArrowUp /> : <IoIosArrowDown />}
 							{showFilter ? <ul ref={filterRef}>
