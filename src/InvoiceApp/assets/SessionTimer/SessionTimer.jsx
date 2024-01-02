@@ -42,7 +42,7 @@ export const SessionTimer =(props) =>{
   };
 
   const { isIdle } = UseIdle({ onIdle: handleIdle, idleTime: 6});
-
+  console.log({remainingTime})
 useEffect(() =>{
     addEvents()
 

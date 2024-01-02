@@ -30,7 +30,10 @@
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
-
+			
+			a{
+				text-decoration: none;
+			}
 			div{
 				display: flex;
 			}
@@ -98,7 +101,7 @@
 					background: transparent;
 					color: var(--header-h2-color);
 					position: relative;
-					font-size: var(--fontSize-12);
+					font-size: var(--fontSize-14);
 					margin-right: 20px;
 
 					ul{

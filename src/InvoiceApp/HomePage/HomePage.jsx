@@ -30,8 +30,9 @@ export const HomePage = props => {
 	  	setLastLocation
 	} = props;
 
-	const filterList = ["Draft", "Pending", "Paid"];
+	const filterList = ["draft", "pending", "paid"];
 	const [showWelcomeModal, setShowWelcomeModal] = useState(true)
+	const [isFilterOn, setIsFilterOn] = useState(false)
 	const navigate = useNavigate();
 	const location = useLocation();
 	const { user } = useContext(Auth);
@@ -149,8 +150,12 @@ export const HomePage = props => {
 			if (args[0] ==i) {
 				filterStateClone[i] = args[1]
 			}
+			if (filterStateClone[i] == true) {
+				setIsFilterOn(true)
+				break;
+			}
 			else{
-				filterStateClone[i] = false
+				setIsFilterOn(false)
 			}
 		}
 		filterStateClone[args[0]] = args[1];
@@ -171,78 +176,112 @@ export const HomePage = props => {
 
 
 	let displayArr = [];
+
 	for (var i = invoiceArr.length - 1; i >= 0; i--) {
-		let el = (
-			<DisplayInvoiceData
-				invoiceData={invoiceArr[i]}
-				key={invoiceArr[i].id}
-				index={invoiceArr[i].id}
-				updateEditIndex={setEditIndex}
-				editInvoice={editInvoice}
-				mainEditIndex={editIndex}
-				updateInvoiceData={updateInvoiceData}
-				invoiceArr={invoiceArr}
-				/>
-		);
-		displayArr.push(el);
-	}
+		if(isFilterOn){
+			console.log("i passed here")
+			console.log("the filter state ["+i+"] is "+filterState[i])
+			if(filterState[i] == true){
+				console.log("passed the second stage")
+				console.log("the filter List ["+i+"] is "+filterList[i])
+				
+				for (var j = invoiceArr.length - 1; j >= 0; j--) {
+					console.log(invoiceArr[j].status)
+					if (filterList[i] == invoiceArr[j].status) {
 
-	if (filterState[0] == true) {
-		console.log("in the first statement");
-		// console.log({displayArr})
-		const compareString = (a, b) => a > b ? 1 : a < b ? -1 : 0;
-
-		displayArr = displayArr.sort(function (a, b) {
-
-			let x = a.props.invoiceData.status.startsWith("d");
-			let y = b.props.invoiceData.status.startsWith("d");
-
-			if (x) {
-				// console.log({x})
-				return y ? compareString(x, y) : -1;
+						let el = (
+							<DisplayInvoiceData
+								invoiceData={invoiceArr[i]}
+								key={invoiceArr[i].id}
+								index={invoiceArr[i].id}
+								updateEditIndex={setEditIndex}
+								editInvoice={editInvoice}
+								mainEditIndex={editIndex}
+								updateInvoiceData={updateInvoiceData}
+								invoiceArr={invoiceArr}
+								/>
+						);
+						displayArr.push(el);
+					}
+				}
 			}
-			if (y) {
-				return x ? -compareString(x, y) : 1;
-			}
-			return compareString(x, y);
-		});
+		}
+		else{
+			let el = (
+				<DisplayInvoiceData
+					invoiceData={invoiceArr[i]}
+					key={invoiceArr[i].id}
+					index={invoiceArr[i].id}
+					updateEditIndex={setEditIndex}
+					editInvoice={editInvoice}
+					mainEditIndex={editIndex}
+					updateInvoiceData={updateInvoiceData}
+					invoiceArr={invoiceArr}
+					/>
+			);
+			displayArr.push(el);
+		}
 
-		// console.log({displayArr})		
 	}
-	if (filterState[1] == true) {
-		// console.log({displayArr})
-		displayArr = displayArr.sort(function (a, b) {
-			console.log({ a });
-			let x = a.props.invoiceData.status.toUpperCase();
-			let y = b.props.invoiceData.status.toUpperCase();
-			if (x > y) { return -1; }
-			if (x < y) { return 1; }
-			return 0;
-		});
+	console.log({displayArr})
 
-		// console.log({displayArr})
-	}
-	if (filterState[2] == true) {
-		// console.log({displayArr})
-		const compareString = (a, b) => a > b ? 1 : a < b ? -1 : 0;
+	// if (filterState[0] == true) {
+	// 	console.log("in the first statement");
+	// 	// console.log({displayArr})
+	// 	const compareString = (a, b) => a > b ? 1 : a < b ? -1 : 0;
 
-		displayArr = displayArr.sort(function (a, b) {
+	// 	displayArr = displayArr.sort(function (a, b) {
 
-			let x = a.props.invoiceData.status.startsWith("pa");
-			let y = b.props.invoiceData.status.startsWith("pa");
+	// 		let x = a.props.invoiceData.status.startsWith("d");
+	// 		let y = b.props.invoiceData.status.startsWith("d");
 
-			if (x) {
-				// console.log({x})
-				return y ? compareString(x, y) : -1;
-			}
-			if (y) {
-				return x ? -compareString(x, y) : 1;
-			}
-			return compareString(x, y);
-		});
+	// 		if (x) {
+	// 			console.log({x})
+	// 			return y ? compareString(x, y) : -1;
+	// 		}
+	// 		if (y) {
+	// 			console.log({y})
+	// 			return x ? -compareString(x, y) : 1;
+	// 		}
+	// 		return compareString(x, y);
+	// 	});
 
-		// console.log({displayArr})
-	}
+	// 	// console.log({displayArr})		
+	// }
+	// if (filterState[1] == true) {
+	// 	// console.log({displayArr})
+	// 	displayArr = displayArr.sort(function (a, b) {
+	// 		console.log({ a });
+	// 		let x = a.props.invoiceData.status.toUpperCase();
+	// 		let y = b.props.invoiceData.status.toUpperCase();
+	// 		if (x > y) {console.log({x}); return -1; }
+	// 		if (x < y) { console.log({y}); return 1; }
+	// 		return 0;
+	// 	});
+
+	// 	// console.log({displayArr})
+	// }
+	// if (filterState[2] == true) {
+	// 	// console.log({displayArr})
+	// 	const compareString = (a, b) => a > b ? 1 : a < b ? -1 : 0;
+
+	// 	displayArr = displayArr.sort(function (a, b) {
+
+	// 		let x = a.props.invoiceData.status.startsWith("pa");
+	// 		let y = b.props.invoiceData.status.startsWith("pa");
+
+	// 		if (x) {
+	// 			// console.log({x})
+	// 			return y ? compareString(x, y) : -1;
+	// 		}
+	// 		if (y) {
+	// 			return x ? -compareString(x, y) : 1;
+	// 		}
+	// 		return compareString(x, y);
+	// 	});
+
+	// 	// console.log({displayArr})
+	// }
 	// useEffect(() => {
 	// 	updateShowFilter(false);
 	// }, [filterState]);
