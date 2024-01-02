@@ -4,6 +4,24 @@ import { numberFormat } from '../../assets/numberFormat';
 import { removeComma } from '../../assets/removeComma';
 import './styles.scss';
 
+function NumberInput({ value, onChange}) {
+
+	const handleChange = (event) => {
+		let value = removeComma(event.target.value)
+		if (value.length > 0) {
+			let valueToNumber = Number(value)
+			
+			if (valueToNumber) {
+				onChange(valueToNumber)
+			}	
+		} else {
+			onChange(value)
+		}
+	}
+	return (
+		<input  type="text" inputMode="decimal" value={value} onChange={handleChange} />
+	)
+}
 
 export function ItemDetails(props){
 	const {
@@ -15,9 +33,9 @@ export function ItemDetails(props){
 	} = props
 
 	const [itemNameValue, setItemName] = useState()
-	const [qtyValue, setQtyValue] = useState(1)
-	const [priceValue, setPriceValue] = useState(1)
-	const [totalValue, setTotalValue] = useState(1)
+	const [qtyValue, setQtyValue] = useState('')
+	const [priceValue, setPriceValue] = useState('')
+	const [totalValue, setTotalValue] = useState('')
 
 	useEffect(() =>{
 		if (itemDetail) {
@@ -35,15 +53,14 @@ export function ItemDetails(props){
 		let value = event.target.value
 		setItemName(value)
 	}
-	const handleQty =(event) =>{
-		let value = event.target.value
-		Number(value) ? setQtyValue(removeComma(value)) : null;
+	const handleQty =(qty) =>{
+		setQtyValue(qty)
 	}
-	const handlePrice =(event) =>{
-		let value = event.target.value
-		console.log({value})
-		Number(value) ?	setPriceValue(removeComma(value)) : null;
+
+	const handlePrice =(number) =>{
+		setPriceValue(number)
 	}
+
 	const handleDeleteItem =() =>{
 		console.log({index})
 		handleDel(index)
@@ -75,11 +92,11 @@ export function ItemDetails(props){
 				<h4>
 					Qty
 				</h4>
-				<input type="text" value={numberFormat(qtyValue)} onChange={handleQty} />
+				<NumberInput  value={qtyValue} onChange={handleQty} />
 			</label>
 			<label htmlFor="" className="priceLabel">
 				<h4>Price</h4>
-				<input type="text" value={numberFormat(priceValue)} onChange={handlePrice} />
+				<NumberInput  value={priceValue} onChange={handlePrice} />
 			</label>
 			<label className="priceLabel">
 				<h4>Total</h4>

@@ -15,6 +15,7 @@ import apiFetch from '../../apiFetch';
 import './styles.scss';
 import "./Reponsive.scss"
 import dayjs from 'dayjs';
+
 	let itemArray =[]
 	let displayItemDetailsArr = []
 
@@ -128,11 +129,19 @@ export function NewInvoiceModal (props) {
 	}
 	const handleAddItemDetails =() => {
 		let displayItemDetailsArrayClone = [...displayItemDetailsArray]
-			let el = itemIndex
-			console.log({itemIndex})
+		let el = itemIndex
+		console.log({itemIndex})
+		// let newItem = {
+		// 	name: '',
+		// 	qty: '',
+		// 	price: '',
+		// 	total: '',
+		// }
+
 		displayItemDetailsArrayClone.push(el)
 		setDisplayItemDetailArray(displayItemDetailsArrayClone)
 		setItemIndex(itemIndex+1)
+		console.log('display item details array --->', displayItemDetailsArray )
 	}
 	let displayArr =[]
 	for (var i = 0; i < displayItemDetailsArray.length; i++) {
@@ -447,7 +456,9 @@ export function NewInvoiceModal (props) {
 	}
 	// console.log({draft})
 	// console.log({invoiceData})
-	console.log({errorMsg})
+	// console.log({errorMsg})
+	console.log({ displayItemDetailsArray})
+	console.log({ itemsDataArr })
   	return (
 	 	<div className="modalCtnr" style={{
 	 		opacity: display
