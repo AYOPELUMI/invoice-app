@@ -170,98 +170,145 @@ export const HomePage = props => {
 	};
 
 
-	let displayArr = [];
-	for (var i = invoiceArr.length - 1; i >= 0; i--) {
-		let el = (
-			<DisplayInvoiceData
-				invoiceData={invoiceArr[i]}
-				key={invoiceArr[i].id}
-				index={invoiceArr[i].id}
-				updateEditIndex={setEditIndex}
-				editInvoice={editInvoice}
-				mainEditIndex={editIndex}
-				updateInvoiceData={updateInvoiceData}
-				invoiceArr={invoiceArr}
-				/>
-		);
-		displayArr.push(el);
+	const renderInvoiceList = (invoiceList) => {
+		let displayArr = [];
+		for (var i = invoiceList.length - 1; i >= 0; i--) {
+			let el = (
+				<DisplayInvoiceData
+					invoiceData={invoiceList[i]}
+					key={invoiceList[i].id}
+					index={invoiceList[i].id}
+					updateEditIndex={setEditIndex}
+					editInvoice={editInvoice}
+					mainEditIndex={editIndex}
+					updateInvoiceData={updateInvoiceData}
+
+					/>
+			);
+			displayArr.push(el);
+		}
+		return displayArr
 	}
 
-	if (filterState[0] == true) {
-		console.log("in the first statement");
-		// console.log({displayArr})
-		const compareString = (a, b) => a > b ? 1 : a < b ? -1 : 0;
+	// if (filterState[0] == true) {
+	// 	console.log("in the first statement");
+	// 	// console.log({displayArr})
+	// 	const compareString = (a, b) => a > b ? 1 : a < b ? -1 : 0;
 
-		displayArr = displayArr.sort(function (a, b) {
+	// 	displayArr = displayArr.sort(function (a, b) {
 
-			let x = a.props.invoiceData.status.startsWith("d");
-			let y = b.props.invoiceData.status.startsWith("d");
+	// 		let x = a.props.invoiceData.status.startsWith("d");
+	// 		let y = b.props.invoiceData.status.startsWith("d");
 
-			if (x) {
-				// console.log({x})
-				return y ? compareString(x, y) : -1;
-			}
-			if (y) {
-				return x ? -compareString(x, y) : 1;
-			}
-			return compareString(x, y);
-		});
+	// 		if (x) {
+	// 			// console.log({x})
+	// 			return y ? compareString(x, y) : -1;
+	// 		}
+	// 		if (y) {
+	// 			return x ? -compareString(x, y) : 1;
+	// 		}
+	// 		return compareString(x, y);
+	// 	});
 
-		// console.log({displayArr})		
-	}
-	if (filterState[1] == true) {
-		// console.log({displayArr})
-		displayArr = displayArr.sort(function (a, b) {
-			console.log({ a });
-			let x = a.props.invoiceData.status.toUpperCase();
-			let y = b.props.invoiceData.status.toUpperCase();
-			if (x > y) { return -1; }
-			if (x < y) { return 1; }
-			return 0;
-		});
+	// 	// console.log({displayArr})		
+	// }
+	// if (filterState[1] == true) {
+	// 	// console.log({displayArr})
+	// 	displayArr = displayArr.sort(function (a, b) {
+	// 		console.log({ a });
+	// 		let x = a.props.invoiceData.status.toUpperCase();
+	// 		let y = b.props.invoiceData.status.toUpperCase();
+	// 		if (x > y) { return -1; }
+	// 		if (x < y) { return 1; }
+	// 		return 0;
+	// 	});
 
-		// console.log({displayArr})
-	}
-	if (filterState[2] == true) {
-		// console.log({displayArr})
-		const compareString = (a, b) => a > b ? 1 : a < b ? -1 : 0;
+	// 	// console.log({displayArr})
+	// }
+	// if (filterState[2] == true) {
+	// 	// console.log({displayArr})
+	// 	const compareString = (a, b) => a > b ? 1 : a < b ? -1 : 0;
 
-		displayArr = displayArr.sort(function (a, b) {
+	// 	displayArr = displayArr.sort(function (a, b) {
 
-			let x = a.props.invoiceData.status.startsWith("pa");
-			let y = b.props.invoiceData.status.startsWith("pa");
+	// 		let x = a.props.invoiceData.status.startsWith("pa");
+	// 		let y = b.props.invoiceData.status.startsWith("pa");
 
-			if (x) {
-				// console.log({x})
-				return y ? compareString(x, y) : -1;
-			}
-			if (y) {
-				return x ? -compareString(x, y) : 1;
-			}
-			return compareString(x, y);
-		});
+	// 		if (x) {
+	// 			// console.log({x})
+	// 			return y ? compareString(x, y) : -1;
+	// 		}
+	// 		if (y) {
+	// 			return x ? -compareString(x, y) : 1;
+	// 		}
+	// 		return compareString(x, y);
+	// 	});
 
-		// console.log({displayArr})
-	}
+	// 	// console.log({displayArr})
+	// }
 	// useEffect(() => {
 	// 	updateShowFilter(false);
 	// }, [filterState]);
 
 
 
-	let filterArray = [];
-	for (var i = 0; i < filterList.length; i++) {
-		let el = (
-
-			<Input type="checkbox"
+	/*
+	<Input type="checkbox"
 				index={i}
 				key={i}
 				checkedValueFunction={setFilterState}
 				checked={filterState[i]}
 				span={filterList[i]} />
-		);
-		filterArray.push(el);
+
+	*/	
+	const [selectedFilters, setSelectedFilters] = useState([])
+	
+	const handleFilterChange = (e) => {
+		let { value, checked } = e.target
+		if (checked) {
+			setSelectedFilters(selectedFilters.concat(value))
+		}	else {
+			setSelectedFilters(selectedFilters.filter(filter => filter !== value))
+		}
+		
 	}
+
+
+	const renderFilterOptions = () => {
+		let filterArray = [];
+		filterList.forEach((filter,index) => {
+			let el = (
+				<label>
+					<input type='checkbox' value={filter.toLowerCase()} key={`filter-item-${index}`} onChange={handleFilterChange} />
+					{filter}
+				</label>
+				
+			);
+			filterArray.push(el)
+		})
+		return filterArray
+
+	}
+
+
+	const getFilteredInvoiceList = () => {
+		if (selectedFilters.length > 0) {
+			let filteredInvoiceList = invoiceArr.filter(invoice => {
+				if (selectedFilters.includes(invoice.status.toLowerCase() )) {
+					return true 
+				} else {
+					return false 
+				}
+			})
+			return filteredInvoiceList
+		} else {
+			return invoiceArr
+		}
+	}
+
+
+	const filteredInvoiceList = getFilteredInvoiceList()
+	
 
 	return (
 		<div className="invoiceMainContainer">
@@ -277,7 +324,8 @@ export const HomePage = props => {
 							filter by status
 							{showFilter ? <IoIosArrowUp /> : <IoIosArrowDown />}
 							{showFilter ? <ul ref={filterRef}>
-								{filterArray}
+	
+								{renderFilterOptions()}
 							</ul> : null}
 						</div>
 						<NavLink to="newInvoice">
@@ -288,11 +336,17 @@ export const HomePage = props => {
 						</NavLink>
 					</div>
 				</header>
-				{invoiceArr ?
+				{filteredInvoiceList.length > 0 ?
 					<div className="invoiceTableContainer">
-						{displayArr}
+						{renderInvoiceList(filteredInvoiceList)}
 					</div>
-					: <div>Oops </div>}
+					: <div>
+						{ invoiceArr.length  === 0 ? (
+							<div>you have no invoice</div>
+						): (
+							<div>You have invoice, you just don't have any one matching the selected filters: {selectedFilters.join(',')}</div>
+						)} 
+					</div>}
 			</div>
 			{invoiceArr.length == 0 && showWelcomeModal ? <WelcomeModal  updateShowWelcomeModal ={updateShowWelcomeModal} showWelcomeModal={showWelcomeModal}/> : null}
 			<Outlet />
