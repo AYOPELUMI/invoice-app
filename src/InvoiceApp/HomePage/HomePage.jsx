@@ -1,4 +1,5 @@
-import { useEffect, useContext, useState } from 'react';
+/* eslint-disable no-mixed-spaces-and-tabs */
+import { useEffect, useContext, useState,useRef,useCallback } from 'react';
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { AiFillPlusCircle } from "react-icons/ai";
 import { DisplayInvoiceData } from "../DisplayInvoiceData/DisplayInvoiceData";
@@ -10,24 +11,23 @@ import { WelcomeModal } from "./WelcomeModal/WelcomeModal";
 import apiFetch from '../../apiFetch';
 
 import "./styles.scss"
+import "./Reponsive.scss"
 
 export const HomePage = props => {
 	const {
 		invoiceArr,
 		editIndex,
 	  	editInvoice,
-	  	 displayIndex,
-	  	 filterState,
-	  	 showFilter,
-	  	 updateShowFilter,
-	  	  updateEditIndex,
-	  	   updateDisplayIndex,
-	  	    updateEditInvoice,
-	  	     updateFilterState,
-	  	      updateDarkMode,
-	  	       SideMenu,
-	  	        updateInvoiceArr,
-	  	         setLastLocation
+	  	displayIndex,
+	  	filterState,
+	  	showFilter,
+	  	updateShowFilter,
+	  	updateEditIndex,
+	  	updateEditInvoice,
+	  	updateFilterState,
+	  	SideMenu,
+	  	updateInvoiceArr,
+	  	setLastLocation
 	} = props;
 
 	const filterList = ["Draft", "Pending", "Paid"];
@@ -35,8 +35,9 @@ export const HomePage = props => {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const { user } = useContext(Auth);
+	const filterRef = useRef(null)
 
-	console.log({ user });
+	// console.log({ user });
 	let authUser
 		if (JSON.parse(localStorage.getItem("user"))) {
 			authUser = JSON.parse(localStorage.getItem("user")).token
@@ -45,21 +46,21 @@ export const HomePage = props => {
 			authUser = user.token
 		}
 	useEffect(() => {
-		console.log({ user });
+	
 		let localUser = localStorage.getItem("user");
-		console.log({ localUser });
+	
 		
 		
-		console.log({authUser})
+	
 
 		if (location.pathname == "/dashboard") {
 			if (user == null && localUser == null) {
-				console.log("i am passing here")
+			
 				navigate("/login");
 			}
 			else {
 				
-				console.log(localStorage.getItem("user"));
+				
 				apiFetch("/invoices/list", {
 					method: 'GET',
 					headers: {
@@ -69,8 +70,6 @@ export const HomePage = props => {
 				})
 					.then((response) => response.json())
 					.then((data) => {
-						console.log({ data });
-						console.log("i am here");
 						if (user) {
 							updateInvoiceArr(data.data);
 							localStorage.setItem("invoices", JSON.stringify(data.data));
@@ -84,10 +83,31 @@ export const HomePage = props => {
 		}
 		setLastLocation(location.pathname);
 	}, [location.pathname]);
-	
+
 	const handleShowFilter = (e) => {
 		updateShowFilter(true);
-	};
+		
+		
+	}
+	function useOutsideClick(handleClose, ref) {
+		const handleClick = useCallback((event) => {
+		  if (ref?.current?.contains && !ref.current.contains(event.target)) {
+			  handleClose();
+		  }
+		},[handleClose, filterRef])
+	   
+		useEffect(() => {
+		  document.addEventListener("mouseup", handleClick);
+	   
+		  return () => { document.removeEventListener("mouseup", handleClick); };
+		}, [handleClick])
+	}
+	const handleCloseFilter =() =>{
+		updateShowFilter(false)
+	}
+		useOutsideClick(handleCloseFilter, filterRef);
+	
+
 
 	function updateShowWelcomeModal(args) {
 		setShowWelcomeModal(!showWelcomeModal);
@@ -99,9 +119,7 @@ export const HomePage = props => {
 		setInvoiceArr(invoiceArrClone);
 		// ArrayInvoice.push(args)
 	}
-	console.log({ editIndex });
-	console.log({ editInvoice });
-	console.log({ displayIndex });
+
 	
 	const handleGoBack = () => {
 		seteditIndex(undefined);
@@ -150,100 +168,147 @@ export const HomePage = props => {
 		updateEditInvoice(true);
 		// updateDisplayIndex(index)
 	};
-	console.log({ invoiceArr });
 
-	let displayArr = [];
-	for (var i = invoiceArr.length - 1; i >= 0; i--) {
-		let el = (
-			<DisplayInvoiceData
-				invoiceData={invoiceArr[i]}
-				key={invoiceArr[i].id}
-				index={invoiceArr[i].id}
-				updateEditIndex={setEditIndex}
-				editInvoice={editInvoice}
-				mainEditIndex={editIndex}
-				updateInvoiceData={updateInvoiceData}
-				invoiceArr={invoiceArr}
-				/>
-		);
-		displayArr.push(el);
+
+	const renderInvoiceList = (invoiceList) => {
+		let displayArr = [];
+		for (var i = invoiceList.length - 1; i >= 0; i--) {
+			let el = (
+				<DisplayInvoiceData
+					invoiceData={invoiceList[i]}
+					key={invoiceList[i].id}
+					index={invoiceList[i].id}
+					updateEditIndex={setEditIndex}
+					editInvoice={editInvoice}
+					mainEditIndex={editIndex}
+					updateInvoiceData={updateInvoiceData}
+
+					/>
+			);
+			displayArr.push(el);
+		}
+		return displayArr
 	}
 
-	if (filterState[0] == true) {
-		console.log("in the first statement");
-		// console.log({displayArr})
-		const compareString = (a, b) => a > b ? 1 : a < b ? -1 : 0;
+	// if (filterState[0] == true) {
+	// 	console.log("in the first statement");
+	// 	// console.log({displayArr})
+	// 	const compareString = (a, b) => a > b ? 1 : a < b ? -1 : 0;
 
-		displayArr = displayArr.sort(function (a, b) {
+	// 	displayArr = displayArr.sort(function (a, b) {
 
-			let x = a.props.invoiceData.status.startsWith("d");
-			let y = b.props.invoiceData.status.startsWith("d");
+	// 		let x = a.props.invoiceData.status.startsWith("d");
+	// 		let y = b.props.invoiceData.status.startsWith("d");
 
-			if (x) {
-				// console.log({x})
-				return y ? compareString(x, y) : -1;
-			}
-			if (y) {
-				return x ? -compareString(x, y) : 1;
-			}
-			return compareString(x, y);
-		});
+	// 		if (x) {
+	// 			// console.log({x})
+	// 			return y ? compareString(x, y) : -1;
+	// 		}
+	// 		if (y) {
+	// 			return x ? -compareString(x, y) : 1;
+	// 		}
+	// 		return compareString(x, y);
+	// 	});
 
-		// console.log({displayArr})		
-	}
-	if (filterState[1] == true) {
-		// console.log({displayArr})
-		displayArr = displayArr.sort(function (a, b) {
-			console.log({ a });
-			let x = a.props.invoiceData.status.toUpperCase();
-			let y = b.props.invoiceData.status.toUpperCase();
-			if (x > y) { return -1; }
-			if (x < y) { return 1; }
-			return 0;
-		});
+	// 	// console.log({displayArr})		
+	// }
+	// if (filterState[1] == true) {
+	// 	// console.log({displayArr})
+	// 	displayArr = displayArr.sort(function (a, b) {
+	// 		console.log({ a });
+	// 		let x = a.props.invoiceData.status.toUpperCase();
+	// 		let y = b.props.invoiceData.status.toUpperCase();
+	// 		if (x > y) { return -1; }
+	// 		if (x < y) { return 1; }
+	// 		return 0;
+	// 	});
 
-		// console.log({displayArr})
-	}
-	if (filterState[2] == true) {
-		// console.log({displayArr})
-		const compareString = (a, b) => a > b ? 1 : a < b ? -1 : 0;
+	// 	// console.log({displayArr})
+	// }
+	// if (filterState[2] == true) {
+	// 	// console.log({displayArr})
+	// 	const compareString = (a, b) => a > b ? 1 : a < b ? -1 : 0;
 
-		displayArr = displayArr.sort(function (a, b) {
+	// 	displayArr = displayArr.sort(function (a, b) {
 
-			let x = a.props.invoiceData.status.startsWith("pa");
-			let y = b.props.invoiceData.status.startsWith("pa");
+	// 		let x = a.props.invoiceData.status.startsWith("pa");
+	// 		let y = b.props.invoiceData.status.startsWith("pa");
 
-			if (x) {
-				// console.log({x})
-				return y ? compareString(x, y) : -1;
-			}
-			if (y) {
-				return x ? -compareString(x, y) : 1;
-			}
-			return compareString(x, y);
-		});
+	// 		if (x) {
+	// 			// console.log({x})
+	// 			return y ? compareString(x, y) : -1;
+	// 		}
+	// 		if (y) {
+	// 			return x ? -compareString(x, y) : 1;
+	// 		}
+	// 		return compareString(x, y);
+	// 	});
 
-		// console.log({displayArr})
-	}
-	useEffect(() => {
-		updateShowFilter(false);
-	}, [filterState]);
+	// 	// console.log({displayArr})
+	// }
+	// useEffect(() => {
+	// 	updateShowFilter(false);
+	// }, [filterState]);
 
 
 
-	let filterArray = [];
-	for (var i = 0; i < filterList.length; i++) {
-		let el = (
-
-			<Input type="checkbox"
+	/*
+	<Input type="checkbox"
 				index={i}
 				key={i}
 				checkedValueFunction={setFilterState}
-				propValue={filterState[i]}
+				checked={filterState[i]}
 				span={filterList[i]} />
-		);
-		filterArray.push(el);
+
+	*/	
+	const [selectedFilters, setSelectedFilters] = useState([])
+	
+	const handleFilterChange = (e) => {
+		let { value, checked } = e.target
+		if (checked) {
+			setSelectedFilters(selectedFilters.concat(value))
+		}	else {
+			setSelectedFilters(selectedFilters.filter(filter => filter !== value))
+		}
+		
 	}
+
+
+	const renderFilterOptions = () => {
+		let filterArray = [];
+		filterList.forEach((filter,index) => {
+			let el = (
+				<label>
+					<input type='checkbox' value={filter.toLowerCase()} key={`filter-item-${index}`} onChange={handleFilterChange} />
+					{filter}
+				</label>
+				
+			);
+			filterArray.push(el)
+		})
+		return filterArray
+
+	}
+
+
+	const getFilteredInvoiceList = () => {
+		if (selectedFilters.length > 0) {
+			let filteredInvoiceList = invoiceArr.filter(invoice => {
+				if (selectedFilters.includes(invoice.status.toLowerCase() )) {
+					return true 
+				} else {
+					return false 
+				}
+			})
+			return filteredInvoiceList
+		} else {
+			return invoiceArr
+		}
+	}
+
+
+	const filteredInvoiceList = getFilteredInvoiceList()
+	
 
 	return (
 		<div className="invoiceMainContainer">
@@ -252,32 +317,39 @@ export const HomePage = props => {
 				<header className="invoiceAppHeader">
 					<div className="pageTitle">
 						<h2>Invoices</h2>
-						{invoiceArr.length ? <p>There are {invoiceArr.length} total invoices</p> : <p>no invoices</p>}
+						{invoiceArr.length ?<div> <span>There are </span><p>{invoiceArr.length}</p><span>total</span> <p>invoices</p> </div>: <p>no invoices</p>}
 					</div>
 					<div className="btnHeaderCtnr">
-						<button className="filterBtn" onClick={handleShowFilter}>
+						<div className="filterBtn"  onClick={handleShowFilter}>
 							filter by status
 							{showFilter ? <IoIosArrowUp /> : <IoIosArrowDown />}
-							{showFilter ? <ul>
-								{filterArray}
+							{showFilter ? <ul ref={filterRef}>
+	
+								{renderFilterOptions()}
 							</ul> : null}
-						</button>
+						</div>
 						<NavLink to="newInvoice">
 							<button className="addNewInvoiceBtn">
 								<AiFillPlusCircle className="addNewInvoiceIcon" />
-								<p>New Invoice</p>
+								<p>New</p> <span>Invoice</span>
 							</button>
 						</NavLink>
 					</div>
 				</header>
-				{invoiceArr ?
+				{filteredInvoiceList.length > 0 ?
 					<div className="invoiceTableContainer">
-						{displayArr}
+						{renderInvoiceList(filteredInvoiceList)}
 					</div>
-					: <div>Oops </div>}
+					: <div>
+						{ invoiceArr.length  === 0 ? (
+							<div>you have no invoice</div>
+						): (
+							<div>You have invoice, you just don't have any one matching the selected filters: {selectedFilters.join(',')}</div>
+						)} 
+					</div>}
 			</div>
 			{invoiceArr.length == 0 && showWelcomeModal ? <WelcomeModal  updateShowWelcomeModal ={updateShowWelcomeModal} showWelcomeModal={showWelcomeModal}/> : null}
 			<Outlet />
 		</div>
 	)
-};
+}

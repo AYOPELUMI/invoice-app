@@ -1,4 +1,4 @@
-export function numberFormat(args){
-    let numValue = args
-    return new Intl.NumberFormat("en-US").format(numValue)
+export function numberFormat(number){
+    number = String(number)
+    return number.length > 0 ? new Intl.NumberFormat("en-US").format(number): number
 }

@@ -24,7 +24,7 @@ const{
 				placeHolder={"Street Address"}
 				updateState={getStreetData}
 				required={true}
-				propValue={invoiceDetail.billFromStreetAddress}
+				value={invoiceDetail.billFromStreetAddress}
 			></Input>
 			<div className="topLabelSecondDiv">
 				<Input
@@ -34,7 +34,7 @@ const{
 				placeHolder={"City"}
 				updateState={getCityData}
 				required={true}
-				propValue={invoiceDetail.billFromCity}>
+				value={invoiceDetail.billFromCity}>
 				</Input>
 				<Input
 				labelClassName ={'splitLabel'}
@@ -43,7 +43,7 @@ const{
 				placeHolder={"Post Code"}
 				updateState={getPostCodeData}
 				required={true}
-				propValue={invoiceDetail.billFromPostCode}>
+				value={invoiceDetail.billFromPostCode}>
 				</Input>
 				<Input
 				labelClassName ={'splitLabel'}
@@ -52,7 +52,7 @@ const{
 				placeHolder={"Country"}
 				updateState={getCountryData}
 				required={true}
-				propValue={invoiceDetail.country}>
+				value={invoiceDetail.country}>
 				</Input>
 			</div>
 		</div>

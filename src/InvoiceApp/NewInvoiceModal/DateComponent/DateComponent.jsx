@@ -34,7 +34,7 @@ export function DateComponent (props){
 			type = {"date"}
 			required={true}
 			updateState={getData}
-			propValue={invoiceDetail.invoiceDate}
+			value={invoiceDetail.invoiceDate}
 		></Input>
 {/*		<Input
 			labelFor={<h4>Payment Terms</h4>}

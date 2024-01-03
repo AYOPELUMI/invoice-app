@@ -3,8 +3,9 @@ import {BiSolidChevronRight} from "react-icons/bi"
 import {VscCircleLargeFilled} from "react-icons/vsc"
 import{NavLink} from "react-router-dom"
 import { numberFormat } from '../assets/numberFormat';
-
+import  dayjs  from 'dayjs';
 import './styles.scss';
+import "./Reponsive.scss"
 
 
 export const DisplayInvoiceData = props => {
@@ -19,7 +20,7 @@ export const DisplayInvoiceData = props => {
 		updateInvoiceArr,
 		updateOpenEditModal
 	} = props
-	console.log({props})
+	
 
 	const [totalAmount, setTotalAmount] = useState(0)
 	const [editIndex, setEditIndex] = useState("")
@@ -38,17 +39,11 @@ export const DisplayInvoiceData = props => {
 	},[mainEditIndex])
 
 	const formattedDate = (args) =>{
-		let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug","Sept","Oct", "Nov", "Dec"]
-		let newDate = new Date(args)
-		let yr = newDate.getFullYear()
-		let month = months[newDate.getMonth()]
-		let day = newDate.getDate()
-		let ymd = [yr, month, day]
-		return ymd.join("-")
+		let newDate = dayjs(args).format("YYYY-MM-DD")
+		return newDate
 	}
 	const handleEdit = () =>{
 		setEditIndex(props.index)
-		console.log("i am here")
 		updateEditIndex(props.index)
 		localStorage.setItem("lastIndex", props.index)
 	}
@@ -57,21 +52,25 @@ export const DisplayInvoiceData = props => {
   return (	
 	  	<NavLink to={`/dashboard/invoice/${invoiceData.id}`} key={invoiceData.id}>
 			<div className="tableRow" index={index} onClick={handleEdit}>
-					<h4 className="invoiceId" index={index}>
-						#{invoiceData.id.slice(0,6)}
-					</h4>
-					<h5 className="invoiceDueDate" index={index}>
-						Due {formattedDate(invoiceData.invoiceDate)}
-					</h5>
+					<span>
+						<h4 className="invoiceId" index={index}>
+							#{invoiceData.id.slice(0,6)}
+						</h4>
+						<h5 className="invoiceDueDate" index={index}>
+							Due {formattedDate(invoiceData.invoiceDate)}
+						</h5>
+					</span>
 					<p className="invoiceClient" index={index}>
 						{invoiceData.clientName}
 					</p>
-					<p className = "invoicePrice" index={index}>
-						£{numberFormat(totalAmount)}
-					</p>
-					<span className={invoiceData.status =="pending" ? "invoiceStatusPending" : invoiceData.status == "paid" ? "invoiceStatusPaid" : "invoiceStatusDraft"} index={index}>
-						<VscCircleLargeFilled />
-						<p>{invoiceData.status}</p>
+					<span className='secondSpan'>
+						<p className = "invoicePrice" index={index}>
+							£{numberFormat(totalAmount)}
+						</p>
+						<span className={invoiceData.status =="pending" ? "invoiceStatusPending" : invoiceData.status == "paid" ? "invoiceStatusPaid" : "invoiceStatusDraft"} index={index}>
+							<VscCircleLargeFilled />
+							<p>{invoiceData.status}</p>
+						</span>
 					</span>
 					<BiSolidChevronRight className="icon" index={index} />
 			</div>

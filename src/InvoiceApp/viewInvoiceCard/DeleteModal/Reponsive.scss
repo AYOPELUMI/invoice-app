@@ -1,0 +1,8 @@
+@import "../../assets/mobileDesign.scss";
+.deleteModalCtnr{
+.delCtnr{
+    @include xs{
+        width: 70%;
+    }
+}
+}

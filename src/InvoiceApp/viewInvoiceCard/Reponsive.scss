@@ -1,0 +1,125 @@
+@import "../assets/mobileDesign.scss";
+@include xs{
+.invoiceCardModal{
+        padding: 0;
+        flex-direction: column;
+        gap: 25px;
+        height: 100vh;
+        
+        .invoiceCardCtnr{
+            padding-top: 0;
+            width: 100%;
+            padding-left: 30px;
+            gap: 15px;
+
+            .statusBtnCtnr {
+                div{
+                    &:last-child{
+                    display: none;
+                    }
+                }
+            }
+
+            .mainInvoiceCard{
+                padding: 20px 20px;
+                padding-left: 0;
+                .cardBiller{
+                    flex-direction: column;
+                    gap: 25px;
+                }
+
+                .cardClient{
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 30px;
+                    div{
+                        &:last-child{
+                            flex: 60%;
+                        }
+                    }
+                }
+
+                .itemDetailCtnr{
+                    div{
+                        &:first-child{
+                            display: none;
+                        }
+                   
+                    }
+                    .itemDiv{
+                        display: grid;
+                        grid-template-columns: 1fr 1fr;
+                        padding-bottom: 10px;
+                        span{
+                            display: flex;
+                            gap: 2px;
+                            align-items: center;
+                            *{
+                                flex: 0;    
+                            }
+                        }
+                        .reponsiveDisplay{
+                            display: block;
+                        }
+                        .gridLastChild{
+                            grid-row-start: 1;
+                            grid-row-end: 3;
+                              grid-column-start: 2;
+                              display: flex;
+                              align-items: center;
+                              justify-content: end;
+                        }
+                    }
+                    .totalDiv{
+                        padding: 20px 12px;
+                    }
+                }
+            }
+
+            .reponsiveBtnCtnr{
+                display: flex;
+                width: 90%;
+                justify-content: end;
+                gap: 20px;
+                align-items: center;
+                padding-bottom: 20px;
+                position: absolute;
+                bottom: 0;
+
+                button{
+                    border: none;
+                    outline: none;
+                    cursor: pointer;
+                    text-align: center;
+                    border-radius: 22px;
+                    font-size: var(--fontSize-12);
+                    width: fit-content;
+                    padding: 8px 10px;
+                }
+                .paidBtn{
+                    background: var(--header-btn-bg);
+                    color: var(--color-default-white);
+    
+                    &:disabled{
+                        cursor: not-allowed;
+                    }
+                }
+                .delBtn{
+                    background: var(--delBtn-bg);
+                    color: var(--color-default-white);
+                }
+                .editBtn{
+                    background: var(--editBtn-bg);
+                    color: var(--editBtn-color);
+    
+                    &:disabled{
+                        cursor: not-allowed;
+                    }
+                    &:hover{
+                    background: var(--btn-default-bg-hover);
+                    }
+                }
+            }
+        }
+    }
+}

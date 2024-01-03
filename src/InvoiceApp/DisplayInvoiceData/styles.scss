@@ -1,12 +1,10 @@
 .invoiceTableContainer{
 	width: 100%;
 	height: 100%;
-	padding-top: 90px;
-	padding-left:100px;
-	padding-right: 60px;
+	padding-top: 20px;
+	padding-right: 30px;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
 	gap: 20px;
 	background: inherit;
 	a{
@@ -14,7 +12,7 @@
 	}
 	.tableRow{
 		display: flex;
-		padding: 12px;
+		padding: 16px;
 		width: 100%;
 		background: var(--bg-default-white);
 		gap: 25px;
@@ -30,6 +28,11 @@
 			border: 2px solid var(--header-btn-bg);
 		}
 
+		span{
+			display: flex;
+			flex: 2;
+			align-items: center;
+		}
 		.invoiceId{
 			flex: 1;
 			font-size: var(--fontSize-16);

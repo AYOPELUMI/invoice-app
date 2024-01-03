@@ -1,0 +1,46 @@
+@import "../assets/mobileDesign.scss";
+
+.invoiceTableContainer{
+    padding-right: 0;
+    @include xs{
+        .tableRow{
+            width: 100%;
+            grid-gap: 4px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+           text-align: left;
+           padding: 20px;
+
+            *{
+                flex: 50%;
+            }
+            .invoiceClient{
+                font-size: var(--fontSize-14);
+                text-align: right;
+                margin-left: 50px;
+            }
+            .icon{
+                display: none;
+            }
+            span{
+                display: flex;
+                align-items: center;
+                width: 100%;
+                &:first-child{
+                    flex-direction: column;
+                    gap: 3px;
+                    justify-content: center;
+                    align-items: revert;
+                }
+                &:nth-child(2n){
+                    width: 100%
+                }
+            }
+            .secondSpan{
+                grid-column-start: 1;
+                grid-column-end: 3;
+                justify-content: space-evenly;
+            }
+        }
+    }
+}

@@ -41,7 +41,7 @@ export const SessionTimer =(props) =>{
     setRemainingTime(10); //set 15 seconds as time remaining
   };
 
-  const { isIdle } = UseIdle({ onIdle: handleIdle, idleTime: 3});
+  const { isIdle } = UseIdle({ onIdle: handleIdle, idleTime: 6});
 
 useEffect(() =>{
     addEvents()
@@ -66,8 +66,7 @@ useEffect(() =>{
       clearInterval(interval);
     };
   }, [isIdle, isActive]);
-  console.log({remainingTime})
-  console.log({isIdle})
+
 
   useEffect(() => {
     if (remainingTime === 0) {
@@ -90,7 +89,7 @@ const LogoutModal = () => {
       <div className="logoutCtnr">
         <h3>Session Timeout</h3>
         <span>kindly login again to continue</span>
-        <Button type="button" propsOnClick={handleLogout} propsClassName="logoutBtn" displayWord="Ok"/>
+        <Button type="button" onClick={handleLogout} className="logoutBtn" displayWord="Ok"/>
       </div>
     </div>)
 }

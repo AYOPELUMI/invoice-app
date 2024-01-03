@@ -1,100 +1,9 @@
-// media aliases and breakpoints
-$screen-sm-min: 600px;
-$screen-md-min: 960px;
-$screen-lg-min: 1280px;
-$screen-xl-min: 1920px;
-
-$screen-xs-max: 599px;
-$screen-sm-max: 959px;
-$screen-md-max: 1279px;
-$screen-lg-max: 1919px;
-$screen-xl-max: 5000px;
-
-// media devices
-@mixin xs {
-  @media screen and (max-width: #{$screen-xs-max}) {
-    @content;
-  }
-}
-
-@mixin sm {
-  @media screen and (min-width: #{$screen-sm-min}) and (max-width: #{$screen-sm-max}) {
-    @content;
-  }
-}
-
-@mixin md {
-  @media screen and (min-width: #{$screen-md-min}) and (max-width: #{$screen-md-max}) {
-    @content;
-  }
-}
-
-@mixin lg {
-  @media screen and (min-width: #{$screen-lg-min}) and (max-width: #{$screen-lg-max}) {
-    @content;
-  }
-}
-
-@mixin xl {
-  @media screen and (min-width: #{$screen-xl-min}) and (max-width: #{$screen-xl-max}) {
-    @content;
-  }
-}
-
-// media lt queries
-@mixin lt-sm {
-  @media screen and (max-width: #{$screen-xs-max}) {
-    @content;
-  }
-}
-
-@mixin lt-md {
-  @media screen and (max-width: #{$screen-sm-max}) {
-    @content;
-  }
-}
-
-@mixin lt-lg {
-  @media screen and (max-width: #{$screen-md-max}) {
-    @content;
-  }
-}
-
-@mixin lt-xl {
-  @media screen and (max-width: #{$screen-lg-max}) {
-    @content;
-  }
-}
-
-// media gt queries
-@mixin gt-xs {
-  @media screen and (min-width: #{$screen-sm-min}) {
-    @content;
-  }
-}
-
-@mixin gt-sm {
-  @media screen and (min-width: #{$screen-md-min}) {
-    @content;
-  }
-}
-
-@mixin gt-md {
-  @media screen and (min-width: #{$screen-lg-min}) {
-    @content;
-  }
-}
-
-@mixin gt-lg {
-  @media screen and (min-width: #{$screen-xl-min}) {
-    @content;
-  }
-}
 .invoiceMainContainer{
 	width: 100%;
 	display: flex;
 	background: var(--default-bg);
-	min-height: 100vh;
+	height: 100vh;
+	overflow: scroll;
 
 	button{
 		&:hover{
@@ -105,24 +14,25 @@ $screen-xl-max: 5000px;
 	.landingPage{
 		background: var(--default-bg);
 		position: relative;
-		width: 80%;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
 		min-height: 100vh;
+		padding-left: 50px;
+		padding-right: 30px;
 
 		.invoiceAppHeader{
 			width: 100%;
-			position: absolute;
+			position: sticky;
 			top: 0;
-			left: 0;
-			right: 0;
-			padding: 30px 100px;
-			padding-right: 80px;
+			padding: 30px 30px;
 			background: var(--default-bg);
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
 
-			@include xs{
-				padding: 40px 30px;
+			div{
+				display: flex;
 			}
 			.pageTitle{
 				display: flex;
@@ -134,7 +44,7 @@ $screen-xl-max: 5000px;
 					font-weight: var(--fontWeight-bold);
 					line-height: var(--lineHeight-36);
 				}
-				p{
+				p, span{
 					color: var(--header-h2-color);
 					font-size: var(--fontSize-12);
 					letter-spacing: var(--letterSpacing-025)
@@ -179,7 +89,10 @@ $screen-xl-max: 5000px;
 					}
 				}
 				.filterBtn{
-					width: fit-content;
+					width: 140px;
+					padding: 10px;
+					display: flex;
+					gap: 15px;
 					border-radius: 20px;
 					justify-content: center;
 					background: transparent;
@@ -194,7 +107,6 @@ $screen-xl-max: 5000px;
 						top: 100%;
 						display: flex;
 						flex-direction: column;
-						gap: 7px;
 						padding: 12px 20px;
 						background: var(--bg-default-white);
 						z-index: inherit;
@@ -203,6 +115,11 @@ $screen-xl-max: 5000px;
 							label{
 								justify-content: start;
 								align-items: center;
+								padding: 6px 3px;
+
+								&:hover{
+									opacity: 0.8;
+								}
 							}
 
 							input{

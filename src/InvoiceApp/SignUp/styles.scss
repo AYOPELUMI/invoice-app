@@ -7,8 +7,10 @@
 	align-items: center;
 	justify-content: center;
 	background: var(--default-bg);
+	gap: 20px;
 
 	.signUpCtnr{
+		height: 600px;
 		padding: 6px;
 		border-top-left-radius: 20px;
 		border-bottom-left-radius: 20px;
@@ -138,6 +140,7 @@
 		}
 	}
 	.displayCtnr{
+		height: 600px;
 		border-top-right-radius: 20px;
 		border-bottom-right-radius: 20px;
 		padding: 20px;

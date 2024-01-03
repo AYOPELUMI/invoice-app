@@ -1,0 +1,40 @@
+@import "../assets/mobileDesign.scss";
+
+.invoiceMainContainer{
+    @include xs{
+        flex-direction: column;
+
+        .landingPage{
+            padding: 0 20px;
+
+            .invoiceAppHeader{
+                padding: 15px 0px;
+                justify-content: space-between;
+
+                .pageTitle{
+                    h2{
+                        font-size: 	var(--fontSize-20);
+                        line-height: var(--lineHeight-22); 
+                    }
+                    span{
+                        display: none;
+                    }
+                    div{
+                        display: flex;
+                        gap: 4px;
+                    }
+                }
+                
+                .btnHeaderCtnr{
+                    .addNewInvoiceBtn{
+                        width: fit-content;
+                    }
+                    span{
+                        display: none;
+                    }
+                }
+                
+            }
+        }
+    }
+}

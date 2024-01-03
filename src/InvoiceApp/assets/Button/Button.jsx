@@ -6,23 +6,24 @@ import './styles.scss';
 export const Button = props => {
 
 	const{
-		propsType,
-		propsClassName,
-		propsOnClick,
+		type,
+		btnDisabled,
+		className,
+		onClick,
 		children,
 		displayWord,
-		propsDisabled
+		disabled
 	} = props
 	
   return (
   	<>
   		<button 
-  			type={propsType} 
-  			onClick={propsOnClick} 
-  			className={propsClassName ? propsClassName : undefined}
-  			disabled={propsDisabled}>
+  			type={type} 
+  			onClick={onClick} 
+  			className={className ? className : undefined}
+  			disabled={disabled || btnDisabled}>
 				{displayWord}
-  			{propsDisabled ? <i className="loadingIcon"></i> : children}
+  			{disabled ? <i className="loadingIcon"></i> : children}
   		</button>
   	</>
   )

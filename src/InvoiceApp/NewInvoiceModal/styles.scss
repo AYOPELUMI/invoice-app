@@ -1,9 +1,8 @@
 .modalCtnr{
 	position: fixed;
-	left: 0;
+	width: 100%;
+	height: 100%;
 	top: 0;
-	bottom: 0;
-	right: 0;
 	background: rgba(0,0,0, 0.5);
 
 	.mainContent{
@@ -19,7 +18,6 @@
 		overflow: scroll;
 		padding-top: 20px;
 		padding-left: 90px;
-		padding-bottom: 50px;
 		padding-right: 50px;
 		transition: left 0.5s ease;
 		overflow-x:hidden;
@@ -150,7 +148,12 @@
 		}
 		.btnCtnr{
 			display: flex;
+			position: sticky;
+			background: inherit;
+			z-index: 30;
+			bottom: 0;
 			width: 100%;
+			padding: 20px 0px;
 			align-items: center;
 			justify-content: space-between;
 

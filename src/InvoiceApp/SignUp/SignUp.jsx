@@ -221,7 +221,7 @@ export const SignUp = props => {
 		    			inpurClassName="loginInput"
 		    			placeHolder="Enter your full name"
 		    			type="text"
-		    			propValue={fullName}
+		    			value={fullName}
 		    			updateState={updateName}
 		    			inputClassName={fullNameValidity ? "error" : undefined}
 		    			errorMsg ={fullNameValidity ? fullNameErrorMsg : ""}/>				
@@ -231,7 +231,7 @@ export const SignUp = props => {
 		    			inpurClassName="loginInput"
 		    			placeHolder="Enter your email"
 		    			type="email"
-		    			propValue={email}
+		    			value={email}
 		    			updateState={updateEmail}
 		    			inputClassName={emailValidity? "error": undefined}
 		    			errorMsg={emailValidity ? emailErrorMsg : ""}/>
@@ -241,7 +241,7 @@ export const SignUp = props => {
 		    			inpurClassName="loginInput"
 		    			placeHolder="create a password"
 		    			type="password"
-		    			propValue={password}
+		    			value={password}
 		    			updateState={updatePassword}
 		    			inputClassName={passwordValidity ? "error" : undefined}
 		    			errorMsg={passwordValidity ? passwordErrorMsg : ""}/>
@@ -251,12 +251,12 @@ export const SignUp = props => {
 		    			inpurClassName="loginInput"
 		    			placeHolder="Confirm password"
 		    			type="password"
-		    			propValue={confirmPassword}
+		    			value={confirmPassword}
 		    			updateState={updateConfirmPaaword}
 		    			inputClassName={confirmPasswordValidity ? "error" : undefined}
 		    			errorMsg={confirmPasswordValidity ? confirmPasswordErrorMsg : ""}/>
 				</form>
-		    	<Button propsType = "submit" propsOnClick={handleSubmit} propsDisabled={isLoading}>{isLoading ? <i className="loadingIcon"></i> : "Create account"}</Button>
+		    	<Button type = "submit" onClick={handleSubmit} disabled={isLoading}>{isLoading ? <i className="loadingIcon"></i> : "Create account"}</Button>
 				<span>Already have an account ?<a onClick={handleLoginLink}> Log in</a></span>
 			</div>
 			<div className="displayCtnr">

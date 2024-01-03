@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import {ThemeContextWrapper} from "../ThemeContextWrapper"
 import {ThemeContext, themes} from "../ThemeContext.js"
 import {RiMoonFill} from "react-icons/ri"
 import {RiSunFill} from "react-icons/ri"
@@ -8,8 +7,8 @@ import {BiLogOut} from "react-icons/bi"
 import {useNavigate} from "react-router-dom"
 // import { RiMenuFill } from 'react-icons/ri';
 import './styles.scss';
+import "./Reponsive.scss"
 import { useContext } from 'react';
-// import { UserMenu } from './userMenu/userMenu';
 
 
 export const SideMenu = (props) =>{
@@ -40,13 +39,11 @@ export const SideMenu = (props) =>{
 		}
 		    const logout =() =>{
         dispatch({type: "LOGOUT", payload: null})
-        Navigate("/login")
+        navigate("/login")
         handleUserMenuFn(false)
     }
 		return(
-		  	<div className="sideMenu" style={{
-		  		width: sideMenuWidth+"px" 
-		  	}}>
+		  	<div className="sideMenu" >
 		    	<div className='sideBar1'>
 		    						{/*<RiMenuFill className='menuIcon' onClick={handleUserMenu}/>*/}
 		    						<BiLogOut className="logoutIcon" onClick={logout}/>
@@ -72,13 +69,3 @@ export const SideMenu = (props) =>{
 	}
 
 
-	// function Layout({ children }) {
-	// 	return (
-	// 		<div className='dashboard-layout'>
-	// 			<SideMenu />
-	// 			<div style={{ maxWidth: 900, marginLeft: 'auto', marginRight: 'auto', marginTop: '3rem'}}>
-	// 				{children}
-	// 			</div>
-	// 		</div>
-	// 	)
-	// }

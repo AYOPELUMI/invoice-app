@@ -1,0 +1,12 @@
+@import "../assets/mobileDesign.scss";
+
+.modalCtnr{
+@include xs{
+    .mainContent{
+        padding-left: 20px;
+        padding-top: 50px;
+        padding-right: 24px;
+        width: 90%;
+    }
+}
+}
