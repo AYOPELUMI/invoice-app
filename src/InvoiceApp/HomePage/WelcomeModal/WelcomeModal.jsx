@@ -24,7 +24,7 @@ export const WelcomeModal = props => {
   				<h3>Send your first official invoice by clicking on the start button </h3>
 				</div>
 				<NavLink to="newInvoice">
-  					<Button className="startBtn" displayWord="create invoice" onClick={updateShowWelcomeModal}/>
+  					<Button className="startBtn" displayWord="Create invoice" onClick={updateShowWelcomeModal}/>
   				</NavLink>
 			</div>
   			

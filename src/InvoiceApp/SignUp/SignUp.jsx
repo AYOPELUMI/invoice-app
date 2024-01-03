@@ -112,7 +112,7 @@ export const SignUp = props => {
 
 	const handlePasswordValidity = () =>{
 		// accept any password on development mode
-		if (import.meta.env.DEV === true) return false 
+		// if (import.meta.env.DEV === true) return false 
 
 		let passwordVerification = IsAllPresent(password)
 
@@ -208,58 +208,60 @@ export const SignUp = props => {
 	return (
 		<div className="signUpMainCtnr">
 		<Toaster />
-			<div className="signUpCtnr">
-				<header>
-					<h2>Create account</h2>
-					<p>Send your invoice acreoss the world</p>
-				</header>
-				{invalidMsg ? <p className="invalidMsg">{invalidMsg}</p> : null}
-				<form action="">
-					<Input 
-		    			required={true}
-		    			labelFor={<h5>Full Name <span>*</span></h5>}
-		    			inpurClassName="loginInput"
-		    			placeHolder="Enter your full name"
-		    			type="text"
-		    			value={fullName}
-		    			updateState={updateName}
-		    			inputClassName={fullNameValidity ? "error" : undefined}
-		    			errorMsg ={fullNameValidity ? fullNameErrorMsg : ""}/>				
-					<Input 
-		    			required={true}
-		    			labelFor={<h5>Email <span>*</span></h5>}
-		    			inpurClassName="loginInput"
-		    			placeHolder="Enter your email"
-		    			type="email"
-		    			value={email}
-		    			updateState={updateEmail}
-		    			inputClassName={emailValidity? "error": undefined}
-		    			errorMsg={emailValidity ? emailErrorMsg : ""}/>
-		    		<Input 
-		    			required={true}
-		    			labelFor={<h5>Password <span>*</span></h5>}
-		    			inpurClassName="loginInput"
-		    			placeHolder="create a password"
-		    			type="password"
-		    			value={password}
-		    			updateState={updatePassword}
-		    			inputClassName={passwordValidity ? "error" : undefined}
-		    			errorMsg={passwordValidity ? passwordErrorMsg : ""}/>
-		    		<Input 
-		    			required={true}
-		    			labelFor={<h5> Confirm Password <span>*</span></h5>}
-		    			inpurClassName="loginInput"
-		    			placeHolder="Confirm password"
-		    			type="password"
-		    			value={confirmPassword}
-		    			updateState={updateConfirmPaaword}
-		    			inputClassName={confirmPasswordValidity ? "error" : undefined}
-		    			errorMsg={confirmPasswordValidity ? confirmPasswordErrorMsg : ""}/>
-				</form>
-		    	<Button type = "submit" onClick={handleSubmit} disabled={isLoading}>{isLoading ? <i className="loadingIcon"></i> : "Create account"}</Button>
-				<span>Already have an account ?<a onClick={handleLoginLink}> Log in</a></span>
-			</div>
-			<div className="displayCtnr">
+			<div className='signUpCtnr'>
+				<div className="signUp">
+					<header>
+						<h2>Create account</h2>
+						<p>Send your invoice acreoss the world</p>
+					</header>
+					{invalidMsg ? <p className="invalidMsg">{invalidMsg}</p> : null}
+					<form action="">
+						<Input 
+							required={true}
+							labelFor={<h5>Full Name <span>*</span></h5>}
+							inpurClassName="loginInput"
+							placeHolder="Enter your full name"
+							type="text"
+							value={fullName}
+							updateState={updateName}
+							inputClassName={fullNameValidity ? "error" : undefined}
+							errorMsg ={fullNameValidity ? fullNameErrorMsg : ""}/>				
+						<Input 
+							required={true}
+							labelFor={<h5>Email <span>*</span></h5>}
+							inpurClassName="loginInput"
+							placeHolder="Enter your email"
+							type="email"
+							value={email}
+							updateState={updateEmail}
+							inputClassName={emailValidity? "error": undefined}
+							errorMsg={emailValidity ? emailErrorMsg : ""}/>
+						<Input 
+							required={true}
+							labelFor={<h5>Password <span>*</span></h5>}
+							inpurClassName="loginInput"
+							placeHolder="create a password"
+							type="password"
+							value={password}
+							updateState={updatePassword}
+							inputClassName={passwordValidity ? "error" : undefined}
+							errorMsg={passwordValidity ? passwordErrorMsg : ""}/>
+						<Input 
+							required={true}
+							labelFor={<h5> Confirm Password <span>*</span></h5>}
+							inpurClassName="loginInput"
+							placeHolder="Confirm password"
+							type="password"
+							value={confirmPassword}
+							updateState={updateConfirmPaaword}
+							inputClassName={confirmPasswordValidity ? "error" : undefined}
+							errorMsg={confirmPasswordValidity ? confirmPasswordErrorMsg : ""}/>
+					</form>
+					<Button type = "submit" onClick={handleSubmit} disabled={isLoading}>{isLoading ? <i className="loadingIcon"></i> : "Create account"}</Button>
+					<span>Already have an account ?<a onClick={handleLoginLink}> Log in</a></span>
+				</div>
+				<div className="displayCtnr">
+				</div>
 			</div>
 		</div>   
 	)

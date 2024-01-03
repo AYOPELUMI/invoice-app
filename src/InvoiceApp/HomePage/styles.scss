@@ -119,6 +119,8 @@
 								justify-content: start;
 								align-items: center;
 								padding: 6px 3px;
+								flex-direction: row;
+								font-size: var(--fontSize-24);
 
 								&:hover{
 									opacity: 0.8;
@@ -126,7 +128,8 @@
 							}
 
 							input{
-							width: fit-content;
+							width: var(--fontSize-24);
+							height: var(--fontSize-24);
 							display: flex;
 							gap: 6px;
 							cursor: pointer;

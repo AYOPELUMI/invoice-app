@@ -11,7 +11,7 @@
 			color: var(--color-default-black);
 			background: var(--itemCtnr-bg);
 
-			&:active{
+			&:active, &:focus{
 				border:2px solid var(--header-btn-bg);
 			}
 		}
