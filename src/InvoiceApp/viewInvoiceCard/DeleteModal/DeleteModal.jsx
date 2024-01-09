@@ -9,10 +9,7 @@ import apiFetch from '../../../apiFetch';
 export const DeleteModal = props => {
 	const {
 		invoiceData,
-		invoiceArr,
-		updateInvoiceArr,
 		updateDeleteModal,
-		index,
 		ResetEditIndex,
 		authenticateUser
 	} = props

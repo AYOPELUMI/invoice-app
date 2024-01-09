@@ -23,8 +23,9 @@ export function UseIdle({ onIdle, idleTime }) {
 
     console.log("user is idle", event); //log the user is idle followed by the event
     console.log("Last Active time", getLastActiveTime()); // you the log the time the user was last active
+    localStorage.setItem("lastActiveItem",getLastActiveTime())
     console.log("Current time", formattedCurrentTime); //gets the curent time maybe to see what
-    
+    localStorage.setItem("current Time",formattedCurrentTime)
     onIdle(); //then call onIdle function
   };
 
