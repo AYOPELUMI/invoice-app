@@ -3,10 +3,8 @@ import { useEffect, useContext, useState,useRef,useCallback } from 'react';
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { AiFillPlusCircle } from "react-icons/ai";
 import { DisplayInvoiceData } from "../DisplayInvoiceData/DisplayInvoiceData";
-import { Outlet } from "react-router-dom";
-import { Input } from "../assets/Input";
 import { Auth } from "../assets/Auth";
-import { NavLink, useNavigate, useLocation } from "react-router-dom";
+import { NavLink, useNavigate, useLocation,Outlet } from "react-router-dom";
 import { WelcomeModal } from "./WelcomeModal/WelcomeModal";
 import apiFetch from '../../apiFetch';
 
@@ -17,14 +15,7 @@ export const HomePage = props => {
 	const {
 		invoiceArr,
 		editIndex,
-	  	editInvoice,
-	  	displayIndex,
-	  	filterState,
-	  	showFilter,
-	  	updateShowFilter,
 	  	updateEditIndex,
-	  	updateEditInvoice,
-	  	updateFilterState,
 	  	SideMenu,
 	  	updateInvoiceArr,
 	  	setLastLocation
@@ -32,7 +23,8 @@ export const HomePage = props => {
 
 	const filterList = ["draft", "pending", "paid"];
 	const [showWelcomeModal, setShowWelcomeModal] = useState(true)
-	const [isFilterOn, setIsFilterOn] = useState(false)
+	const [selectedFilters, setSelectedFilters] = useState([])
+	const [showFilter, setShowFilter] =useState(false)
 	const navigate = useNavigate();
 	const location = useLocation();
 	const { user } = useContext(Auth);
@@ -47,21 +39,12 @@ export const HomePage = props => {
 			authUser = user.token
 		}
 	useEffect(() => {
-	
 		let localUser = localStorage.getItem("user");
-	
-		
-		
-	
-
 		if (location.pathname == "/dashboard") {
 			if (user == null && localUser == null) {
-			
 				navigate("/login");
 			}
-			else {
-				
-				
+			else {	
 				apiFetch("/invoices/list", {
 					method: 'GET',
 					headers: {
@@ -79,16 +62,13 @@ export const HomePage = props => {
 					.catch((err) => {
 						console.log(err.message);
 					});
-
 			}
 		}
 		setLastLocation(location.pathname);
 	}, [location.pathname]);
 
 	const handleShowFilter = (e) => {
-		updateShowFilter(true);
-		
-		
+		setShowFilter(true);	
 	}
 	function useOutsideClick(handleClose, ref) {
 		const handleClick = useCallback((event) => {
@@ -104,43 +84,19 @@ export const HomePage = props => {
 		}, [handleClick])
 	}
 	const handleCloseFilter =() =>{
-		updateShowFilter(false)
+		setShowFilter(false)
 	}
-		useOutsideClick(handleCloseFilter, filterRef);
 	
-
-
-	function updateShowWelcomeModal(args) {
+	useOutsideClick(handleCloseFilter, filterRef);
+	
+	function updateShowWelcomeModal() {
 		setShowWelcomeModal(!showWelcomeModal);
 	}
 
-	function updateInvoiceData(args) {
-		let invoiceArrClone = [...invoiceArr];
-		console.log({ args });
-		console.log({ editIndex });
-		let index = invoiceArrClone.findIndex(obj => {
-			console.log({ obj });
-			return obj.Id == editIndex;
-		});
-		console.log({ index });
-		invoiceArrClone.splice(index, 1, args);
-		setInvoiceArr(invoiceArrClone);
-	}
-	// function updateInvoiceArr (args) {
-	// 	setInvoiceArr(args)
-	// 	handleGoBack()
-	// }
 
 	const setEditIndex = (args) => {
 		updateEditIndex(args);
-		// 		let index = displayArr.findIndex(obj => {
-		// 	console.log({obj})
-		// 	return obj.props.index == args
-		// })
-		// 		console.log({index})
-		updateEditInvoice(true);
-		// updateDisplayIndex(index)
-	};
+	}
 
 
 	const renderInvoiceList = (invoiceList) => {
@@ -152,9 +108,7 @@ export const HomePage = props => {
 					key={invoiceList[i].id}
 					index={invoiceList[i].id}
 					updateEditIndex={setEditIndex}
-					editInvoice={editInvoice}
 					mainEditIndex={editIndex}
-					updateInvoiceData={updateInvoiceData}
 
 					/>
 			);
@@ -162,9 +116,6 @@ export const HomePage = props => {
 		}
 		return displayArr
 	}
-
-
-	const [selectedFilters, setSelectedFilters] = useState([])
 	
 	const handleFilterChange = (e) => {
 		let { value, checked } = e.target
@@ -176,7 +127,6 @@ export const HomePage = props => {
 		
 	}
 
-
 	const renderFilterOptions = () => {
 		let filterArray = [];
 		filterList.forEach((filter,index) => {
@@ -185,14 +135,12 @@ export const HomePage = props => {
 					<input type='checkbox' value={filter.toLowerCase()} key={`filter-item-${index}`} onChange={handleFilterChange} />
 					{filter}
 				</label>
-				
 			);
 			filterArray.push(el)
 		})
 		return filterArray
 
 	}
-
 
 	const getFilteredInvoiceList = () => {
 		if (selectedFilters.length > 0) {
@@ -209,7 +157,6 @@ export const HomePage = props => {
 		}
 	}
 
-
 	const filteredInvoiceList = getFilteredInvoiceList()
 	
 
@@ -220,7 +167,7 @@ export const HomePage = props => {
 				<header className="invoiceAppHeader">
 					<div className="pageTitle">
 						<h2>Invoices</h2>
-						{invoiceArr.length ?<div> <span>There are </span><p>{invoiceArr.length}</p><span>total</span> <p>invoices</p> </div>: <p>no invoices</p>}
+						{invoiceArr.length > 0 ?<div> <span>There are </span><p>{invoiceArr.length}</p><span>total</span> <p>invoices</p> </div>: <p> no invoices</p>}
 					</div>
 					<div className="btnHeaderCtnr">
 						<div className="filterBtn"  onClick={handleShowFilter}>
@@ -251,7 +198,7 @@ export const HomePage = props => {
 						)} 
 					</div>}
 			</div>
-			{invoiceArr.length != 0 && showWelcomeModal ? <WelcomeModal  updateShowWelcomeModal ={updateShowWelcomeModal} showWelcomeModal={showWelcomeModal}/> : null}
+			{invoiceArr.length == 0 && showWelcomeModal ? <WelcomeModal  updateShowWelcomeModal ={updateShowWelcomeModal} showWelcomeModal={showWelcomeModal}/> : null}
 			<Outlet />
 		</div>
 	)

@@ -16,9 +16,6 @@ import './styles.scss';
 import "./Reponsive.scss"
 import dayjs from 'dayjs';
 
-	let itemArray =[]
-	let displayItemDetailsArr = []
-
 export function NewInvoiceModal (props) {
 
 	const {
@@ -33,7 +30,6 @@ export function NewInvoiceModal (props) {
 	const [displayItemDetailsArray, setDisplayItemDetailArray] = useState([])
 	const [itemIndex, setItemIndex] = useState(0)
 	const [invoiceData, setInvoiceData] = useState({})
-	const [itemsDataArr, setItemsDataArr] = useState([])
 	const [draft, setDraft] = useState(false)
 	const [isLoading, setisLoading] = useState(false)
 	const [errorMsg, setErrorMsg] = useState("")
@@ -59,6 +55,7 @@ export function NewInvoiceModal (props) {
 		}
 		else{
 			   if (invoiceDetail) {
+				console.log({invoiceDetail})
 		    		// fetchInvoiceDetails()
 					let formatedDate = dayjs(invoiceDetail.invoiceDate).format("YYYY-MM-DD")
 		 			setInvoiceData({
@@ -68,14 +65,7 @@ export function NewInvoiceModal (props) {
 		 			if (invoiceDetail.status == "draft") {
 		 				setDraft(true)
 		 			}
-		 			setItemsDataArr(invoiceDetail.itemList)
-		 			// console.log("itemList is "+data.invoice.itemList)
-		 			setItemIndex(invoiceDetail.itemList.length +1)
-		 			let displayArr = []
-		 			for (var i = 0; i < invoiceDetail.itemList.length; i++) {
-		 				displayArr.push(i)
-		 			}
-		 			setDisplayItemDetailArray(displayArr)
+		 			setDisplayItemDetailArray(invoiceDetail.itemList)
 		 			
 		 			toast.success("invoice retrieved")
 			   }
@@ -83,12 +73,7 @@ export function NewInvoiceModal (props) {
 		console.log("location path is -"+ location.pathname)
 		setLastLocation(location.pathname)
 	},[location,invoiceDetail])
-	// console.log({invoiceDetail})
-	// console.log({invoiceData})
-	// console.log({editInvoice})
-	// console.log({displayItemDetailsArray})
-	// console.log({invoiceArr})
-	// console.log({itemIndex})
+
 
 	const handleCloseModal =() => {
 		exitApp()
@@ -105,66 +90,52 @@ export function NewInvoiceModal (props) {
 	}
 
 	function  updateDisplayItemDetailArr (args){
-		let displayItemDetailsArrayClone = [...displayItemDetailsArray]
-		let itemsDataArrClone = [...itemsDataArr]
-		let invoiceDataClone = {...invoiceData}
 		console.log({args})
-		console.log({itemsDataArrClone})
+		let displayItemDetailsArrayClone = displayItemDetailsArray.filter(arg => arg.index != args)
 		console.log({displayItemDetailsArrayClone})
-		 console.log({itemIndex})
-			let newIndex = displayItemDetailsArrayClone.indexOf(Number(args))
-			console.log({newIndex})
-					console.log({args})
-		console.log({itemsDataArrClone})
-		console.log({displayItemDetailsArrayClone})
-			displayItemDetailsArrayClone.splice(Number(args),1)
-			console.log({displayItemDetailsArrayClone})
-			itemsDataArrClone.splice(Number(args),1)
-			console.log({itemsDataArrClone})
-			invoiceDataClone.itemList = itemsDataArrClone
-			setItemsDataArr(itemsDataArrClone)
-			setInvoiceData(invoiceDataClone)
-			setDisplayItemDetailArray(displayItemDetailsArrayClone)
-		
+		setDisplayItemDetailArray(displayItemDetailsArrayClone)
+		setInvoiceData({
+			...invoiceData,
+			itemList: displayItemDetailsArrayClone
+		})
 	}
+	console.log({displayItemDetailsArray})
 	const handleAddItemDetails =() => {
-		let displayItemDetailsArrayClone = [...displayItemDetailsArray]
+		// let displayItemDetailsArrayClone = [...displayItemDetailsArray]
 		let el = itemIndex
 		console.log({itemIndex})
-		// let newItem = {
-		// 	name: '',
-		// 	qty: '',
-		// 	price: '',
-		// 	total: '',
-		// }
+		let newItem = {
+			name: '',
+			quantity: 0.00,
+			price: 0.00,
+			total: 0.00,
+			index: itemIndex
+		}
+		console.log({newItem})
 
-		displayItemDetailsArrayClone.push(el)
-		setDisplayItemDetailArray(displayItemDetailsArrayClone)
+		// displayItemDetailsArrayClone.push(el)
+		setDisplayItemDetailArray(displayItemDetailsArray.concat(newItem))
+		console.log(displayItemDetailsArray.concat(newItem))
 		setItemIndex(itemIndex+1)
 		console.log('display item details array --->', displayItemDetailsArray )
 	}
-	let displayArr =[]
-	for (var i = 0; i < displayItemDetailsArray.length; i++) {
-		let el
-		if (invoiceDetail){
-			el = ( <ItemDetails 
-						index ={i}
-						key={displayItemDetailsArray[i]}
-						getData={getItemsData}
-						itemDetail={itemsDataArr[i]}
-						handleDel = {updateDisplayItemDetailArr}
-					/>)
-		}
-		else{
-			el = ( <ItemDetails 
-				index ={i}
-				key={displayItemDetailsArray[i]}
-				getData={getItemsData}
-				handleDel = {updateDisplayItemDetailArr}
-			/>)
-		}
-		displayArr.push(el)
+
+	const renderItemList = () => {
+		console.log({displayItemDetailsArray})
+		let displayArray =displayItemDetailsArray.map((value, index) => {
+				
+				return <ItemDetails
+					index={value.index}
+					key={`itemDetail ${value.index}`}
+					getData={getItemsData}
+					itemDetail={value}
+					handleDel={updateDisplayItemDetailArr}	
+					/>
+			})
+			console.log({displayArray})
+			return displayArray
 	}
+	
 	function exitApp () {
 			setTimeout(() => {
 				setDisplay(0)
@@ -249,54 +220,20 @@ export function NewInvoiceModal (props) {
 	}
 	function getItemsData (args){
 		console.log({args})
-		let displayItemDetailsArrayClone = [...displayItemDetailsArray]
-		let itemsArr ={...invoiceData}
-		// console.log({displayItemDetailsArrayClone})
-		// console.log({args})
-		let itemsDataArrClone = [...itemsDataArr]
+		let displayItemDetailsArrayClone =[...displayItemDetailsArray]
+		let invoiceDataClone ={...invoiceData}
 
-		let newIndex = displayItemDetailsArrayClone.indexOf(args[0])
+		let newIndex = displayItemDetailsArrayClone.findIndex(value => {
+			
+			return value.index == args.index})
+		displayItemDetailsArray.splice(newIndex,1,args)
+		setDisplayItemDetailArray(displayItemDetailsArrayClone)
+		invoiceDataClone.itemList = displayItemDetailsArrayClone
 		console.log({newIndex})
-		itemsDataArrClone[args[0]] = args[1]
-		setItemsDataArr(itemsDataArrClone)
-		itemsArr.itemList= itemsDataArrClone
-		console.log({itemsArr})
-		setInvoiceData(itemsArr)
+		setInvoiceData(invoiceDataClone)
 	}
 
-	const customFetch = (url, options) => {
-		return fetch(url, options)
-					.then((response) =>  {
-			        	return response.json().then(data => {
-			        		return [response.ok, data]
-			        	})
-			        }).then(customResponse => {
-			        	let [ok, data] = customResponse
-			        	if (!ok) {
-			        		console.log([ok])
-			        		let error = new Error()
-			        		error.data = data
-			        		return Promise.reject(error)
-			        	} else {
-			        		return data
-			        	}
-			        })
-	}
-
-	const simpleCustomFetch = async (url, options) => {
-			const response =  await  fetch(url, options)
-			const data = await response.json()
-
-			if (!response.ok) {
-				let error =  new Error()
-				error.data = data
-				throw error
-			} else {
-				return data
-			}	
-	}
-
-
+	console.log({invoiceData})
 	const handlesubmit = (event) =>{
 		event.preventDefault()
 		setisLoading(true)
@@ -458,7 +395,7 @@ export function NewInvoiceModal (props) {
 	// console.log({invoiceData})
 	// console.log({errorMsg})
 	console.log({ displayItemDetailsArray})
-	console.log({ itemsDataArr })
+
   	return (
 	 	<div className="modalCtnr" style={{
 	 		opacity: display
@@ -499,7 +436,7 @@ export function NewInvoiceModal (props) {
 				/>
 	 			<div>
 		 			<h3>Item List</h3>
-		 			{displayArr}
+		 			{renderItemList()}
 	 			</div>
 	 			<button type="button"  className="addNewItemBtn" onClick={handleAddItemDetails}>+ Add New Item</button>
 	 			{errorMsg ? <span className="errorSpan">***{errorMsg}</span> : null}

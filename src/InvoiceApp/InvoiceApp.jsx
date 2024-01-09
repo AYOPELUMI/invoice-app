@@ -30,11 +30,7 @@ export function InvoiceApp (props) {
 	const [openModal, setOpenModal] = useState(false)
 	const [invoiceArr, setInvoiceArr] = useState([])
 	const [editIndex, seteditIndex] = useState(0)
-	const [displayIndex, setDisplayIndex] = useState("")
-	const [editInvoice, setEditInvoice] = useState(false)
-	const [showFilter, setShowFilter] = useState(false)
 	const [authenticateUser, setAuthenticateUser] = useState(undefined)
-	const [filterState, setFilterState] = useState([false,false, false])
 	const [currentLocation, setCurrentLocation] = useState(null)
 
 	useEffect(() =>{
@@ -69,9 +65,7 @@ export function InvoiceApp (props) {
 	function handleLocation (args) {
 		setCurrentLocation(args)
 	}
-	const handleShowFilter = (e) =>{
-		setShowFilter(true)	
-	}
+
 	function updateOpenModal(args){
 		setOpenModal(!openModal)
 	}
@@ -82,12 +76,8 @@ export function InvoiceApp (props) {
 		setInvoiceArr(invoiceArrClone)
 		// ArrayInvoice.push(args)
 	}
-	function updateShowFilter (args) {
-		setShowFilter(args)
-	}
-	// console.log({editIndex})
-	// console.log({editInvoice})
-	// console.log({displayIndex})
+
+
 
 	const updateEditIndex =(args) =>{
 		// console.log({args})
@@ -103,11 +93,7 @@ export function InvoiceApp (props) {
 		seteditIndex(0)
 		console.log("i pass through here")
 	}
-	// console.log({editIndex})
-	const handleGoBack =() =>{
-		seteditIndex(undefined)
-		setEditInvoice(!editInvoice)
-	}
+
 	function updateInvoiceData (args){
 		let invoiceArrClone = [...invoiceArr]
 		console.log({args})
@@ -162,16 +148,7 @@ export function InvoiceApp (props) {
 				    	<HomePage 
 					    	invoiceArr={invoiceArr}
 				    		editIndex={editIndex}
-				    		editInvoice={editInvoice}
-				    		displayIndex={displayIndex}
-				    		filterState={filterState}
-				    		showFilter={showFilter}
-				    		authenticateUser={authenticateUser}
-				    		updateShowFilter={updateShowFilter}
 				    		updateEditIndex={updateEditIndex}
-				    		updateDisplayIndex={updateDisplayIndex}
-							updateEditInvoice={updateEditInvoice}
-							updateFilterState={updateFilterState}
 							updateInvoiceArr={updateInvoiceArr}
 							SideMenu={<SideMenu darkMode={darkMode} updateDarkMode={updateDarkMode}/>}
 							setLastLocation={handleLocation} 
@@ -183,12 +160,12 @@ export function InvoiceApp (props) {
 			    	path: "newInvoice",
 			    	element: 
 				    	<SessionTimer 
-					    	children={<NewInvoiceModal 
-					    	invoiceArr={invoiceArr}
-					    	authenticateUser={authenticateUser}
-					    	getData={updateInvoiceArray}
-							setLastLocation={handleLocation}
-					    	/>}
+					    	children={
+								<NewInvoiceModal 
+									invoiceArr={invoiceArr}
+									setLastLocation={handleLocation}
+								/>
+							}
 					    />
 			    },
 		    ]
@@ -200,17 +177,8 @@ export function InvoiceApp (props) {
 	    		children={ 
 		    		<ViewInvoiceCard 		
 		    		invoiceData={invoiceArr[editIndex]}
-					editIndex={editIndex}
-					updateInvoiceData={updateInvoiceData}
-					invoiceArr={invoiceArr}
-					updateInvoiceArr={updateInvoiceArr}
-					updateOpenEditModal={updateOpenModal}
-					updateEditIndex={updateEditIndex}
-					darkMode={darkMode}
-					updateDarkMode={updateDarkMode}
 					SideMenu={<SideMenu darkMode={darkMode} updateDarkMode={updateDarkMode}/>}
 					ResetEditIndex={ResetEditIndex}
-					authenticateUser={authenticateUser}
 					setLastLocation={handleLocation}
 					/>
 				}
@@ -223,8 +191,6 @@ export function InvoiceApp (props) {
 						children={
 							<NewInvoiceModal 
 								invoiceDetail ={invoiceArr[editIndex]}
-				    			updateInvoiceData={updateInvoiceData}
-				    			authenticateUser={authenticateUser}
 				    			invoiceArr={invoiceArr}
 								setLastLocation={handleLocation}
 				    		/>

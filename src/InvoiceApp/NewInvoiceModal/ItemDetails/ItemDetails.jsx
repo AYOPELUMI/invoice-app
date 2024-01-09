@@ -2,26 +2,9 @@ import {useState, useEffect} from 'react';
 import {ImBin2} from "react-icons/im"
 import { numberFormat } from '../../assets/numberFormat';
 import { removeComma } from '../../assets/removeComma';
+import { NumberInput } from '../../assets/NumberInput/NumberInput';
 import './styles.scss';
 
-function NumberInput({ value, onChange}) {
-
-	const handleChange = (event) => {
-		let value = removeComma(event.target.value)
-		if (value.length > 0) {
-			let valueToNumber = Number(value)
-			
-			if (valueToNumber) {
-				onChange(valueToNumber)
-			}	
-		} else {
-			onChange(value)
-		}
-	}
-	return (
-		<input  type="text" inputMode="decimal" value={value} onChange={handleChange} />
-	)
-}
 
 export function ItemDetails(props){
 	const {
@@ -32,10 +15,12 @@ export function ItemDetails(props){
 		handleDel
 	} = props
 
-	const [itemNameValue, setItemName] = useState()
-	const [qtyValue, setQtyValue] = useState('')
-	const [priceValue, setPriceValue] = useState('')
-	const [totalValue, setTotalValue] = useState('')
+	console.log({props})
+
+	const [itemNameValue, setItemName] = useState("")
+	const [qtyValue, setQtyValue] = useState(0)
+	const [priceValue, setPriceValue] = useState(0)
+	const [totalValue, setTotalValue] = useState(0)
 
 	useEffect(() =>{
 		if (itemDetail) {
@@ -45,20 +30,28 @@ export function ItemDetails(props){
 			setTotalValue(itemDetail.total)
 		}
 	},[])
+	console.log({qtyValue})
+	console.log({itemDetail})
 
-	const deleteItemDetails =() =>{
-		updateItemArray(props.index)
+	const updateItemDetail = (name,value) =>{
+		let itemDetailClone= {...itemDetail}
+			itemDetailClone.name =value
+			getData(itemDetailClone)
 	}
 	const handleName =(event) =>{
 		let value = event.target.value
 		setItemName(value)
+		updateItemDetail("name",value)
 	}
 	const handleQty =(qty) =>{
+		console.log({qty})
 		setQtyValue(qty)
+		updateItemDetail("quantity",qty)
 	}
 
 	const handlePrice =(number) =>{
 		setPriceValue(number)
+		updateItemDetail("price",number)
 	}
 
 	const handleDeleteItem =() =>{
@@ -66,20 +59,7 @@ export function ItemDetails(props){
 		handleDel(index)
 	}
 
-	useEffect(() =>{
-		let qtyValueClone = qtyValue
-		let priceValueClone = priceValue
-		let total
 
-		qtyValueClone =Number(qtyValueClone)
-		priceValueClone =Number(removeComma(priceValueClone))
-		console.log({priceValue})
-		console.log({priceValueClone})
-		total = qtyValueClone * priceValueClone
-		setTotalValue(total.toFixed(2))
-		getData([index,{"name": itemNameValue,"quantity":qtyValueClone,"price":priceValueClone,"total" : total.toFixed(2)}])
-
-	},[qtyValue,priceValue,itemNameValue])
 
 	return (
 	<div className="itemCtnr" key={index}>
@@ -96,11 +76,11 @@ export function ItemDetails(props){
 			</label>
 			<label htmlFor="" className="priceLabel">
 				<h4>Price</h4>
-				<NumberInput  value={priceValue} onChange={handlePrice} />
+				<NumberInput value={priceValue} onChange={handlePrice} />
 			</label>
 			<label className="priceLabel">
 				<h4>Total</h4>
-				<input type="text" value={numberFormat(totalValue)} disabled />
+				<input type="text" value={numberFormat((qtyValue * priceValue).toFixed(2))} disabled />
 			</label>
 			<i key={index} className="bin" index={index} id={index}>
 			<i style={{

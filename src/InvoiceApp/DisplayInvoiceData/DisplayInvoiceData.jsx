@@ -13,17 +13,13 @@ export const DisplayInvoiceData = props => {
 		invoiceData,
 		index,
 		updateEditIndex,
-		editInvoice,
 		mainEditIndex,
-		updateInvoiceData,
-		invoiceArr,
-		updateInvoiceArr,
-		updateOpenEditModal
+		invoiceArr
+
 	} = props
 	
 
 	const [totalAmount, setTotalAmount] = useState(0)
-	const [editIndex, setEditIndex] = useState("")
 	
 	useEffect(() =>{
 		let itemList = invoiceData.itemList 
@@ -34,16 +30,16 @@ export const DisplayInvoiceData = props => {
 		setTotalAmount(total.toFixed(2))
 	},[invoiceArr])
 	
-	useEffect(() => {
-		setEditIndex(mainEditIndex)
-	},[mainEditIndex])
+	// useEffect(() => {
+	// 	setEditIndex(mainEditIndex)
+	// },[mainEditIndex])
 
 	const formattedDate = (args) =>{
 		let newDate = dayjs(args).format("YYYY-MM-DD")
 		return newDate
 	}
 	const handleEdit = () =>{
-		setEditIndex(props.index)
+		// setEditIndex(props.index)
 		updateEditIndex(props.index)
 		localStorage.setItem("lastIndex", props.index)
 	}

@@ -5,9 +5,8 @@
 import {useState, useEffect, useContext} from 'react';
 import {DeleteModal} from "./DeleteModal/DeleteModal"
 import {VscCircleLargeFilled} from "react-icons/vsc"
-import {NavLink} from "react-router-dom"
 import {BiSolidChevronLeft} from "react-icons/bi"
-import {useNavigate, useLocation, Outlet} from "react-router-dom"
+import {useNavigate, useLocation, Outlet, NavLink} from "react-router-dom"
 import { Button } from '../assets/Button/Button.jsx';
 import {Auth} from "../assets/Auth"
 import {numberFormat} from "../assets/numberFormat.js"
@@ -20,12 +19,8 @@ import  dayjs  from 'dayjs';
 export const ViewInvoiceCard = props => {
 	const{
 		invoiceData,
-		invoiceArr,
-		index,
 		ResetEditIndex,
-		updateInvoiceArr,
 		SideMenu,
-		authenticateUser,
 		setLastLocation
 	} = props
 	console.log({props})
@@ -45,7 +40,6 @@ export const ViewInvoiceCard = props => {
 	let invoiceId =  localStorage.getItem("lastIndex") ? localStorage.getItem("lastIndex") : invoiceData.id 
 	
 	useEffect(() => {
-		console.log({authenticateUser})
 		console.log({localUser})
 		if (!user && !localUser) {
 			console.log("it is true")
@@ -255,11 +249,8 @@ export const ViewInvoiceCard = props => {
 							<>
 								{openDeleteModal ? 
 								<DeleteModal 
-									invoiceData={invoiceDetail} 
-									invoiceArr={invoiceArr} 
-									updateInvoiceArr={updateInvoiceArr}
+									invoiceData={invoiceDetail}
 									updateDeleteModal={updateDeleteModal}
-									index={index}
 									ResetEditIndex={ResetEditIndex}
 									authenticateUser={user.token} 
 								/> : null} 
