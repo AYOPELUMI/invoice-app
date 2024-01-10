@@ -54,6 +54,9 @@ console.log({localUser})
 
 
   useEffect(() =>{
+    if(user ==null && localUser == null){
+      navigate("/login")
+    }
            let currentTime = Dayjs()
         let lastActiveTime = Dayjs(localStorage.getItem("lastActiveTime")).format()
         console.log({lastActiveTime})

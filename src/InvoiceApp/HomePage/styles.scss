@@ -144,6 +144,66 @@
 				}
 			}
 		}
+		.emptyInvoiceDiv{
+			width: 100%;
+			height: 100vh;
+			display: flex;
+			flex-direction: column;
+			gap: 20px;
+			padding: 20px;
+			text-align: center;
+			align-items: center;
+			justify-content: center;
+			font-size: var(--fontSize-55);
+			color: var(--save-btn-color);
+			font-family: Memoirs;
+
+			a{
+				text-decoration: none;
+				
+				@mixin animate($animation-name, $animation-duration, $animation-direction, $animation-iteration-count){
+					animation : $animation-name $animation-duration $animation-direction $animation-iteration-count;
+				}
+	
+				@mixin keyframes($name){
+					@keyframes #{$name}{
+						@content;		
+					}
+				}
+			.startBtn{
+				margin-left: auto;
+				margin-right: auto;
+				width: 200px;
+				height: 40px;
+				display: block;
+				padding: 6px;
+				border-radius: 22px;
+				color: white;
+				cursor: pointer;
+				background: var(--header-btn-bg);
+				@include animate(animateBtn, 2s, linear, infinite);
+				transition: opacity 1s ease-in-out ;
+	
+					@include keyframes(animateBtn) {
+					  0% {
+						transform: scale(1.0);
+					  }
+					  25%{
+						transform: scale(1.05);
+					  }
+					  50%{
+						transform: scale(1.1);
+					  }
+					  75%{
+						transform: scale(1.05);
+					  }
+					  100% {
+						transform: scale(1.0);
+					  }
+					}
+			}
+			}
+		}
 	}
 }
 

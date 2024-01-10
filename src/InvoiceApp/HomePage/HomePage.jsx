@@ -10,6 +10,7 @@ import apiFetch from '../../apiFetch';
 
 import "./styles.scss"
 import "./Reponsive.scss"
+import { Button } from '../assets/Button/Button';
 
 export const HomePage = props => {
 	const {
@@ -183,13 +184,14 @@ export const HomePage = props => {
 					<div className="invoiceTableContainer">
 						{renderInvoiceList(filteredInvoiceList)}
 					</div>
-					: <div>
-						{ invoiceArr.length  === 0 ? (
-							<div>you have no invoice</div>
+					: <>
+						{ invoiceArr.length === 0 ? (
+							<div className='emptyInvoiceDiv'>you have no invoice
+							<NavLink to ="/newInvoice"><Button className='startBtn' displayWord="Create Invoice" /></NavLink></div>
 						): (
-							<div>You have invoice, you just don't have any one matching the selected filters: {selectedFilters.join(',')}</div>
+							<div className='emptyInvoiceDiv'>You have invoice, you just don't have any one matching the selected filters: {selectedFilters.join(',')}</div>
 						)} 
-					</div>}
+					</>}
 			</div>
 			{invoiceArr.length == 0 && showWelcomeModal ? <WelcomeModal  updateShowWelcomeModal ={updateShowWelcomeModal} showWelcomeModal={showWelcomeModal}/> : null}
 			<Outlet />
