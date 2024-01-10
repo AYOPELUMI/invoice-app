@@ -179,7 +179,7 @@ export const ViewInvoiceCard = props => {
 							<div className="mainInvoiceCard">
 								<div className="cardBiller">
 									<div className="paymentDescription">
-										<h3>{invoiceDetail.id.slice(0,6)}</h3>
+										<h3>#{invoiceDetail.id.slice(0,6)}</h3>
 										<h4>{invoiceDetail.projectDescription}</h4>
 									</div>
 									<div className="billerAddress">
