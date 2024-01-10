@@ -40,13 +40,7 @@ export const ViewInvoiceCard = props => {
 	let invoiceId =  localStorage.getItem("lastIndex") ? localStorage.getItem("lastIndex") : invoiceData.id 
 	
 	useEffect(() => {
-		console.log({localUser})
-		if (!user && !localUser) {
-			console.log("it is true")
-			navigate("/login")
 			setLastLocation(location.pathname)
-		}
-		else{
 			console.log({invoiceId})
 			let array = JSON.parse(localStorage.getItem("invoices"))
 			console.log({array})
@@ -72,10 +66,9 @@ export const ViewInvoiceCard = props => {
 		        .catch((err) => {
 		           console.log(err.message);
 		        })
-			    }
+			}
 
 		    fetchInvoiceDetails()
-			}
 		console.log("location path is -"+ location.pathname)
 		setLastLocation(location.pathname)
 	},[location])

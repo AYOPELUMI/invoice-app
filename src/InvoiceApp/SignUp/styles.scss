@@ -8,16 +8,17 @@
 	background: var(--default-bg);
 	
 
-		.signUpCtnr{
-			width: 640px;
-			display: grid;
-			grid-template-columns:repeat(auto-fit,minmax(300px, 27%));
-			grid-template-rows: 550px;
-			align-items: center;
-			justify-content: center;
-			background: inherit;
-		}
-	
+	.signUpCtnr{
+		width: 640px;
+		display: grid;
+		grid-template-columns:repeat(auto-fit,minmax(300px, 27%));
+		grid-template-rows: 550px;
+		align-items: center;
+		justify-content: center;
+		background: inherit;
+		font-family: Memoirs;
+	}
+
 	.signUp{
 		height: 100%;
 		width: 100%;

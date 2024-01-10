@@ -15,7 +15,7 @@ import {SessionTimer} from "./assets/SessionTimer/SessionTimer"
 import {AuthProvider} from "./assets/Auth"
 import apiFetch from '../apiFetch'
 
-import {Test} from "./Test"
+import "./fonts.css"
 import './styles.scss';
 import "./mainStyle.css"
 
@@ -27,10 +27,8 @@ import {
 
 export function InvoiceApp (props) {
 	const [darkMode, setDarkMode] = useState(false)
-	const [openModal, setOpenModal] = useState(false)
 	const [invoiceArr, setInvoiceArr] = useState([])
 	const [editIndex, seteditIndex] = useState(0)
-	const [authenticateUser, setAuthenticateUser] = useState(undefined)
 	const [currentLocation, setCurrentLocation] = useState(null)
 
 	useEffect(() =>{
@@ -66,19 +64,6 @@ export function InvoiceApp (props) {
 		setCurrentLocation(args)
 	}
 
-	function updateOpenModal(args){
-		setOpenModal(!openModal)
-	}
-	function updateInvoiceArray (args) {
-		// console.log({args})
-		let invoiceArrClone = [...invoiceArr]
-		invoiceArrClone.push(args)
-		setInvoiceArr(invoiceArrClone)
-		// ArrayInvoice.push(args)
-	}
-
-
-
 	const updateEditIndex =(args) =>{
 		// console.log({args})
 		let index = invoiceArr.findIndex(obj => {
@@ -94,31 +79,10 @@ export function InvoiceApp (props) {
 		console.log("i pass through here")
 	}
 
-	function updateInvoiceData (args){
-		let invoiceArrClone = [...invoiceArr]
-		console.log({args})
-		console.log({editIndex})
-			let index = invoiceArrClone.findIndex(obj => {
-				console.log({obj})
-				return obj.Id == args.Id
-			})
-			console.log({index})
-			console.log(invoiceArr[index])
-			invoiceArrClone.splice(index,1,args)
-			setInvoiceArr(invoiceArrClone)
-	}
+
 	function updateInvoiceArr (args) {
 		console.log({args})
 		setInvoiceArr(args)
-	}
-	function updateDisplayIndex (args) {
-		setDisplayIndex(args)
-	}
-	function updateEditInvoice (args) {
-		setEditInvoice(args)
-	}
-	function updateFilterState (args) {
-		setFilterState(args) 
 	}
 	function updateDarkMode (args) {
 		setDarkMode(args)

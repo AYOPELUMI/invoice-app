@@ -15,12 +15,13 @@
  --lineHeight-22:22px;
 --lineHeight-24:24px;
  --lineHeight-36:36px;
+ --lineHeight-55:55px;
  --lineHeight-15: 15px; 
 
---letterSpacing-08: -0.8;
- --letterSpacing-063:-0.63;
- --letterSpacing-025:-0.25;
---letterSpacing: -1;
+--letterSpacing-08:  0.8px;
+ --letterSpacing-063: 0.63px;
+ --letterSpacing-025: 0.25px;
+--letterSpacing: 1px;
 
  --header-btn-bg: #7C5DFA;
  --sideMenu-bg:#252945;
@@ -49,7 +50,7 @@
 
  --discard-btn-bg: #FBFBFB;
  --discard-btn-color: #888EB0;
- --modal-bg: white;
+ --modal-bg: #f2f2f2;
  --status-pending-bg: hsl(0deg 100% 80% / 13%);
  --status-color-pending:hsl(0deg 100% 80%);
 

@@ -3,7 +3,9 @@ import { useNavigate } from "react-router-dom";
 import {Button} from "../Button/Button"
 import {UseIdle} from "../UseIdle";
 import {Auth} from "../Auth";
+import  Dayjs  from "dayjs";
 import './styles.scss';
+import { IoFlash } from "react-icons/io5";
 
 
 
@@ -12,14 +14,17 @@ export const SessionTimer =(props) =>{
 
 
   const navigate = useNavigate();
-  const [isActive, setIsActive] = useState(false);
+  const [isActive, setIsActive] = useState(true)
   const [remainingTime, setRemainingTime] = useState(10);
-  const {dispatch} = useContext(Auth)
+  const {dispatch, user} = useContext(Auth)
+  const localUser = JSON.parse(localStorage.getItem("user"))
+console.log({user})
+console.log({localUser})
 
   const events =["click", "load", "keydown", "scroll"]
   const eventHandler =(eventType) =>{
     if (eventType) {
-        setIsActive(true)
+      setIsActive(true)
     }
     else {
         setIsActive(false)
@@ -37,15 +42,27 @@ export const SessionTimer =(props) =>{
   }
 
   const handleIdle = () => {
-    setIsActive(false); //show modal
+    setIsActive(false)
     setRemainingTime(10); //set 15 seconds as time remaining
   };
 
-  const { isIdle,getLastActiveTime,getRemainingTime } = UseIdle({ onIdle: handleIdle, idleTime: 6});
+  const { isIdle,getLastActiveTime} = UseIdle({ onIdle: handleIdle, idleTime: 3});
   console.log({remainingTime})
   let lastActiveTime = getLastActiveTime()
+  localStorage.setItem("lastActiveTime",lastActiveTime)
   console.log({lastActiveTime})
-useEffect(() =>{
+
+
+  useEffect(() =>{
+           let currentTime = Dayjs()
+        let lastActiveTime = Dayjs(localStorage.getItem("lastActiveTime")).format()
+        console.log({lastActiveTime})
+        console.log({currentTime})
+        let diff = currentTime.diff(lastActiveTime,"second")  
+        console.log({diff})
+        if (diff == 250){
+          setRemainingTime(0)
+        }
     addEvents()
 
     return(() => {
@@ -55,35 +72,39 @@ useEffect(() =>{
   useEffect(() => {
     let interval;
 
-    if (isIdle && isActive == false) {
+    if (isIdle && isActive== false) {
       interval = setInterval(() => {
-        setRemainingTime(
-          (prevRemainingTime) =>
-            prevRemainingTime > 0 ? prevRemainingTime - 1 : 0 //reduces the second by 1
-        );
+        let currentTime = Dayjs()
+        let lastActiveTime = Dayjs(localStorage.getItem("lastActiveTime")).format()
+        console.log({lastActiveTime})
+        console.log({currentTime})
+        let diff = currentTime.diff(lastActiveTime,"second")  
+        console.log({diff})
+        if (diff == 250){
+          setRemainingTime(0)
+          setIsActive(true)
+        }
       }, 1000);
+    }
+
+    if (remainingTime === 0) {
+      // alert("Time out!");
+      // setShowModal(false)
+      removeEvents()
+      dispatch({type: "LOGOUT", payload: null})
+
     }
 
     return () => {
       clearInterval(interval);
     };
-  }, [isIdle, isActive]);
+  }, [isIdle,isActive,remainingTime, navigate]);
 
 
-  useEffect(() => {
-    if (remainingTime === 0) {
-      // alert("Time out!");
-      // setShowModal(false)
-        removeEvents()
-  dispatch({type: "LOGOUT", payload: null})
-
-    }
-  }, [remainingTime, isActive, navigate]); // this is responsoble for logging user out after timer is down to zero and they have not clicked anything
+ // this is responsoble for logging user out after timer is down to zero and they have not clicked anything
 
 const handleLogout =() =>{
   navigate("/login")
-  dispatch({type: "LOGOUT", payload: null})
-
 }
 const LogoutModal = () => {
   return(

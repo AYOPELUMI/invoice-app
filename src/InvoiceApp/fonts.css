@@ -1,0 +1,13 @@
+@font-face {
+    font-family: 'Lepraqun';
+    line-height: revert;
+    font-weight: 900;
+    src: local('lepraqun'), url(./assets/Fonts/lepraqun-personal-use-cufonfonts/LepraqunPersonalUse-Regular.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'Memoirs';
+    line-height: normal;
+    font-weight: 800;
+    src: local('lepraqun'), url(./assets/Fonts/mouse-memoirs-cufonfonts/MouseMemoirs-Regular.ttf) format('truetype');
+}

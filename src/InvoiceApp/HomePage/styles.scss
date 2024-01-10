@@ -44,6 +44,7 @@
 
 				h2{
 					color: var(--header-h2-color);
+					font-family:Memoirs;
 					font-size: 	var(--header-h2-fontSize);
 					font-weight: var(--fontWeight-bold);
 					line-height: var(--lineHeight-36);
@@ -104,6 +105,7 @@
 					position: relative;
 					font-size: var(--fontSize-14);
 					margin-right: 20px;
+					font-family: Memoirs;
 
 					ul{
 						width: 100%;
@@ -122,6 +124,7 @@
 								padding: 6px 3px;
 								flex-direction: row;
 								font-size: var(--fontSize-24);
+								font-family: Memoirs;
 
 								&:hover{
 									opacity: 0.8;

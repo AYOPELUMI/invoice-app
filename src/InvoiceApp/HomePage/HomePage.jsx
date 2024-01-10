@@ -39,12 +39,6 @@ export const HomePage = props => {
 			authUser = user.token
 		}
 	useEffect(() => {
-		let localUser = localStorage.getItem("user");
-		if (location.pathname == "/dashboard") {
-			if (user == null && localUser == null) {
-				navigate("/login");
-			}
-			else {	
 				apiFetch("/invoices/list", {
 					method: 'GET',
 					headers: {
@@ -62,8 +56,7 @@ export const HomePage = props => {
 					.catch((err) => {
 						console.log(err.message);
 					});
-			}
-		}
+
 		setLastLocation(location.pathname);
 	}, [location.pathname]);
 

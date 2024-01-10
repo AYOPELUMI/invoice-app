@@ -46,14 +46,9 @@ export function NewInvoiceModal (props) {
 	},[invoiceData])
 	useEffect(() => {
 		// console.log({authenticateUser})
-		let localUser = localStorage.getItem("user")
-		console.log({user})
-		if (user == null && localUser == null) {
-			console.log("it is true")
-			navigate("/login")
+
 			setLastLocation(location.pathname)
-		}
-		else{
+	
 			   if (invoiceDetail) {
 				console.log({invoiceDetail})
 		    		// fetchInvoiceDetails()
@@ -69,7 +64,6 @@ export function NewInvoiceModal (props) {
 		 			
 		 			toast.success("invoice retrieved")
 			   }
-		}
 		console.log("location path is -"+ location.pathname)
 		setLastLocation(location.pathname)
 	},[location,invoiceDetail])

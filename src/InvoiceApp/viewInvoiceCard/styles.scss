@@ -9,9 +9,7 @@
 	padding-left:0px;
 	gap: 30px;
 	overflow: scroll;
-
-
-
+	font-family: Memoirs;
 	.goBackDiv{
 		width: fit-content;
 		display: flex;
@@ -52,14 +50,14 @@
 
 			p{
 				color: var(--theme-color);
-				font-size: var(--fontSize-12);
+				font-size: var(--fontSize-14);
 				line-height: var(--lineHeight-15);
 				letter-spacing: var(--letterSpacing-025);
 			}
 			.pending{
 				color: var(--status-color-pending);
 				background: var(--status-pending-bg);
-				font-size: var(--fontSize-12);
+				font-size: var(--fontSize-14);
 				line-height: var(--lineHeight-15);
 				font-weight: var(--fontWeight-bold);
 				padding: 5px;
@@ -84,7 +82,7 @@
 				background: var(--status-draft-bg);
 				font-weight: var(--fontWeight-bold);
 				display: flex;
-				font-size: var(--fontSize-12);
+				font-size: var(--fontSize-14);
 				line-height: var(--lineHeight-15);
 				font-weight: var(--fontWeight-bold);
 				gap: 5px;
@@ -147,12 +145,12 @@
 
 			h4, p{
 				color: var(--theme-color);
-				font-size: var(--fontSize-12);
+				font-size: var(--fontSize-14);
 				line-height: var(--lineHeight-15);
 				letter-spacing: var(--letterSpacing-025);
 			}
 			h3{
-				font-size: var(--fontSize-16);
+				font-size: var(--fontSize-20);
 				line-height: var(--lineHeight-22);
 				font-weight: var(--fontWeight-bold);
 				color: var(--color-default-black);
@@ -174,6 +172,10 @@
 				}
 				.billerAddress{
 					text-align: right;
+					display: flex;
+					flex-direction: column;
+					gap: 4px;
+					letter-spacing: var(--letterSpacing);
 				}
 			}
 
@@ -201,8 +203,9 @@
 				.clientAdd{
 					display: flex;
 					flex-direction: column;
-					gap: 2px;
+					gap: 4px;
 					text-align: left;
+					letter-spacing: var(--letterSpacing);
 				}
 				.clientEmail{
 					display: flex;
@@ -218,6 +221,7 @@
 				background: var(--itemCtnr-bg);
 				border-top-left-radius: 9px;
 				border-top-right-radius: 9px;
+				letter-spacing: var(--letterSpacing-08);
 
 				div{
 					display: flex;
@@ -235,7 +239,7 @@
 						flex: 1;
 					}
 					h3{
-						font-size: var(--fontSize-12);
+						font-size: var(--fontSize-14);
 					}
 				}
 
@@ -266,7 +270,7 @@
 				h5{
 					color: var(--color-default-white);
 					font-weight: var(--fontWeight-lighter);
-					font-size: var(--fontSize-12);
+					font-size: var(--fontSize-14);
 					line-height: var(--lineHeight-15);
 					letter-spacing: var(--letterSpacing-025);
 				}
