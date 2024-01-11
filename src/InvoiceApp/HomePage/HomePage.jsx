@@ -187,7 +187,7 @@ export const HomePage = props => {
 					: <>
 						{ invoiceArr.length === 0 ? (
 							<div className='emptyInvoiceDiv'>you have no invoice
-							<NavLink to ="/newInvoice"><Button className='startBtn' displayWord="Create Invoice" /></NavLink></div>
+							<NavLink to ="newInvoice"><Button className='startBtn' displayWord="Create Invoice" /></NavLink></div>
 						): (
 							<div className='emptyInvoiceDiv'>You have invoice, you just don't have any one matching the selected filters: {selectedFilters.join(',')}</div>
 						)} 
