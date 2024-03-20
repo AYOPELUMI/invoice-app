@@ -129,7 +129,7 @@ export const HomePage = props => {
 					<input type='checkbox' value={filter.toLowerCase()} key={`filter-item-${index}`} onChange={handleFilterChange} />
 					{filter}
 				</label>
-			);
+			)
 			filterArray.push(el)
 		})
 		return filterArray

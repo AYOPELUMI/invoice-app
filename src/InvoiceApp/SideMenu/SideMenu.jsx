@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+/* eslint-disable no-mixed-spaces-and-tabs */
+import React, { useState, useContext} from 'react';
 import {ThemeContext, themes} from "../ThemeContext.js"
-import {RiMoonFill} from "react-icons/ri"
-import {RiSunFill} from "react-icons/ri"
+import { BsCircleHalf } from "react-icons/bs";
 import { Auth} from '../assets/Auth';
 import {BiLogOut} from "react-icons/bi"
 import {useNavigate} from "react-router-dom"
 // import { RiMenuFill } from 'react-icons/ri';
 import './styles.scss';
 import "./Reponsive.scss"
-import { useContext } from 'react';
+
 
 
 export const SideMenu = (props) =>{
@@ -52,10 +52,12 @@ export const SideMenu = (props) =>{
 		    								{({changeTheme}) =>(
 		    									<i onClick={() => {
 		    										updateDarkMode(!darkMode)
-		    										changeTheme(darkMode ? themes.light : themes.dark)
+													localStorage.setItem("theme",!darkMode)
+		    										changeTheme(!darkMode ? themes.light : themes.dark)
 		    									}}
-		    									>{darkMode ? <RiSunFill className="themeIcon"> </RiSunFill> : <RiMoonFill className="themeIcon"></RiMoonFill>}
+		    									><BsCircleHalf className="themeIcon" />
 		    								</i>
+		    								// eslint-disable-next-line no-mixed-spaces-and-tabs
 		    								)}
 		    							</ThemeContext.Consumer> 
 		    							<div className="avatar" >

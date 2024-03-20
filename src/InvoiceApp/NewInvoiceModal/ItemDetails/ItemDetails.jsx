@@ -34,13 +34,17 @@ export function ItemDetails(props){
 	console.log({itemDetail})
 
 	const updateItemDetail = (name,value) =>{
-		let itemDetailClone= {...itemDetail}
-			itemDetailClone.name =value
+			let itemDetailClone={
+				...itemDetail,
+				[name] : value
+			}
+			console.log({itemDetailClone })
 			getData(itemDetailClone)
 	}
 	const handleName =(event) =>{
 		let value = event.target.value
 		setItemName(value)
+		console.log("i am here")
 		updateItemDetail("name",value)
 	}
 	const handleQty =(qty) =>{

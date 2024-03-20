@@ -218,9 +218,8 @@ export function NewInvoiceModal (props) {
 		let invoiceDataClone ={...invoiceData}
 
 		let newIndex = displayItemDetailsArrayClone.findIndex(value => {
-			
 			return value.index == args.index})
-		displayItemDetailsArray.splice(newIndex,1,args)
+		displayItemDetailsArrayClone.splice(newIndex,1,args)
 		setDisplayItemDetailArray(displayItemDetailsArrayClone)
 		invoiceDataClone.itemList = displayItemDetailsArrayClone
 		console.log({newIndex})
@@ -237,6 +236,7 @@ export function NewInvoiceModal (props) {
 			console.log("i pass through here")
 			console.log({invoiceData})
 			// updateInvoiceData(invoiceData)
+			
 			const updateUserDetails =() =>{
 			        apiFetch("/invoices/"+invoiceData.id+"/update",{
 			            method: 'PATCH',

@@ -23,10 +23,10 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-
-
+let localTheme = localStorage.getItem("theme")=="true" ? localStorage.getItem("theme") : false
+console.log({localTheme})
 export function InvoiceApp (props) {
-	const [darkMode, setDarkMode] = useState(false)
+	const [darkMode, setDarkMode] = useState(localTheme)
 	const [invoiceArr, setInvoiceArr] = useState([])
 	const [editIndex, seteditIndex] = useState(0)
 	const [currentLocation, setCurrentLocation] = useState(null)
